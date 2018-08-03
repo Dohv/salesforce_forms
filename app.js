@@ -1,8 +1,19 @@
 const express = require('express');
+const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost/APIAuth'); 
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log("we're connected!");
+});
+
 const app = express();
 
 const formRouter = require('./routes/formRouter');
@@ -20,6 +31,7 @@ app.set('view engine', 'ejs');
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));

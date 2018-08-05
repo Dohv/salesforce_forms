@@ -5,8 +5,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+ 
+mongoose.connect("mongodb://localhost:27017/ApiAuth", { useNewUrlParser: true });
 
-mongoose.connect('mongodb://localhost/APIAuth'); 
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -42,49 +43,49 @@ app.get('/', function(req, res) {
   });
 });
 
-app.post('/api/posts', verifyToken, (req, res) => {
-  jwt.verify(req.token, 'secretkey', (err, authData) => {
-    if(err) {
-      res.sendStatus(403)  
-    } else {
-      res.json({
-        message: 'Post created...',
-        authData
-      });
-    }
-  });
-});
+// app.post('/api/posts', verifyToken, (req, res) => {
+//   jwt.verify(req.token, 'secretkey', (err, authData) => {
+//     if(err) {
+//       res.sendStatus(403)  
+//     } else {
+//       res.json({
+//         message: 'Post created...',
+//         authData
+//       });
+//     }
+//   });
+// });
 
-app.post('/api/login', (req, res) => {
-  const user = {
-    id: 1,
-    username: 'dov',
-    email: 'dov@example.com'
-  }
+// app.post('/api/login', (req, res) => {
+//   const user = {
+//     id: 1,
+//     username: 'dov',
+//     email: 'dov@example.com'
+//   }
 
-  jwt.sign({user}, 'secretkey', { expiresIn: '30s'}, (err, token) => {
-    res.json({
-      token
-    })
-  });
-});
+//   jwt.sign({user}, 'secretkey', { expiresIn: '30s'}, (err, token) => {
+//     res.json({
+//       token
+//     })
+//   });
+// });
 
 
 
-function verifyToken(req, res, next) {
-  const bearerHeader = req.headers['authorization'];
+// function verifyToken(req, res, next) {
+//   const bearerHeader = req.headers['authorization'];
 
-  if(typeof bearerHeader !== 'undefined') {
-    const bearer = bearerHeader.split(' ');
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
-  } else {
-    res.sendStatus(403);
-  }
-}
+//   if(typeof bearerHeader !== 'undefined') {
+//     const bearer = bearerHeader.split(' ');
+//     const bearerToken = bearer[1];
+//     req.token = bearerToken;
+//     next();
+//   } else {
+//     res.sendStatus(403);
+//   }
+// }
 
-app.use('/api', formRouter);
+// app.use('/api', formRouter);
 app.use('/users', userRouter);
 
 

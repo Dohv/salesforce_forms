@@ -1,6 +1,7 @@
 .env
 
 /node_modules
+/configuration
 
 .DS_Store
 .env

@@ -32,7 +32,8 @@ controller.signUp = async (req, res, next) => {
 }
 
 controller.signIn = async (req, res, next) => {
-  console.log('user signin() has been called');
+  const token = signToken(req.user);
+  res.status(200).json({ token });
 }
 
 controller.secret = async (req, res, next) => {

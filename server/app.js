@@ -24,7 +24,7 @@ const userRouter = require('./routes/userRouter');
 
 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, function() {
   console.log(`Linsten on port ${PORT}`);
 });

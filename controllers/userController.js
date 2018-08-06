@@ -1,16 +1,15 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const { JWT_SECRET } = require('../configuration');
 
 const controller = {};
 
 const signToken = user => {
   return jwt.sign({
-    iss: 'Codeworkr',
+    iss: 'CAForms',
     sub: user.id,
     iat: new Date().getTime(),
     exp: new Date().setDate(new Date().getDate() + 1) //current time + 1 day ahead 
-  }, JWT_SECRET);
+  }, process.env.JWT_SECRET);
 }
 
 controller.signUp = async (req, res, next) => {
@@ -37,7 +36,8 @@ controller.signIn = async (req, res, next) => {
 }
 
 controller.secret = async (req, res, next) => {
-  console.log('user secret() has been called');
+  console.log('got here!! and user secret() has been called');
+  res.json({ secret: 'response' });
 }
 
 module.exports = controller;

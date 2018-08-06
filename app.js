@@ -15,6 +15,8 @@ db.once('open', function() {
   console.log("we're connected!");
 });
 
+require('dotenv').config()
+
 const app = express();
 
 const formRouter = require('./routes/formRouter');

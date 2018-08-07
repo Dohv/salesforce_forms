@@ -27,13 +27,14 @@ controller.signUp = async (req, res, next) => {
 
   const token = signToken(newUser);
 
-  // Respond with token
-  res.status(200).json({ token }) 
+  // Respond with token 
+  res.status(200).json({ token }); 
 }
 
 controller.signIn = async (req, res, next) => {
+  const {email, id} = req.user;
   const token = signToken(req.user);
-  res.status(200).json({ token });
+  res.status(200).json({ token, email, id });
 }
 
 controller.secret = async (req, res, next) => {

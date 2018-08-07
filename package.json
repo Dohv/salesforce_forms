@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js",
+    "server-dev": "nodemon server/app.js",
+    "client-dev": "npm start --prefix client",
+    "start-dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client-dev\"",
     "start": "node app.js",
     "debugger": "DEBUG=*:* npm run dev"
   },
@@ -22,6 +24,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",

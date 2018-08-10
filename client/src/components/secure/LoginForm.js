@@ -7,26 +7,40 @@ const LoginForm = (props) => {
             <form   onSubmit={(e) => props.submitForm(e)}
                 className="login-form">
             
-                    <input type="text"
-                        value={props.email}
-                        name="email"
-                        onChange={props.handleEmailChange} 
-                        placeholder="EMAIL"
-                        id="loginEmail"
-                        className="loginFormInput"
-                         />
+                <div className="row">
+                    <div className="input-field col s12 loginFormInput">
+                        <i className="material-icons prefix">account_circle</i>
+                        <input id="email" 
+                            type="email" 
+                            className="validate"
+                            value={props.email}
+                            name="email"
+                            onChange={props.handleEmailChange} />
+                        <label htmlFor="email">Email</label>
+                    </div>
+                </div>
                     
-                    <input type="password"
+                <div className="row">
+                    <div className="input-field col s12 loginFormInput">
+                        <i className="material-icons prefix">lock</i>
+                        <input id="password" 
+                        type="password" 
+                        className="validate" 
                         value={props.password}
                         name="password"
                         onChange={props.handlePasswordChange}
-                        placeholder="PASSWORD"
-                        id="loginPassword"
-                        className="loginFormInput"
-                         />
-                    <input  type="submit" 
+                        />
+                        <label htmlFor="password">Password</label>
+                    </div>
+                </div>
+                <button className="btn waves-effect waves-light" 
+                        type="submit" 
+                        name="action">Submit
+                        <i className="material-icons right">send</i>
+                </button>
+                    {/* <input  type="submit" 
                             value="Submit" 
-                            className="submit-button loginFormInput" />
+                            className="submit-button loginFormInput" /> */}
             </form>
         </div>
     );

@@ -1,72 +1,68 @@
 import React, { Component } from 'react';
 import './App.css';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import axios from 'axios';
+import authServices from './services/authServices';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import LogInForm from './components/Login';
-import Home from './components/Home';
+import Header from "./components/layout/Header";
+//import Sidebar from "./components/layout/Sidebar";
+import Login from './components/secure/Login';
+//import Home from './components/Home';
+import PrivateRoute from './components/secure/PrivateRoute';
+import FormMenu from './components/secure/FormMenu';
+import Logout from './components/secure/Logout';
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       isLoggedIn: false,
-      messageAlert: '',
       currentUserId: localStorage.getItem('id') ? localStorage.getItem('id') : '',
       currentUserEmail: localStorage.getItem('email') ? localStorage.getItem('email') : '',
     };
 
     // Bind functions:
-    this.handleClick = this.handleClick.bind(this);
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
+    this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
   }
   
   async handleSignInSubmit(email, password) {
-    try {
-     let login = await axios.post('/users/signin', {
-        email,
-        password
-      })
-      if (login) {
-        console.log(login);
-        localStorage.setItem("token", login.data.token);
-        localStorage.setItem("user", login.data.email);
-        localStorage.setItem("id", login.data.id);
+    await authServices.logIn(email, password);
+    this.setState({ 
+      currentUserId: localStorage.getItem('id'),
+      currentUserEmail: localStorage.getItem('email'),
+      isLoggedIn: true,
+      messageAlert: ''
+    });
+  } 
 
-        this.setState({ 
-          currentUserId: login.data.id,
-          isLoggedIn: true,
-          messageAlert: ''
-        });
-      } else {
-        console.log("this is data:", login.data);
-        this.setState({ messageAlert: login.data });
-      }
-    } catch(error) {
-      console.log("this is error:", error);
-    }
+  async handleLogOutSubmit() {
+    await authServices.logOut();
+      this.setState({ 
+        isLoggedIn: false,
+        currentUserId: '',
+        currentUserEmail: '',
+       });
   }
 
-
-  handleClick() {
-    console.log('in handle click function');
-    this.handleSignInSubmit();  
-  }
-
+  
   render() {
+    const headerhandler = this.state.isLoggedIn ? <Header handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn}/> : '';
+    
     return (
       <BrowserRouter>
         <div>
-          <Switch>
-            <Route exact path='/' component={props => <Home {...props}
-                                              currentUserName={this.state.currentUserName}
-                                              currentUserId={this.state.currentUserId}
-                                               />} />
-            <Route path="/login" component={props => <LogInForm {...props}
-                                              handleSignInSubmit={this.handleSignInSubmit}
-                                             />} />
+            {headerhandler}
+            <Switch>
+              <Route exact path="/login" component={props => <Login {...props}
+                                                handleSignInSubmit={this.handleSignInSubmit} isLoggedIn={this.state.isLoggedIn}
+                                              />} /> 
+
+              <PrivateRoute path={'/private'} component={FormMenu}/>            
+              <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit}
+              />} />
+
+            </Switch>
           
-          </Switch>
         </div>
       </BrowserRouter>
     );

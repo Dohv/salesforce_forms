@@ -44,7 +44,7 @@ controller.secret = async (req, res, next) => {
 
 controller.logout = (req, res) => {
   req.logout();
-  res.send('logged out');
+  res.json({message: 'logged out'});
 }
 
 module.exports = controller;

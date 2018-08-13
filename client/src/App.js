@@ -15,7 +15,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: authServices.isAuthenticated(),
       currentUserId: localStorage.getItem('id') ? localStorage.getItem('id') : '',
       currentUserEmail: localStorage.getItem('email') ? localStorage.getItem('email') : '',
     };
@@ -24,13 +24,14 @@ class App extends Component {
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
   }
+
   
   async handleSignInSubmit(email, password) {
     await authServices.logIn(email, password);
     this.setState({ 
       currentUserId: localStorage.getItem('id'),
       currentUserEmail: localStorage.getItem('email'),
-      isLoggedIn: true,
+      isLoggedIn: authServices.isAuthenticated(),
       messageAlert: ''
     });
   } 
@@ -38,7 +39,7 @@ class App extends Component {
   async handleLogOutSubmit() {
     await authServices.logOut();
       this.setState({ 
-        isLoggedIn: false,
+        isLoggedIn: authServices.isAuthenticated(),
         currentUserId: '',
         currentUserEmail: '',
        });
@@ -46,7 +47,7 @@ class App extends Component {
 
   
   render() {
-    const headerhandler = this.state.isLoggedIn ? <Header handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn}/> : '';
+    const headerhandler = this.state.isLoggedIn ? <Header goBack={this.goBack} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn}/> : '';
     
     return (
       <BrowserRouter>

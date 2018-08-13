@@ -16,7 +16,7 @@ const LoginForm = (props) => {
                             value={props.email}
                             name="email"
                             onChange={props.handleEmailChange} />
-                        <label htmlFor="email">Email</label>
+                        <label className='login-label' htmlFor="email">Email</label>
                     </div>
                 </div>
                     
@@ -30,7 +30,7 @@ const LoginForm = (props) => {
                         name="password"
                         onChange={props.handlePasswordChange}
                         />
-                        <label htmlFor="password">Password</label>
+                        <label className='login-label' htmlFor="password">Password</label>
                     </div>
                 </div>
                 <button className="btn waves-effect waves-light" 

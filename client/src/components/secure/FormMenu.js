@@ -12,10 +12,12 @@ const FormMenu = ({match}) => {
         <div style={leftDivStyle}>
             
 
-            <h4>
-                <Link to={`${match.url}/1`}>Form 1</Link>
-                {' | '}
-                <Link to={`${match.url}/2`}>Form 2</Link>
+            <h4 className='formButtonContainer'>
+                <Link className='chooseFormButton' to={`${match.url}/Remit`}>Remit</Link>
+                <Link className='chooseFormButton' to={`${match.url}/eKlik`}>eKlik</Link>
+                <Link className='chooseFormButton' to={`${match.url}/KlikNPay`}>KlikNPay</Link>
+                <Link className='chooseFormButton' to={`${match.url}/Print-Services`}>Print Services</Link>
+                <Link className='chooseFormButton' to={`${match.url}/Remit-Station`}>Remit Station</Link>
             </h4>
 
 

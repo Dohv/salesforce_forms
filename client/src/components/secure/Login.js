@@ -48,7 +48,7 @@ class Login extends Component {
         }
         return (
                 <div className='loginPage'>
-                    <h2>Login</h2>
+                    <h2 className='login-header'>Login</h2>
                     <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} />
                 </div>
         );

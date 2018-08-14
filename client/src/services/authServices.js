@@ -17,7 +17,7 @@ const authServices = {
         localStorage.setItem("id", login.data.id);
        } 
     } catch(error) {
-      console.log("this is error:", error);
+      console.log("this is login error:", error);
     }
   },
 
@@ -29,7 +29,7 @@ const authServices = {
       localStorage.removeItem('id');
     } 
     catch (error) {
-      console.log("this is error:", error);
+      console.log("this is logout error:", error);
     }
   }
 }

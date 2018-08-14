@@ -16,7 +16,7 @@ userRouter.post('/signin',
                 controller.signIn
               );
 userRouter.get('/secret', 
-                passport.authenticate('jwt', {session: false}),         controller.secret
+                passport.authenticate('jwt', {session: false}), controller.secret
               );
 userRouter.post('/logout', 
                 controller.logout

@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
@@ -39,53 +40,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
 
+app.options('*', cors());
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+});
+
+
 app.get('/', function(req, res) {
   res.json({
     message: 'Welcome to the API'
   });
 });
-
-// app.post('/api/posts', verifyToken, (req, res) => {
-//   jwt.verify(req.token, 'secretkey', (err, authData) => {
-//     if(err) {
-//       res.sendStatus(403)  
-//     } else {
-//       res.json({
-//         message: 'Post created...',
-//         authData
-//       });
-//     }
-//   });
-// });
-
-// app.post('/api/login', (req, res) => {
-//   const user = {
-//     id: 1,
-//     username: 'dov',
-//     email: 'dov@example.com'
-//   }
-
-//   jwt.sign({user}, 'secretkey', { expiresIn: '30s'}, (err, token) => {
-//     res.json({
-//       token
-//     })
-//   });
-// });
-
-
-
-// function verifyToken(req, res, next) {
-//   const bearerHeader = req.headers['authorization'];
-
-//   if(typeof bearerHeader !== 'undefined') {
-//     const bearer = bearerHeader.split(' ');
-//     const bearerToken = bearer[1];
-//     req.token = bearerToken;
-//     next();
-//   } else {
-//     res.sendStatus(403);
-//   }
-// }
 
 // app.use('/api', formRouter);
 app.use('/users', userRouter);

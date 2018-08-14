@@ -1,15 +1,6 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const divHide = {
-    display: 'none'
-};
-
-const divShow = {
-    display: 'inline',
-    marginLeft: '50px'
-};
-
 
 const Header = (props) => {
 

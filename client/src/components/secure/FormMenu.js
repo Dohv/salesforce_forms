@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link, Route } from "react-router-dom";
 import ProtectedChildHome from "./ProtectedChildHome";
-import ProtectedChild1 from "./ProtectedChild1";
-import ProtectedChild2 from "./ProtectedChild2";
+import Remit from "./Remit";
+import eKlik from "./eKlik";
 
 const FormMenu = ({match}) => {
     const leftDivStyle = {
@@ -21,13 +21,9 @@ const FormMenu = ({match}) => {
             </h4>
 
 
-                <Route path={`${match.url}/1`} component={ProtectedChild1}/>
-                <Route path={`${match.url}/2`} component={ProtectedChild2}/>
+                <Route path={`${match.url}/Remit`} component={Remit}/>
+                <Route path={`${match.url}/eKlik`} component={eKlik}/>
                 <Route path={`${match.url}`} component={ProtectedChildHome} exact/>
-
-
-
-            <Link className='btn btn-primary' to={'/logout'}>Sign Out</Link>
 
         </div>
     );

@@ -1,9 +1,9 @@
 const express = require('express');
 const userRouter = require('express-promise-router')();
 const passport = require('passport');
-const passportConfig = require('../passport')
+const passportConfig = require('../passport');
 
-const {validateBody, schemas } = require('../helpers/routeHelpers');
+const { validateBody, schemas, validateEmailInSF } = require('../helpers/routeHelpers');
 const controller = require('../controllers/userController');
 
 userRouter.post('/signup', 
@@ -13,6 +13,7 @@ userRouter.post('/signup',
 userRouter.post('/signin', 
                 validateBody(schemas.authSchema), 
                 passport.authenticate('local', {session: false}), 
+                validateEmailInSF,
                 controller.signIn
               );
 userRouter.get('/secret', 

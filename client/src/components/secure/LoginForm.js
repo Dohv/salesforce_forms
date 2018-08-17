@@ -38,9 +38,6 @@ const LoginForm = (props) => {
                         name="action">Submit
                         <i className="material-icons right">send</i>
                 </button>
-                    {/* <input  type="submit" 
-                            value="Submit" 
-                            className="submit-button loginFormInput" /> */}
             </form>
         </div>
     );

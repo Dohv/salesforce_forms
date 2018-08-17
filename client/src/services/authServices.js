@@ -2,7 +2,9 @@ import axios from 'axios';
 
 const authServices = {
   isAuthenticated: () => {
-   return localStorage.getItem('token') !== null;
+    const result = localStorage.getItem('token');
+
+   return result !== null && result !== 'undefined';
   },
 
   logIn: async (email, password) => {
@@ -11,7 +13,9 @@ const authServices = {
          email,
          password
        })
+       console.log(login);
        if (login) {
+        localStorage.setItem("flashMessage", login.data.message)
         localStorage.setItem("token", login.data.token);
         localStorage.setItem("email", login.data.email);
         localStorage.setItem("id", login.data.id);

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import LoginForm from './LoginForm';   
+import LoginForm from './LoginForm';  
+import Loading from '../Loading'; 
+import { Toast } from 'react-materialize'
+
 
 
 class Login extends Component {
@@ -39,8 +42,20 @@ class Login extends Component {
             password
         });
     }
+
+    toast() {
+        window.Materialize.toast(this.props.messageAlert, 3000)
+        setTimeout(this.props.handleMessageReset, 1);
+    }
     
     render() {
+        const loading = this.props.isLoading ? <Loading /> : <div className='emptyLoadingSpace'></div>;
+
+        const flashMessage = this.props.messageAlert !== '' ? this.toast() : '';
+        
+        
+        
+
         const {target} = this.props.location.state || {target: {pathname: '/private'}}
         
         if(this.props.isLoggedIn) {
@@ -50,6 +65,8 @@ class Login extends Component {
                 <div className='loginPage'>
                     <h2 className='login-header'>Login</h2>
                     <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} />
+                    {loading}
+                    {flashMessage}
                 </div>
         );
     }

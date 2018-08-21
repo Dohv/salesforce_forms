@@ -35,13 +35,13 @@ passport.use(new LocalStrategy({
     const user = await User.findOne({ email });
     // If not, handle it
     if(!user) {
-      return done(null, false);
+      return done(null, false, {message: 'Invaild Email'});
     }
     // Check if password is correct
     const isMatch = await user.isValidPassword(password);
     // If not, handle it
     if(!isMatch) {
-      return done(null, false);
+      return done(null, false, {message: 'Invalid Password'});
     }
     // Otherwise return the user
     done(null, user);

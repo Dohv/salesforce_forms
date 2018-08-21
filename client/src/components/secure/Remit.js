@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProtectedChild1 = () => {
+const Remit = () => {
 
     return (
 
@@ -21,4 +21,4 @@ const ProtectedChild1 = () => {
     );
 };
 
-export default ProtectedChild1;
+export default Remit;

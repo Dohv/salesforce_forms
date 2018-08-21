@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
+
  
 mongoose.connect("mongodb://localhost:27017/ApiAuth", { useNewUrlParser: true });
 
@@ -29,6 +30,7 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, function() {
   console.log(`Linsten on port ${PORT}`);
 });
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

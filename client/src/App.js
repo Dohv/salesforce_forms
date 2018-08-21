@@ -19,7 +19,7 @@ class App extends Component {
       currentUserId: localStorage.getItem('id') ? localStorage.getItem('id') : '',
       currentUserEmail: localStorage.getItem('email') ? localStorage.getItem('email') : '',
       isLoading: false,
-      messageAlert: ''
+      messageAlert: localStorage.getItem('flashMessage') ? localStorage.getItem('flashMessage') : ''
     };
 
     // Bind functions:
@@ -55,12 +55,12 @@ class App extends Component {
   }
 
   handleMessageReset() {
+    localStorage.removeItem('flashMessage');
     this.setState({ messageAlert: '' })
   }
 
   
   render() {
-    console.log(this.state);
     const headerhandler = this.state.isLoggedIn ? <Header goBack={this.goBack} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn}/> : '';
     
     return (

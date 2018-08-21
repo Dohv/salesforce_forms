@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProtectedComponent2 = () => {
+const eKlik = () => {
 
     return (
 
@@ -22,4 +22,4 @@ const ProtectedComponent2 = () => {
     );
 };
 
-export default ProtectedComponent2;
+export default eKlik;

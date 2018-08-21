@@ -8,7 +8,7 @@ module.exports = {
       if(result.error) {
         return res.status(400).json(result.error);
       }
-
+      
       if(!req.value) { req.value = {}; }
       req.value['body'] = result.value;
       next();
@@ -54,7 +54,6 @@ module.exports = {
                 console.log('sf email error', verror);
               } else {
                 const vresult = JSON.parse(vbody);
-                console.log(vresult);
                 if(vresult.totalSize === 0) {
                   return res.json({message: 'There is no email for that account.'});
                 } else {

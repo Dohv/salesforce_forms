@@ -3,6 +3,7 @@ import {Link, Route } from "react-router-dom";
 import ProtectedChildHome from "./ProtectedChildHome";
 import Remit from "./Remit";
 import eKlik from "./eKlik";
+import KlikNPay from './KlikNPay';
 
 const FormMenu = ({match}) => {
     const leftDivStyle = {
@@ -23,6 +24,7 @@ const FormMenu = ({match}) => {
 
                 <Route path={`${match.url}/Remit`} component={Remit}/>
                 <Route path={`${match.url}/eKlik`} component={eKlik}/>
+                <Route path={`${match.url}/KlikNPay`} component={KlikNPay}/>
                 <Route path={`${match.url}`} component={ProtectedChildHome} exact/>
 
         </div>

@@ -2,6 +2,7 @@ const express = require('express');
 const userRouter = require('express-promise-router')();
 const passport = require('passport');
 const passportConfig = require('../passport');
+const crypto = require('crypto');
 
 const { validateBody, schemas, validateEmailInSF } = require('../helpers/routeHelpers');
 const controller = require('../controllers/userController');
@@ -21,6 +22,9 @@ userRouter.get('/secret',
               );
 userRouter.post('/logout', 
                 controller.logout
+              );
+userRouter.post('/forgot', 
+                controller.forgot
               );
 
 module.exports = userRouter;

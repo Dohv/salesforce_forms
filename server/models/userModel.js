@@ -12,7 +12,9 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 });
 
 userSchema.pre('save', async function(next) {

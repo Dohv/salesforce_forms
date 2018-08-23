@@ -13,7 +13,6 @@ const authServices = {
          email,
          password
        })
-       console.log(login);
        if (login) {
         localStorage.setItem("flashMessage", login.data.message)
         localStorage.setItem("token", login.data.token);

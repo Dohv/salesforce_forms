@@ -28,9 +28,6 @@ class App extends Component {
     this.handleMessageReset = this.handleMessageReset.bind(this);
   }
 
-  componentDidMount() {
-    this.handleMessageReset;
-  }
 
   
   async handleSignInSubmit(email, password) {

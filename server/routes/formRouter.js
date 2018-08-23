@@ -1,12 +1,22 @@
 const express = require('express');
-const formRouter = express.Router();
-const controller = require('../controllers/formController');
+const formRouter = require('express-promise-router')();
+const passport = require('passport');
+const passportConfig = require('../passport');
+const { getKlikNPayFormDataFromSF, postNewForm, updateFormData } = require('../controllers/formController');
 
-// formRoutes.get('/form1/:id', controller.edit);
-formRouter.get('/form1', controller.index);
+formRouter.post('/form',
+                passport.authenticate('jwt', {session: false}), 
+                getKlikNPayFormDataFromSF
+              );
+formRouter.post('/new',
+                passport.authenticate('jwt', {session: false}),
+                postNewForm
+              );
+formRouter.post('/update',
+              passport.authenticate('jwt', {session: false}),
+              updateFormData
+            );
 
-
-// formRoutes.put('form1/:id', controller.update);
 
 
 

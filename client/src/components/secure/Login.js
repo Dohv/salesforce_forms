@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';  
 import Loading from '../Loading'; 
-import { Toast } from 'react-materialize'
 
 
 
@@ -44,7 +43,7 @@ class Login extends Component {
     }
 
     toast() {
-        window.Materialize.toast(this.props.messageAlert, 3000)
+        window.Materialize.toast(this.props.messageAlert, 4000)
         setTimeout(this.props.handleMessageReset, 1);
     }
     

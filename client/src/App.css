@@ -272,12 +272,17 @@ input:-webkit-autofill {
   display: none;
 }
 
+.form-title {
+  text-align: center;
+}
+
 form {
   border: 1px solid black;
   padding: 5px;
-  -webkit-box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.75);
-  box-shadow: 6px 6px 5px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+  margin-bottom: 20px;
 }
 
 .placeholder-size {
@@ -297,6 +302,3 @@ h4 {
   margin-left: 10px;
 }
 
-.input-field {
- 
-}

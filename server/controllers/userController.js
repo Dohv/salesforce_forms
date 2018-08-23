@@ -39,11 +39,12 @@ controller.signUp = async (req, res, next) => {
 controller.signIn = async (req, res, next) => {
   const {email, id} = req.user;
   const token = signToken(req.user); 
-  res.status(200).json({ token, email, id });
+  const message = 'Welcome!';
+  res.status(200).json({ token, email, id, message });
 }
 
 controller.secret = async (req, res, next) => {
-  //console.log('got here!! and user secret() has been called');      
+  console.log('got here!! and user secret() has been called');      
 }
 
 controller.forgot = (req, res, next) => {

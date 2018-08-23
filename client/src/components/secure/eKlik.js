@@ -5,7 +5,7 @@ const eKlik = () => {
     return (
 
         <div>
-            <h2>Protected Component 2</h2>
+            <h2 className='form-title'>eKlik</h2>
 
             <p>
                 Ultricies integer quis auctor elit sed. Neque convallis a cras semper auctor neque vitae tempus quam. At

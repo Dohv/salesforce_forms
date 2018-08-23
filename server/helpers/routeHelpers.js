@@ -42,7 +42,6 @@ module.exports = {
           const result = JSON.parse(body);
           const url = result.instance_url;
           const sfToken = result.access_token;
-          
            request({
             url: `${url}/services/data/v43.0/query?q=select+id,account.id+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
@@ -57,6 +56,7 @@ module.exports = {
                 if(vresult.totalSize === 0) {
                   return res.json({message: 'There is no email for that account.'});
                 } else {
+                   res.locals.result = vresult.records[0].Id;
                    next();
                 }
               }
@@ -65,6 +65,10 @@ module.exports = {
       });
     }
 }
+        
+                
+
+    
 
     
 

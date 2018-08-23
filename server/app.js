@@ -58,7 +58,7 @@ app.get('/', function(req, res) {
   });
 });
 
-// app.use('/api', formRouter);
+app.use('/api', formRouter);
 app.use('/users', userRouter);
 
 

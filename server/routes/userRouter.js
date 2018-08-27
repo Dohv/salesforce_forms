@@ -3,7 +3,7 @@ const userRouter = require('express-promise-router')();
 const passport = require('passport');
 const passportConfig = require('../passport');
 
-const { validateBody, schemas, validateEmailInSF, getFormData } = require('../helpers/routeHelpers');
+const { validateBody, schemas, validateEmailInSF } = require('../helpers/routeHelpers');
 const controller = require('../controllers/userController');
 
 userRouter.post('/signup', 
@@ -16,11 +16,6 @@ userRouter.post('/signin',
                 validateEmailInSF,
                 controller.signIn
               );
-// userRouter.post('/form',
-//                 passport.authenticate('jwt', {session: false}), 
-//                 getFormData,
-//                 controller.secret
-//               );
 userRouter.post('/logout', 
                 controller.logout
               );

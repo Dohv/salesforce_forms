@@ -6,6 +6,7 @@ class KlikNPay extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isForm: localStorage.getItem("isKNPForm") ? localStorage.getItem("isKNPForm") : '',
             proposed_go_live_date: '',
             isKlikRemit: localStorage.getItem("isKlikRemit") ? localStorage.getItem("isKlikRemit") : '',
             company_name: '',
@@ -41,6 +42,7 @@ class KlikNPay extends Component {
     }
 
     async getFormData() {
+        
       await formDataServices.getFormDataFromServer(localStorage.getItem('email'));
       this.setState({
         proposed_go_live_date: localStorage.getItem("Target_Go_Live_Date"),
@@ -91,8 +93,19 @@ class KlikNPay extends Component {
         return this.state.proposed_go_live_date;
     }
 
+    phoneNumberFormat(s) {
+        if(s.length >= 9) {
+            var s2 = (""+s).replace(/\D/g, '');
+            var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
+            return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
+        }
+
+        return this.state.phone_number;
+
+    }
+
     render () {
-        let bool = this.state.isKlikRemit === 'true' ? true : false;
+        let bool = this.state.isKlikRemit !== true ? false : true;
         
 
         return (
@@ -132,7 +145,7 @@ class KlikNPay extends Component {
                             </Row>
                             <Row>
                                 <Input s={4} name='contact_name'label="Contact Name" value={this.state.contact_name} onChange={this.handleInputChange}/>
-                                <Input s={4} name='phone_number'label="Phone Number" value={this.state.phone_number} onChange={this.handleInputChange} />
+                                <Input s={4} name='phone_number' label="Phone Number" value={this.phoneNumberFormat(this.state.phone_number)} onChange={this.handleInputChange} />
                                 <Input s={4} name='email'label="Email" value={this.state.email} onChange={this.handleInputChange}/>
                             </Row>
                             <Row>
@@ -146,7 +159,7 @@ class KlikNPay extends Component {
                             <Row>
                                 <Input name='isPaper' type='checkbox' label='Paper' onChange={this.handleInputChange} />
                                 <Input name='isDigital' type='checkbox' label='Digital' onChange={this.handleInputChange} />
-                                <p>(Provide e-mail distribution list if different from above.)</p>
+                                <p>(Provide e-mail distribution address if different from above.)</p>
                             </Row>
                             <Row>
                                 <Input s={3} name='bank_name' label="Bank #1 Name"  onChange={this.handleInputChange}/>

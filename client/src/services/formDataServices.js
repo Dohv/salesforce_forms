@@ -9,20 +9,28 @@ const formDataServices = {
     }
     try {
       let formData = await axios.post('/api/form', { email }, {"headers": headers});
-
-       if (formData) {
-        localStorage.setItem("isKlikRemit", formData.data.data.isKlikRemit__c);
-        localStorage.setItem("Account_Number", formData.data.data.Account_Number__c);
-        localStorage.setItem("Address", formData.data.data.Address__c);
-        localStorage.setItem("Billing_Account_Number", formData.data.data.Billing_Account_Number__c);
-        localStorage.setItem("City", formData.data.data.City__c);
-        localStorage.setItem("Company_Name", formData.data.data.Company_Name__c);
-        localStorage.setItem("Contact_Name", formData.data.data.Contact_Name__c);
-        localStorage.setItem("Email", formData.data.data.Email__c);
-        localStorage.setItem("Phone_Number", formData.data.data.Phone_Number__c);
-        localStorage.setItem("State", formData.data.data.State__c);
-        localStorage.setItem("Target_Go_Live_Date", formData.data.data.Target_Go_Live_Date__c);
-        localStorage.setItem("Zip_Code", formData.data.data.Zip_Code__c);
+      if(formData.data.data === 0) {
+       try {
+          await axios.post('/api/new', { email }, {"headers": headers});
+          localStorage.setItem("isKNPForm", true);
+        } catch (error) {
+          console.log('create new knp form error' ,error);
+        }
+      }  
+      if (formData) {
+        const data = formData.data.data;
+        const fields = Object.keys(formData.data.data);
+        fields.map((field) => {
+          if(data[field] === null) {
+            data[field] = '';
+          }
+          if(field.indexOf('__c') !== -1) {
+            const format = field.slice(0, field.indexOf('__c'));
+            localStorage.setItem(format, data[field])
+          } else {
+            localStorage.setItem(field, data[field])
+          }
+        })
        } 
     } catch(error) {
       console.log("this is KlikNPay form data error:", error);

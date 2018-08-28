@@ -1,5 +1,6 @@
 const request = require('request');
 const { getSFTokenAPI, getAccountIdSFQuery, getKNPFormDataSFQuery } = require('../helpers/routeHelpers');
+
 module.exports = {
   getKlikNPayFormDataFromSF: async (req, res, next) => {
     const { email } = req.body;
@@ -51,7 +52,6 @@ module.exports = {
           } else {
             const bresult = JSON.parse(bbody);
             const accountId = bresult.records[0].Account.Id;
-            //  res.json({ accountId });
             request({
                 url: `${url}/services/data/v43.0/composite/tree/on_boarding_forms__c`,
                 method: 'POST',
@@ -71,8 +71,8 @@ module.exports = {
               if(werror) {
                 console.log('sf form data error', werror);
               } else {
-              const wresult = JSON.parse(wbody);
-              console.log(wresult);
+              console.log({success: 'new form created' });
+              res.json({ success: 'new form created' });
              }
             })
            }
@@ -82,7 +82,55 @@ module.exports = {
   },
 
   updateFormData: async (req, res, next) => {
-
+    const { accountId, sfFieldName, fieldValue } = req.body;
+    await request(getSFTokenAPI, (error, response, body) => {
+      if(error) {
+        console.log('sf token error', error);
+      } else {
+        const result = JSON.parse(body);
+        const url = result.instance_url;
+        const sfToken = result.access_token;
+        request({
+          url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${process.env.KLIKNPAY_RECORD_TYPE}'`,
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + sfToken,
+          }
+        }, (berror, bresponse, bbody) => {
+          if(berror) {
+            console.log('update form error', berror);
+          } else {
+            const result = JSON.parse(bbody);
+            const formId = result.records[0].Id;
+            request({
+              url: 'https://cs77.salesforce.com/services/data/v43.0/composite/sobjects',
+              method: 'PATCH',
+              headers: {
+                      'Authorization': 'Bearer ' + sfToken,
+                      'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                      "records": [{
+                        "attributes": {"type": "on_boarding_forms__c"},
+                        "id": formId,
+                        "Name": "KlikNPay",
+                        "RecordTypeId": process.env.KLIKNPAY_RECORD_TYPE,
+                        "Account_Name__c": accountId,
+                        [sfFieldName]: fieldValue
+                      }]   
+              })
+            }, (terror, tresponse, tbody) => {
+              if(terror) {
+                console.log('sf form data error', werror);
+              } else {
+                const result = JSON.parse(tbody);
+                console.log({success: 'updated form' });
+                res.json({ result });
+              }
+            })
+           }
+         })
+      }
+    })    
   }
 }
-

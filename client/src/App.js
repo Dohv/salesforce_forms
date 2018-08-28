@@ -72,9 +72,9 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                               />} /> 
 
-              <PrivateRoute path={'/private'} component={FormMenu}/>            
+              <PrivateRoute path={'/private'} component={FormMenu} />           
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit}
-              />} />
+                                                  />} />
 
             </Switch>
           

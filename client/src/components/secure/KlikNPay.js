@@ -6,9 +6,10 @@ class KlikNPay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isForm: localStorage.getItem("isKNPForm") ? localStorage.getItem("isKNPForm") : '',
+            isLoggedIn: this.props.isLoggedIn,
+            isForm: localStorage.getItem("isKNPForm") ? localStorage.getItem("isKNPForm") : false,
             proposed_go_live_date: '',
-            isKlikRemit: localStorage.getItem("isKlikRemit") ? localStorage.getItem("isKlikRemit") : '',
+            isKlikRemit: localStorage.getItem("isKlikRemit") ? localStorage.getItem("isKlikRemit") : false,
             company_name: '',
             account_number: '',
             account_name: '',
@@ -35,10 +36,20 @@ class KlikNPay extends Component {
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentDidMount() {
         this.getFormData();
+    }
+
+    handleLogout() {
+        localStorage.clear();
+    }
+
+    handleSave(e) {
+        console.log(e.target.value);
     }
 
     async getFormData() {
@@ -46,7 +57,7 @@ class KlikNPay extends Component {
       await formDataServices.getFormDataFromServer(localStorage.getItem('email'));
       this.setState({
         proposed_go_live_date: localStorage.getItem("Target_Go_Live_Date"),
-        isKlikRemit: localStorage.getItem("isKlikRemit"),
+        isKlikRemit: JSON.parse(localStorage.getItem("isKlikRemit")),
         company_name: localStorage.getItem("Company_Name"),
         account_number: localStorage.getItem("Account_Number"),
         account_name: localStorage.getItem("Company_Name"),
@@ -58,6 +69,7 @@ class KlikNPay extends Component {
         contact_name: localStorage.getItem("Contact_Name"),
         phone_number: localStorage.getItem("Phone_Number"),
         email: localStorage.getItem("Email"),
+        isForm: localStorage.getItem("isKNPForm"),
       });
       window.Materialize.updateTextFields();
     }
@@ -105,8 +117,7 @@ class KlikNPay extends Component {
     }
 
     render () {
-        let bool = this.state.isKlikRemit !== true ? false : true;
-        
+        let bool = this.state.isKlikRemit ? true : false;
 
         return (
 
@@ -127,7 +138,7 @@ class KlikNPay extends Component {
                             </Row>
                             <h4 >Customer Profile</h4>
                             <Row>
-                                <Input s={6} name='company_name' label="Company Name" value={this.state.company_name} onChange={this.handleInputChange} /> 
+                                <Input s={6} name='company_name' label="Company Name" value={this.state.company_name} onChange={this.handleInputChange} onBlur={this.handleSave}/> 
                             </Row>
                             <Row >
                                 <p className='form-comment'>Please list the accounts or provide your entity list:</p>

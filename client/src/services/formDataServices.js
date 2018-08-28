@@ -26,7 +26,7 @@ const formDataServices = {
           }
           if(field.indexOf('__c') !== -1) {
             const format = field.slice(0, field.indexOf('__c'));
-            localStorage.setItem(format, data[field])
+            localStorage.setItem(format, data[field]) 
           } else {
             localStorage.setItem(field, data[field])
           }
@@ -35,7 +35,17 @@ const formDataServices = {
     } catch(error) {
       console.log("this is KlikNPay form data error:", error);
     }
+  },
+
+  updateFormData: async (accountId, sfFieldName, fieldValue) => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem("token")
+    }
+    let formData = await axios.post('/api/update', { accountId, sfFieldName, fieldValue }, {"headers": headers});
   }
+
+
 }
 
 export default formDataServices

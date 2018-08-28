@@ -30,6 +30,7 @@ const authServices = {
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('id');
+      localStorage.clear();
     } 
     catch (error) {
       console.log("this is logout error:", error);

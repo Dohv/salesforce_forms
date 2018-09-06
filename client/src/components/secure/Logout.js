@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 class Logout extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.handleLogOutSubmit();
   }
 

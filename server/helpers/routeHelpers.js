@@ -26,9 +26,10 @@ module.exports = {
     }
   },
 
-  getKNPFormDataSFQuery: (url, accountId, token) => {
+  getFormDataSFQuery: (url, accountId, token, recordType) => {
+    //console.log(recordType);
     return {
-      url: `${url}/services/data/v43.0/query?q=select+Account_Name__c,Account_Number__c,Address__c,Billing_Account_Number__c,City__c,Company_Name__c,Contact_Name__c,Email__c	,isKlikRemit__c,Phone_Number__c,State__c,Target_Go_Live_Date__c,Zip_Code__c+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${process.env.KLIKNPAY_RECORD_TYPE}'`,
+      url: `${url}/services/data/v43.0/query?q=select+Account_Name__c,Account_Number__c,Address__c,Billing_Account_Number__c,City__c,Company_Name__c,Contact_Name__c,Email__c	,isKlikRemit__c,Phone_Number__c,State__c,Target_Go_Live_Date__c,Zip_Code__c,Adult_Entertainment_Businesses__c+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token
@@ -67,7 +68,7 @@ module.exports = {
           const url = result.instance_url;
           const sfToken = result.access_token;
            request({
-            url: `${url}/services/data/v43.0/query?q=select+id,account.id+FROM+Contact+WHERE+email+='${email}'`,
+            url: `${url}/services/data/v43.0/query?q=select+id,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken
@@ -80,14 +81,18 @@ module.exports = {
                 if(vresult.totalSize === 0) {
                   return res.json({message: 'There is no email for that account.'});
                 } else {
-                   res.locals.result = vresult.records[0].Id;
+                    //console.log(vresult.records[0]);
+                   res.locals.accountId = vresult.records[0].Account.Id;
+                   res.locals.accountType = vresult.records[0].Account.Type;
+                   res.locals.accountProducts = vresult.records[0].Account.Products__c.split(';');
                    next();
                 }
               }
           });
         }
       });
-    }
+  }
+  
 }
         
                 

@@ -2,22 +2,24 @@ import axios from 'axios';
 
 
 const formDataServices = {
-  getFormDataFromServer: async (email) => {
+  getFormDataFromServerByEmail: async (email, formType) => {
+    //console.log(formType);
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
     try {
-      let formData = await axios.post('/api/form', { email }, {"headers": headers});
+      let formData = await axios.post('/api/form', { email, formType }, {"headers": headers});
       if(formData.data.data === 0) {
        try {
-          await axios.post('/api/new', { email }, {"headers": headers});
-          localStorage.setItem("isKNPForm", true);
+          await axios.post('/api/new', { email, formType }, {"headers": headers});
+          formData = await axios.post('/api/form', { email, formType }, {"headers": headers});
         } catch (error) {
           console.log('create new knp form error' ,error);
         }
-      }  
+      } 
       if (formData) {
+        //console.log(formData.data.data);
         const data = formData.data.data;
         const fields = Object.keys(formData.data.data);
         fields.map((field) => {
@@ -26,23 +28,44 @@ const formDataServices = {
           }
           if(field.indexOf('__c') !== -1) {
             const format = field.slice(0, field.indexOf('__c'));
-            localStorage.setItem(format, data[field]) 
+            localStorage.setItem(format, data[field]);
           } else {
-            localStorage.setItem(field, data[field])
+            localStorage.setItem(field, data[field]);
           }
         })
        } 
     } catch(error) {
-      console.log("this is KlikNPay form data error:", error);
+      console.log("this is getFormData error:", error);
     }
   },
 
-  updateFormData: async (accountId, sfFieldName, fieldValue) => {
+  updateFormData: async (accountId, sfFieldName, fieldValue, formType) => {
+    sfFieldName = sfFieldName + '__c';
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
-    let formData = await axios.post('/api/update', { accountId, sfFieldName, fieldValue }, {"headers": headers});
+    await axios.post('/api/update', { accountId, sfFieldName, fieldValue, formType }, {"headers": headers});
+  },
+
+  getClientsAPI: async (accountId) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token")
+      }
+      const clients = await axios.post('/api/clients', { accountId }, { "headers": headers });
+      if(clients) {
+        //console.log(clients.data.result);
+        localStorage.setItem("clients", JSON.stringify(clients.data.result));
+      }
+    } catch (error) {
+      console.log('getClientsAPI error', error);
+    }
+  },
+
+  searchClients: async (accountName) => {
+
   }
 
 

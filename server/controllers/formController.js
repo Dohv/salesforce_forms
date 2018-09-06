@@ -1,9 +1,56 @@
 const request = require('request');
-const { getSFTokenAPI, getAccountIdSFQuery, getKNPFormDataSFQuery } = require('../helpers/routeHelpers');
+const { getSFTokenAPI, getAccountIdSFQuery, getFormDataSFQuery } = require('../helpers/routeHelpers');
 
 module.exports = {
-  getKlikNPayFormDataFromSF: async (req, res, next) => {
-    const { email } = req.body;
+  getClients: async (req, res, next) => {
+    const { accountId } = req.body;
+    await request(getSFTokenAPI, (error, response, body) => {
+      if(error) {
+        console.log('sf token error', error);
+      } else {
+        const result = JSON.parse(body);
+        const url = result.instance_url;
+        const sfToken = result.access_token;
+        request({
+          url: `${url}/services/data/v43.0/query?q=select+id,name+FROM+Account+WHERE+ParentId+='${accountId}'+ORDER+BY+Account.Name
+          `,
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + sfToken,
+          }
+        }, (verror, vresponse, vbody) => {
+          if(verror) {
+            console.log('sf get clients error', verror);
+          } else {
+            const result = JSON.parse(vbody);
+            res.json({result: result.records})
+          }
+        })
+      }
+    })
+  },
+
+  getFormDataFromSF: async (req, res, next) => {
+    let { email, formType } = req.body;
+    switch(formType) {
+      case 'KlikNPay':
+        formType = process.env.KLIKNPAY_RECORD_TYPE;
+        break;
+      case 'eKlik':
+        formType = process.env.EKLIK_RECORD_TYPE;
+        break;
+      case 'Remit':
+        formType = process.env.REMIT_RECORD_TYPE;
+        break;
+      case 'Print Services':
+        formType = process.env.PRINT_SERVICES_RECORD_TYPE;
+        break;
+      case 'Remit Station':
+        formType = process.env.REMIT_STATION_RECORD_TYPE;
+        break;
+      default:
+      console.log('error with formType in formController.getFormDataFromSF');
+    }
     await request(getSFTokenAPI, (error, response, body) => {
       if(error) {
         console.log('sf token error', error);
@@ -17,7 +64,7 @@ module.exports = {
             } else {
               const vresult = JSON.parse(vbody);
               const accountId = vresult.records[0].Account.Id; 
-              request(getKNPFormDataSFQuery(url, accountId, sfToken), (werror, wresponse, wbody) => {
+              request(getFormDataSFQuery(url, accountId, sfToken, formType), (werror, wresponse, wbody) => {
                   if(werror) {
                     console.log('sf form data error', werror);
                   } else {
@@ -26,6 +73,7 @@ module.exports = {
                     res.json({ data: wresult.totalSize });
                     next();
                   } else {
+                    //console.log(wresult);
                     res.json({ data: wresult.records[0] });
                     next();
                   }
@@ -38,7 +86,27 @@ module.exports = {
   },
 
   postNewForm: async (req, res, next) => {
-    const { email } = req.body;
+    let { email, formType } = req.body;
+    let recordType;
+    switch(formType) {
+      case 'KlikNPay':
+        recordType = process.env.KLIKNPAY_RECORD_TYPE;
+        break;
+      case 'eKlik':
+        recordType = process.env.EKLIK_RECORD_TYPE;
+        break;
+      case 'Remit':
+        recordType = process.env.REMIT_RECORD_TYPE;
+        break;
+      case 'Print Services':
+        recordType = process.env.PRINT_SERVICES_RECORD_TYPE;
+        break;
+      case 'Remit Station':
+        recordType = process.env.REMIT_STATION_RECORD_TYPE;
+        break;
+      default:
+      console.log('error with formType in formController.getFormDataFromSF');
+    }
     await request(getSFTokenAPI, (error, response, body) => {
       if(error) {
         console.log('sf token error', error);
@@ -62,8 +130,8 @@ module.exports = {
                 body: JSON.stringify({
                   "records": [{
                     "attributes": {"type": "on_boarding_forms__c", "referenceId": "ref1"},
-                    "Name": "KlikNPay",
-                    "RecordTypeId": process.env.KLIKNPAY_RECORD_TYPE,
+                    "Name": formType,
+                    "RecordTypeId": recordType,
                     "Account_Name__c": accountId
                   }]
                 })     
@@ -71,6 +139,7 @@ module.exports = {
               if(werror) {
                 console.log('sf form data error', werror);
               } else {
+                const result = JSON.parse(wbody)
               console.log({success: 'new form created' });
               res.json({ success: 'new form created' });
              }
@@ -82,7 +151,26 @@ module.exports = {
   },
 
   updateFormData: async (req, res, next) => {
-    const { accountId, sfFieldName, fieldValue } = req.body;
+    let { accountId, sfFieldName, fieldValue, formType } = req.body;
+    switch(formType) {
+      case 'KlikNPay':
+        formType = process.env.KLIKNPAY_RECORD_TYPE;
+        break;
+      case 'eKlik':
+        formType = process.env.EKLIK_RECORD_TYPE;
+        break;
+      case 'Remit':
+        formType = process.env.REMIT_RECORD_TYPE;
+        break;
+      case 'Print Services':
+        formType = process.env.PRINT_SERVICES_RECORD_TYPE;
+        break;
+      case 'Remit Station':
+        formType = process.env.REMIT_STATION_RECORD_TYPE;
+        break;
+      default:
+      console.log('error with formType in formController.getFormDataFromSF');
+    }
     await request(getSFTokenAPI, (error, response, body) => {
       if(error) {
         console.log('sf token error', error);
@@ -91,7 +179,7 @@ module.exports = {
         const url = result.instance_url;
         const sfToken = result.access_token;
         request({
-          url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${process.env.KLIKNPAY_RECORD_TYPE}'`,
+          url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${formType}'`,
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + sfToken,
@@ -114,7 +202,7 @@ module.exports = {
                         "attributes": {"type": "on_boarding_forms__c"},
                         "id": formId,
                         "Name": "KlikNPay",
-                        "RecordTypeId": process.env.KLIKNPAY_RECORD_TYPE,
+                        "RecordTypeId": formType,
                         "Account_Name__c": accountId,
                         [sfFieldName]: fieldValue
                       }]   

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import authServices from './services/authServices';
+import formDataServices from './services/formDataServices';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Header from "./components/layout/Header";
-//import Sidebar from "./components/layout/Sidebar";
 import Login from './components/secure/Login';
-//import Home from './components/Home';
 import PrivateRoute from './components/secure/PrivateRoute';
 import FormMenu from './components/secure/FormMenu';
 import Logout from './components/secure/Logout';
+import ClientList from './components/secure/ClientList';
+import NoMatch from './components/NoMatch';
 
 class App extends Component {
   constructor() {
@@ -19,16 +20,23 @@ class App extends Component {
       currentUserId: localStorage.getItem('id') ? localStorage.getItem('id') : '',
       currentUserEmail: localStorage.getItem('email') ? localStorage.getItem('email') : '',
       isLoading: false,
-      messageAlert: localStorage.getItem('flashMessage') ? localStorage.getItem('flashMessage') : ''
+      messageAlert: localStorage.getItem('flashMessage') ? localStorage.getItem('flashMessage') : '',
+      sfAccountId: localStorage.getItem('sfAccountId') ? localStorage.getItem('sfAccountId') : '',
+      sfAccountType: localStorage.getItem('sfAccountType') ? localStorage.getItem('sfAccountType') : '',
+      currCompanyName: '',
+      clients: JSON.parse(localStorage.getItem('clients')) ? JSON.parse(localStorage.getItem('clients')) : [],
     };
 
     // Bind functions:
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
     this.handleMessageReset = this.handleMessageReset.bind(this);
+    this.searchClients = this.searchClients.bind(this);
   }
 
-
+  async searchClients() {
+     
+  }
   
   async handleSignInSubmit(email, password) {
     this.setState({ isLoading: true })
@@ -38,8 +46,14 @@ class App extends Component {
       currentUserEmail: localStorage.getItem('email'),
       isLoggedIn: authServices.isAuthenticated(),
       messageAlert: localStorage.getItem('flashMessage'),
-      isLoading: false
+      isLoading: false,
+      sfAccountId: localStorage.getItem('sfAccountId'),
+      sfAccountType: localStorage.getItem('sfAccountType'),
     });
+    await formDataServices.getClientsAPI(this.state.sfAccountId);
+    this.setState({
+      clients: JSON.parse(localStorage.getItem('clients')),
+    })
   } 
 
   async handleLogOutSubmit() {
@@ -48,6 +62,9 @@ class App extends Component {
         isLoggedIn: authServices.isAuthenticated(),
         currentUserId: '',
         currentUserEmail: '',
+        sfAccountId: '',
+        sfAccountType: '',
+        clients: [],
        });
   }
 
@@ -58,8 +75,7 @@ class App extends Component {
 
   
   render() {
-    const headerhandler = this.state.isLoggedIn ? <Header goBack={this.goBack} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn}/> : '';
-    
+    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} /> : '';
     return (
       <BrowserRouter>
         <div>
@@ -70,12 +86,12 @@ class App extends Component {
                                                 isLoading={this.state.isLoading}
                                                 messageAlert={this.state.messageAlert}
                                                 handleMessageReset={this.handleMessageReset}
+                                                sfAccountType={this.state.sfAccountType}
                                               />} /> 
-
-              <PrivateRoute path={'/private'} component={FormMenu} />           
-              <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit}
-                                                  />} />
-
+              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType} />} />;
+              <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} search={this.searchClients}/>} />
+              <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
+              <Route component={NoMatch} />
             </Switch>
           
         </div>

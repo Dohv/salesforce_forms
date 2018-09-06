@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Input, Icon } from 'react-materialize'
+import { Row, Input, Icon } from 'react-materialize';
 import formDataServices from '../../services/formDataServices';
 
 class KlikNPay extends Component {
@@ -8,7 +8,7 @@ class KlikNPay extends Component {
         this.state = {
             isLoggedIn: this.props.isLoggedIn,
             isForm: localStorage.getItem("isKNPForm") ? localStorage.getItem("isKNPForm") : false,
-            proposed_go_live_date: '',
+            target_go_live_date: '',
             isKlikRemit: localStorage.getItem("isKlikRemit") ? localStorage.getItem("isKlikRemit") : false,
             company_name: '',
             account_number: '',
@@ -32,45 +32,45 @@ class KlikNPay extends Component {
             admin_contact_name: '',
             admin_phone_numner: '',
             isICL: '',
+            isSaving: false,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
     }
 
     componentDidMount() {
         this.getFormData();
     }
 
-    handleLogout() {
-        localStorage.clear();
-    }
-
-    handleSave(e) {
-        console.log(e.target.value);
+    async handleSave(e) {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        this.setState({isSaving: true});
+        await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'));
+        this.setState({isSaving: false});
     }
 
     async getFormData() {
-        
-      await formDataServices.getFormDataFromServer(localStorage.getItem('email'));
-      this.setState({
-        proposed_go_live_date: localStorage.getItem("Target_Go_Live_Date"),
-        isKlikRemit: JSON.parse(localStorage.getItem("isKlikRemit")),
-        company_name: localStorage.getItem("Company_Name"),
-        account_number: localStorage.getItem("Account_Number"),
-        account_name: localStorage.getItem("Company_Name"),
-        billing_account_number: localStorage.getItem("Billing_Account_Number"),
-        address: localStorage.getItem("Address"),
-        city: localStorage.getItem("City"),
-        state: localStorage.getItem("State"),
-        zip_code: localStorage.getItem("Zip_Code"),
-        contact_name: localStorage.getItem("Contact_Name"),
-        phone_number: localStorage.getItem("Phone_Number"),
-        email: localStorage.getItem("Email"),
-        isForm: localStorage.getItem("isKNPForm"),
-      });
+        await formDataServices.getFormDataFromServerByEmail(localStorage.getItem('email'), localStorage.getItem('selectedForm'));
+        this.setState({
+            target_go_live_date: localStorage.getItem("Target_Go_Live_Date"),
+            isKlikRemit: JSON.parse(localStorage.getItem("isKlikRemit")),
+            company_name: localStorage.getItem("Company_Name"),
+            account_number: localStorage.getItem("Account_Number"),
+            account_name: localStorage.getItem("Company_Name"),
+            billing_account_number: localStorage.getItem("Billing_Account_Number"),
+            address: localStorage.getItem("Address"),
+            city: localStorage.getItem("City"),
+            state: localStorage.getItem("State"),
+            zip_code: localStorage.getItem("Zip_Code"),
+            contact_name: localStorage.getItem("Contact_Name"),
+            phone_number: localStorage.getItem("Phone_Number"),
+            email: localStorage.getItem("Email"),
+            isForm: localStorage.getItem("isKNPForm"),
+        });
       window.Materialize.updateTextFields();
     }
 
@@ -91,7 +91,7 @@ class KlikNPay extends Component {
         
         if(string.indexOf(',') !== -1) {
             const splitStr = string.split(' ');
-            console.log(splitStr);
+            //console.log(splitStr);
             const monthNumber = months.indexOf(splitStr[1].slice(0, -1)) + 1;
             formatedDate.push(splitStr[2])
             formatedDate.push('-');
@@ -102,7 +102,7 @@ class KlikNPay extends Component {
 
             return result;
         }
-        return this.state.proposed_go_live_date;
+        return this.state.target_go_live_date;
     }
 
     phoneNumberFormat(s) {
@@ -118,46 +118,51 @@ class KlikNPay extends Component {
 
     render () {
         let bool = this.state.isKlikRemit ? true : false;
-
+        let savingStatus = this.state.isSaving ? 
+        <div className="saving-anime">
+            <div className="lds-ripple"><div></div><div></div></div>
+            <p>saving</p> 
+        </div> : '';
         return (
 
             <div>
+                {savingStatus}
                 <div className='container'>
                     
                         <h2 className='form-title'>KlikNPay</h2>
                         <form className='col s12'>
                             <Row>
-                            <Input s={6} className='datepicker' name='proposed_go_live_date' type='date' onChange={this.handleInputChange} value={this.dateFormat(this.state.proposed_go_live_date)}label='Proposed go live date'>
+                            <Input s={6} className='datepicker' name='target_go_live_date' type='date' onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} value={this.dateFormat(this.state.target_go_live_date)} label='Proposed go live date'>
                             <Icon>calendar_today</Icon>
                             </Input>
                             </Row>
                             <Row>
                             <p className='form-comment'>Are you currently set up on Klik Remit?</p>
-                            <div className="switch"><label>No<input type="checkbox" name='isKlikRemit' checked={bool} onChange={this.handleInputChange} />
+                            <div className="switch"><label>No<input type="checkbox" name='isKlikRemit' checked={bool} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
                             <span className="lever"></span>Yes</label></div> 
                             </Row>
                             <h4 >Customer Profile</h4>
                             <Row>
-                                <Input s={6} name='company_name' label="Company Name" value={this.state.company_name} onChange={this.handleInputChange} onBlur={this.handleSave}/> 
+                                <Input s={6} name='company_name' label="Company Name" value={this.state.company_name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                             </Row>
                             <Row >
                                 <p className='form-comment'>Please list the accounts or provide your entity list:</p>
-                                <Input s={6} name='account_number' label="Account Number" value={this.state.account_number} onChange={this.handleInputChange} /> 
+                                <Input s={6} name='account_number' label="Account Number" value={this.state.account_number} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                             </Row>
                             <Row>
-                                <Input s={6} name='account_name' label="Account Name" value={this.state.account_name} onChange={this.handleInputChange} />
-                                <Input s={6} name='billing_account_number' label="Billing Account Number" value={this.state.billing_account_number} onChange={this.handleInputChange} />
+                                <Input s={6} name='account_name' label="Account Name" value={this.state.account_name} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={6} name='billing_account_number' label="Billing Account Number" value={this.state.billing_account_number} onChange={this.handleInputChange} onBlur={this.handleSave} />
                             </Row> 
                             <Row>
-                                <Input s={5} name='address' label="Address" value={this.state.address} onChange={this.handleInputChange} />
-                                <Input s={3} name= 'city' label="City" value={this.state.city} onChange={this.handleInputChange} />
-                                <Input s={2} name='state' label="State" value={this.state.state} onChange={this.handleInputChange} />
-                                <Input s={2} name='zip_code' label="Zip Code" value={this.state.zip_code} onChange={this.handleInputChange} />
+                                <Input s={5} name='address' label="Address" value={this.state.address} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={3} name= 'city' label="City" value={this.state.city} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={2} name='state' label="State" value={this.state.state} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={2} name='zip_code' label="Zip Code" value={this.state.zip_code} onChange={this.handleInputChange} onBlur={this.handleSave} />
                             </Row>
                             <Row>
-                                <Input s={4} name='contact_name'label="Contact Name" value={this.state.contact_name} onChange={this.handleInputChange}/>
-                                <Input s={4} name='phone_number' label="Phone Number" value={this.phoneNumberFormat(this.state.phone_number)} onChange={this.handleInputChange} />
-                                <Input s={4} name='email'label="Email" value={this.state.email} onChange={this.handleInputChange}/>
+                                <Input s={4} name='contact_name'label="Contact Name" value={this.state.contact_name} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={4} name='phone_number' label="Phone Number" value={this.phoneNumberFormat(this.state.phone_number)} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                <Input s={4} name='email'label="Email" value={this.state.email} onChange={this.handleInputChange} onBlur={this.handleSave} />
                             </Row>
                             <Row>
                                 <Input s={3} name='ein_tin' label="EIN/TIN"  onChange={this.handleInputChange}/>
@@ -176,7 +181,7 @@ class KlikNPay extends Component {
                                 <Input s={3} name='bank_name' label="Bank #1 Name"  onChange={this.handleInputChange}/>
                                 <Input s={3} name='email_distribution_address' label="Email Distribution Address"  onChange={this.handleInputChange}/>
                                 <Input s={3} name='admin_contact_name' label="Admin. Contact Name" onChange={this.handleInputChange} />
-                                <Input s={3} name='admin_phone_numner' label="Admin Phone Number" onChange={this.handleInputChange} />
+                                <Input s={3} name='admin_phone_number' label="Admin Phone Number" onChange={this.handleInputChange} />
                             </Row>
                             <Row>
                                 <Input name='isICL' type='checkbox' label='ICL Image File' onChange={this.handleInputChange} />
@@ -184,7 +189,6 @@ class KlikNPay extends Component {
                         </form>
                     
                 </div>
-
             </div>
     )};
 };

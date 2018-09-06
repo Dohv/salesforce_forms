@@ -5,21 +5,32 @@ import Remit from "./Remit";
 import eKlik from "./eKlik";
 import KlikNPay from './KlikNPay';
 
-const FormMenu = ({match}) => {
-    const leftDivStyle = {
-        display: 'inline'
-    };
-    return (
-        <div style={leftDivStyle}>
-            
 
-            <h4 className='formButtonContainer'>
-                <Link className='chooseFormButton' to={`${match.url}/Remit`}>Remit</Link>
-                <Link className='chooseFormButton' to={`${match.url}/eKlik`}>eKlik</Link>
-                <Link className='chooseFormButton' to={`${match.url}/KlikNPay`}>KlikNPay</Link>
-                <Link className='chooseFormButton' to={`${match.url}/Print-Services`}>Print Services</Link>
-                <Link className='chooseFormButton' to={`${match.url}/Remit-Station`}>Remit Station</Link>
+const FormMenu = ({match, accountName}) => {
+
+    const formSelect = (e) => {
+        //console.log(e.target.innerHTML);
+        localStorage.setItem("selectedForm", e.target.innerHTML);
+        //console.log(localStorage.getItem('selectedForm'));
+    };
+
+    const titleStyle = {
+        textAlign: 'center',
+    }
+
+    const products = JSON.parse(localStorage.getItem('sfAccountProducts'));
+    return (
+        <div >
+          <h3 style={titleStyle}>{localStorage.getItem("selectedForm")} Form For -company name-</h3>  
+        <h4 className='formButtonContainer'>
+                {products.map(product => {
+                    if(product === 'KlikNPay (Plus)') {
+                        product = 'KlikNPay';
+                    }
+                    return <Link  className='chooseFormButton' key={product} to={`${match.url}/${product}`} onClick={formSelect}>{product}</Link>
+                })}
             </h4>
+            
 
 
                 <Route path={`${match.url}/Remit`} component={Remit}/>

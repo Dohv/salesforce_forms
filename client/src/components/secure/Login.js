@@ -52,11 +52,9 @@ class Login extends Component {
 
         const flashMessage = this.props.messageAlert !== '' ? this.toast() : '';
         
-        
-        
 
-        const {target} = this.props.location.state || {target: {pathname: '/private'}}
-        
+        const {target} = this.props.location.state || {target: {pathname: '/forms'}}
+
         if(this.props.isLoggedIn) {
             return <Redirect to={target} />
         }

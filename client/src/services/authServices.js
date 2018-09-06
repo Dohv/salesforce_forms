@@ -14,10 +14,14 @@ const authServices = {
          password
        })
        if (login) {
+         //console.log(login.data);
         localStorage.setItem("flashMessage", login.data.message)
         localStorage.setItem("token", login.data.token);
         localStorage.setItem("email", login.data.email);
         localStorage.setItem("id", login.data.id);
+        localStorage.setItem("sfAccountId", login.data.sfAccountId);
+        localStorage.setItem("sfAccountType", login.data.sfAccountType);
+        localStorage.setItem("sfAccountProducts", JSON.stringify(login.data.sfAccountProducts));
        } 
     } catch(error) {
       console.log("this is login error:", error);
@@ -30,6 +34,7 @@ const authServices = {
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('id');
+      localStorage.removeItem("sfAccountId");
       localStorage.clear();
     } 
     catch (error) {

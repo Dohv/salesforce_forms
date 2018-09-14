@@ -40,10 +40,11 @@ controller.signIn = async (req, res, next) => {
   const {email, id} = req.user;
   const token = signToken(req.user); 
   const message = 'Welcome!';
+  const sfAccountName = res.locals.accountName;
   const sfAccountId = res.locals.accountId;
   const sfAccountType = res.locals.accountType;
   const sfAccountProducts = res.locals.accountProducts;
-  res.status(200).json({ token, email, id, message, sfAccountId, sfAccountType, sfAccountProducts });
+  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts });
 }
 
 controller.secret = async (req, res, next) => {

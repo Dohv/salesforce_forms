@@ -19,6 +19,10 @@ const authServices = {
         localStorage.setItem("token", login.data.token);
         localStorage.setItem("email", login.data.email);
         localStorage.setItem("id", login.data.id);
+        localStorage.setItem('userAccountId', login.data.sfAccountId);
+        localStorage.setItem('userAccountName', login.data.sfAccountName);
+        localStorage.setItem("userAccountProducts", JSON.stringify(login.data.sfAccountProducts));
+        localStorage.setItem("sfAccountName", login.data.sfAccountName);
         localStorage.setItem("sfAccountId", login.data.sfAccountId);
         localStorage.setItem("sfAccountType", login.data.sfAccountType);
         localStorage.setItem("sfAccountProducts", JSON.stringify(login.data.sfAccountProducts));

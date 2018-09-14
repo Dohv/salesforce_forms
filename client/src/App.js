@@ -21,23 +21,33 @@ class App extends Component {
       currentUserEmail: localStorage.getItem('email') ? localStorage.getItem('email') : '',
       isLoading: false,
       messageAlert: localStorage.getItem('flashMessage') ? localStorage.getItem('flashMessage') : '',
+      sfAccountName: localStorage.getItem('sfAccountName') ? localStorage.getItem('sfAccountName') : '',
       sfAccountId: localStorage.getItem('sfAccountId') ? localStorage.getItem('sfAccountId') : '',
       sfAccountType: localStorage.getItem('sfAccountType') ? localStorage.getItem('sfAccountType') : '',
-      currCompanyName: '',
       clients: JSON.parse(localStorage.getItem('clients')) ? JSON.parse(localStorage.getItem('clients')) : [],
+      currentFormPage: 1,
     };
 
     // Bind functions:
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
     this.handleMessageReset = this.handleMessageReset.bind(this);
-    this.searchClients = this.searchClients.bind(this);
-  }
-
-  async searchClients() {
-     
+    this.handleNextFormPage = this.handleNextFormPage.bind(this);
+    this.handleLastFormPage = this.handleLastFormPage.bind(this);
   }
   
+  handleNextFormPage() {
+    console.log('in handleNextFormPage function');
+    let next = this.state.currentFormPage + 1;
+    this.setState({ currentFormPage: next, });
+  }
+
+  handleLastFormPage() {
+    console.log('in handleLastFormPage function');
+    let last = this.state.currentFormPage - 1;
+    this.setState({ currentFormPage: last, });
+  }
+
   async handleSignInSubmit(email, password) {
     this.setState({ isLoading: true })
     await authServices.logIn(email, password);
@@ -47,6 +57,7 @@ class App extends Component {
       isLoggedIn: authServices.isAuthenticated(),
       messageAlert: localStorage.getItem('flashMessage'),
       isLoading: false,
+      sfAccountName: localStorage.getItem('sfAccountName'),
       sfAccountId: localStorage.getItem('sfAccountId'),
       sfAccountType: localStorage.getItem('sfAccountType'),
     });
@@ -88,8 +99,8 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
                                               />} /> 
-              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType} />} />;
-              <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} search={this.searchClients}/>} />
+              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType} currentFormPage={this.state.currentFormPage} handleNextFormPage={this.handleNextFormPage} handleLastFormPage={this.handleLastFormPage}/>} />;
+              <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} />} />
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
               <Route component={NoMatch} />
             </Switch>

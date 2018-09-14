@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Input, Icon } from 'react-materialize';
-import { Link } from "react-router-dom";
 import formDataServices from '../../services/formDataServices';
 
-class KlikNPay extends Component {
+class KlikNPay2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -126,22 +125,13 @@ class KlikNPay extends Component {
         </div> : '';
         return (
 
-            <React.Fragment>
+            <div>
                 {savingStatus}
                 <div className='container'>
                     
                         <h2 className='form-title'>KlikNPay</h2>
                         <form className='col s12'>
-                            <Row>
-                            <Input s={6} className='datepicker' name='target_go_live_date' type='date' onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} value={this.dateFormat(this.state.target_go_live_date)} label='Proposed go live date'>
-                            <Icon>calendar_today</Icon>
-                            </Input>
-                            </Row>
-                            <Row>
-                            <p className='form-comment'>Are you currently set up on Klik Remit?</p>
-                            <div className="switch"><label>No<input type="checkbox" name='isKlikRemit' checked={bool} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                            <span className="lever"></span>Yes</label></div> 
-                            </Row>
+                            
                             <h4 >Customer Profile</h4>
                             <Row>
                                 <Input s={6} name='company_name' label="Company Name" value={this.state.company_name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
@@ -188,11 +178,11 @@ class KlikNPay extends Component {
                                 <Input name='isICL' type='checkbox' label='ICL Image File' onChange={this.handleInputChange} />
                             </Row>
                         </form>
-                    {/* <Link to={}>Next</Link> */}
+                    
                 </div>
-            </React.Fragment>
+            </div>
     )};
 };
 
 
-export default KlikNPay;
+export default KlikNPay2;

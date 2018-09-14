@@ -68,7 +68,7 @@ module.exports = {
           const url = result.instance_url;
           const sfToken = result.access_token;
            request({
-            url: `${url}/services/data/v43.0/query?q=select+id,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
+            url: `${url}/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken
@@ -82,6 +82,7 @@ module.exports = {
                   return res.json({message: 'There is no email for that account.'});
                 } else {
                     //console.log(vresult.records[0]);
+                   res.locals.accountName = vresult.records[0].Account.Name; 
                    res.locals.accountId = vresult.records[0].Account.Id;
                    res.locals.accountType = vresult.records[0].Account.Type;
                    res.locals.accountProducts = vresult.records[0].Account.Products__c.split(';');

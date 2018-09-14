@@ -1,23 +1,30 @@
 import React from 'react';
+import KlikNPay from './KlikNPay';
+import KlikNPay2 from './KlikNPay2';
+import {Link, Route } from "react-router-dom";
+import { Button } from 'react-materialize';
 
-const Remit = () => {
 
+const Remit = ({match, currentFormPage, handleNextFormPage, handleLastFormPage}) => {
+    currentFormPage = currentFormPage.toString();
+    console.log(currentFormPage);
     return (
+        <React.Fragment>
 
-        <div>
             <h2>Protected Component 1</h2>
 
-            <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum
-            </p>
+            <Button className='formFlow' onClick={handleLastFormPage} to={`${match.path}/${currentFormPage}`}>
+                    Back
+            </Button>
+            <Button className='formFlow'>
+                <Link className='FFLink' onClick={handleNextFormPage} to={`${match.path}/${currentFormPage}`}>Next</Link>
+            </Button>
+            <Route path={`${match.path}/1`} component={KlikNPay}/>
+            <Route path={`${match.path}/2`} component={KlikNPay2}/>
+            <Route path={`${match.path}/3`} component={KlikNPay}/>
 
-        </div>
 
-
+        </React.Fragment>
     );
 };
 

@@ -54,7 +54,7 @@ class eKlik extends Component {
     }
 
     async getFormData() {
-        await formDataServices.getFormDataFromServerByEmail(localStorage.getItem('email'), localStorage.getItem('selectedForm'));
+        await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
         this.setState({
             target_go_live_date: localStorage.getItem("Target_Go_Live_Date"),
             isKlikRemit: JSON.parse(localStorage.getItem("isKlikRemit")),

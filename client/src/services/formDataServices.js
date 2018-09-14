@@ -2,18 +2,18 @@ import axios from 'axios';
 
 
 const formDataServices = {
-  getFormDataFromServerByEmail: async (email, formType) => {
+  getFormDataFromServer: async (accountId, formType) => {
     //console.log(formType);
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
     try {
-      let formData = await axios.post('/api/form', { email, formType }, {"headers": headers});
+      let formData = await axios.post('/api/form', { accountId, formType }, {"headers": headers});
       if(formData.data.data === 0) {
        try {
-          await axios.post('/api/new', { email, formType }, {"headers": headers});
-          formData = await axios.post('/api/form', { email, formType }, {"headers": headers});
+          await axios.post('/api/new', { accountId, formType }, {"headers": headers});
+          formData = await axios.post('/api/form', { accountId, formType }, {"headers": headers});
         } catch (error) {
           console.log('create new knp form error' ,error);
         }
@@ -45,6 +45,8 @@ const formDataServices = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
+    console.log({accountId, sfFieldName, fieldValue, formType});
+
     await axios.post('/api/update', { accountId, sfFieldName, fieldValue, formType }, {"headers": headers});
   },
 

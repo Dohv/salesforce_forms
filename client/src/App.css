@@ -178,6 +178,15 @@ input:-webkit-autofill {
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -webkit-transition: box-shadow .2s, margin .2s; /* For Safari 3.1 to 6.0 */
+    transition: box-shadow .2s, margin .2s;
+}
+
+.chooseFormButton:active {
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
+  margin: 20px 0px 0px 20px;
 }
 
 
@@ -355,10 +364,18 @@ h4 {
   align-items: center;
 }
 
-tr {
+.clientInfo {
   border: 1px solid lightgray;
 }
 
-tr:hover {
+.clientInfo:hover {
   border: 2px solid grey;
+}
+
+.formFlow {
+  margin-right: 10px;
+}
+
+.FFLink {
+  color: white;
 }

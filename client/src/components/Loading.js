@@ -3,10 +3,7 @@ import React from 'react';
 const Loading = (props) => {
 
   return (
-    <div className="lds-default">
-      <div></div><div></div><div></div><div></div><div></div><div></div>
-      <div></div><div></div><div></div><div></div><div></div><div></div>
-    </div>
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
   );
 }
 

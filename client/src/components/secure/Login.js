@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import LoginForm from './LoginForm';  
-import Loading from '../Loading'; 
-
-
+import LoginForm from './LoginForm';   
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -48,8 +45,7 @@ class Login extends Component {
     }
     
     render() {
-        const loading = this.props.isLoading ? <Loading /> : <div className='emptyLoadingSpace'></div>;
-
+        console.log(this.props.isLoading);
         const flashMessage = this.props.messageAlert !== '' ? this.toast() : '';
         
 
@@ -60,9 +56,7 @@ class Login extends Component {
         }
         return (
                 <div className='loginPage'>
-                    <h2 className='login-header'>Login</h2>
-                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} />
-                    {loading}
+                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} />
                     {flashMessage}
                 </div>
         );

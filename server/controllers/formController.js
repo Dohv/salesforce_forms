@@ -31,6 +31,7 @@ module.exports = {
   },
 
   getFormDataFromSF: async (req, res, next) => {
+    console.log('form button was clicked');
     let { accountId, formType } = req.body;
     switch(formType) {
       case 'KlikNPay':
@@ -163,7 +164,7 @@ module.exports = {
         const result = JSON.parse(body);
         const url = result.instance_url;
         const sfToken = result.access_token;
-        console.log(recordType);
+        //console.log(recordType);
         request({
           url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
           method: 'GET',

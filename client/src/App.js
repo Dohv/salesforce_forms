@@ -32,21 +32,8 @@ class App extends Component {
     this.handleSignInSubmit = this.handleSignInSubmit.bind(this);
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
     this.handleMessageReset = this.handleMessageReset.bind(this);
-    this.handleNextFormPage = this.handleNextFormPage.bind(this);
-    this.handleLastFormPage = this.handleLastFormPage.bind(this);
   }
   
-  handleNextFormPage() {
-    console.log('in handleNextFormPage function');
-    let next = this.state.currentFormPage + 1;
-    this.setState({ currentFormPage: next, });
-  }
-
-  handleLastFormPage() {
-    console.log('in handleLastFormPage function');
-    let last = this.state.currentFormPage - 1;
-    this.setState({ currentFormPage: last, });
-  }
 
   async handleSignInSubmit(email, password) {
     this.setState({ isLoading: true })
@@ -99,10 +86,10 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
                                               />} /> 
-              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType} currentFormPage={this.state.currentFormPage} handleNextFormPage={this.handleNextFormPage} handleLastFormPage={this.handleLastFormPage}/>} />;
+              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType}/>} />;
               <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} />} />
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
-              <Route component={NoMatch} />
+              <PrivateRoute component={NoMatch} />
             </Switch>
           
         </div>

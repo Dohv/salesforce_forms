@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const request = require('request');
+const { fields } = require('../helpers/sfFormFields');
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -29,7 +30,7 @@ module.exports = {
   getFormDataSFQuery: (url, accountId, token, recordType) => {
     //console.log(recordType);
     return {
-      url: `${url}/services/data/v43.0/query?q=select+Account_Name__c,Account_Number__c,Address__c,Billing_Account_Number__c,City__c,Company_Name__c,Contact_Name__c,Email__c	,isKlikRemit__c,Phone_Number__c,State__c,Target_Go_Live_Date__c,Zip_Code__c,Adult_Entertainment_Businesses__c+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
+      url: `${url}/services/data/v43.0/query?q=select+${fields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token

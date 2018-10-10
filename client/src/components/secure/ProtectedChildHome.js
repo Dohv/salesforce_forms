@@ -4,7 +4,7 @@ const ProtectedChildHome = () => {
     return (
 
         <div>
-            <h2>Please select a form</h2>
+            <h2 className='pleaseSelect'>Please select a form</h2>
         </div>
     );
 };

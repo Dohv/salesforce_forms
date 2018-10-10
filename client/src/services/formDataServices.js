@@ -40,12 +40,12 @@ const formDataServices = {
   },
 
   updateFormData: async (accountId, sfFieldName, fieldValue, formType) => {
+    //console.log({accountId, sfFieldName, fieldValue, formType})
     sfFieldName = sfFieldName + '__c';
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
-    console.log({accountId, sfFieldName, fieldValue, formType});
 
     await axios.post('/api/update', { accountId, sfFieldName, fieldValue, formType }, {"headers": headers});
   },

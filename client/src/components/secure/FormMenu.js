@@ -7,32 +7,26 @@ import KlikNPay from './KlikNPay';
 
 
 
-const FormMenu = ({match, currentFormPage, handleNextFormPage, handleLastFormPage, handleFormResetPageCount}) => {
+const FormMenu = ({match, isFormChosen, handleFormChoice}) => {
 
     const formSelect = (e) => {
         //console.log(e.target.innerHTML);
         localStorage.setItem("selectedForm", e.target.innerHTML);
-        console.log(localStorage.getItem('selectedForm'));
     };
-
-    const titleStyle = {
-        textAlign: 'center',
-    }
 
     let products = (localStorage.getItem('sfAccountProducts').split(';'));
     products = JSON.parse(products)
    
     return (
-        <div >
-          <h3 style={titleStyle}>{localStorage.getItem('sfAccountName')}</h3>  
-        <h4 className='formButtonContainer'>
-                {products.map(product => {
-                    if(product === 'KlikNPay (Plus)') {
-                        product = 'KlikNPay';
-                    }
-                    return <Link  className='chooseFormButton' key={product} to={`${match.url}/${product}/1`} onClick={formSelect}>{product}</Link>
-                })}
-            </h4>
+        <div className='formMenu'>
+                    <h4 className='formButtonContainer'>
+                        {products.map(product => {
+                            if(product === 'KlikNPay (Plus)') {
+                                product = 'KlikNPay';
+                            }
+                            return <Link  className='chooseFormButton' id={product} key={product} to={`${match.url}/${product}/1`} onClick={(e) => {formSelect(e); handleFormChoice();}}>{product}</Link>
+                        })}
+                    </h4>
             
 
 

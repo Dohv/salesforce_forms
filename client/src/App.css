@@ -3,8 +3,14 @@
   src: url('./assets/Fonts/Omnes-Light.otf');
 }
 
+@font-face {
+  font-family: 'Omnes-medium';
+  src: url('./assets/Fonts/Omnes-Medium.otf');
+}
+
 .App {
   text-align: center;
+  font-family: 'Omnes-light';
 }
 
 .App-logo {
@@ -52,33 +58,51 @@ a, a:active, a:visited, a:hover {
 
 .leftNavContainer {
   padding: 20px;
-  position: absolute;
+  position: fixed !important;
   width: 180px;
-  background-color: #F15B2A;
-  display: block;
-  height: 100%;
+  background-color: #ffffff;
+  height: 100vh; 
+  border-right: 1px solid lightgrey;
+  z-index: 99;
+  top: 86px;
 }
 
-.leftNavNested {
-  padding: 20px;
-  height: 100%;
-  width: 200px;
-  background-color: #000000;
-}
-
-.rightContentContainer {
-  margin-left: 200px !important;
-  width: 80% !important;
-  display: contents !important;
-}
-
-li.nav {
-  list-style-type: none;
-  margin-left: -30px;
+.sidebar-content {
+  border: 3px solid #55B748;
 }
 
 .header {
-  background-color: #000000;
+  font-family: 'Omnes-light';
+  background-color: #1B2F57;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  z-index: 99;
+}
+
+.checkaltGreen {
+  color: #55B748;
+}
+
+.account-text {
+  color: white;
+}
+
+.headerComp {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+.header-signout {
+  margin-left: 20px;
+  background-color: #55B748;
+}
+
+.pleaseSelect {
   text-align: center;
 }
 
@@ -91,29 +115,21 @@ li.nav {
 }
 
 .header-text {
-  padding-top: 20px;
   color: #ffffff;
   font-size: 40px;
-  display: inline-block;
-  margin: 0px 80px;
-
+  margin-left: 20px;
 }
 
 .headerEmail {
   color: white;
 }
 
-/* .unicorn {
-  padding-left: 0px;
-  margin-left: 12px;
-  width: 80px;
-  margin-top: 20px;
-} */
 html{
   height: 100vh;
 }
 body {
   min-height: 100%;
+  font-family: 'Omnes-light';
 }
 
 .loginPage {
@@ -132,10 +148,6 @@ body {
 
 .login-header {
   color: #646464;
-}
-
-.header-signout {
-  margin-bottom: 15px;
 }
 
 .greeting {
@@ -218,32 +230,61 @@ input:-webkit-autofill {
 .formButtonContainer {
   display: flex;
   justify-content: center;
+  text-decoration: none;
+  margin: 0px;
 }
 
 
 .chooseFormButton {
+  color: #1B2F57;
+  border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
-  border: 1px solid black;
-  margin: 10px;
-  height: 250px;
-  width: 250px;
+  border: 1px solid #55B748;
+  margin: 150px 10px 10px 10px;
+  height: 450px;
+  width: 450px;
+  background: white;
+  font-size: 100px;
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -webkit-transition: box-shadow .2s, margin .2s; /* For Safari 3.1 to 6.0 */
-    transition: box-shadow .2s, margin .2s;
+    transition: box-shadow .2s, margin .2s display .2s ease;
 }
 
-.chooseFormButton:active {
+/* .chooseFormButton:active {
   -webkit-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
   box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.75);
   margin: 20px 0px 0px 20px;
+} */
+
+.chooseFormButton:active{
+  border: 1px solid #55B748;
+  -webkit-box-shadow: 0px 0px 0px 0px rgba(156, 240, 136, 0.75);
+  -moz-box-shadow: 0px 0px 0px 0px rgba(156, 240, 136, 0.75);
+  box-shadow: 0px 0px 0px 0px rgba(156, 240, 136, 0.75);
+  margin: 160px 0px 0px 20px;
 }
 
+.chooseFormButton.mystyle {
+  display: none;
+}
+
+.chooseFormButton.changeFormMenu {
+  width: 100vw;
+  margin: 0px;
+  height: 55px;
+  font-size: 50px;
+  box-shadow: none;
+  position: fixed;
+  top: 84px;
+  z-index: 99;
+  border-bottom: 1px solid lightgrey;
+  border-radius: 0px;
+}
 
 /* loading animation */
 
@@ -334,13 +375,27 @@ input:-webkit-autofill {
   text-align: center;
 }
 
-form {
-  border: 1px solid black;
-  padding: 5px;
-  -webkit-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
+
+.behindForm {
+  background-color: rgb(248, 249, 250);
+  padding-top: 1px;
+  /* margin-left: 180px; */
+  padding-bottom: 50px;
+  width: 100vw;
+}
+
+.form {
+  border-radius: 4px;
+  padding: 5px 15px 5px 5px;
+  -webkit-box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15);
+  -moz-box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15);
+  box-shadow: 0px 2px 6px 2px rgba(60, 64, 67, 0.15);
+  /* -webkit-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
-  box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75);
-  margin-bottom: 20px;
+  box-shadow: 10px 10px 5px -4px rgba(0,0,0,0.75); */
+  background-color: #ffffff;
+  margin: 170px 0px 20px 180px;
+  padding-bottom: 50px
 }
 
 .placeholder-size {
@@ -359,6 +414,15 @@ h4 {
 .switch {
   margin-left: 10px;
 }
+
+.eKlikSwitch {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #c2c2c2;
+  margin-right: 20px;
+  padding-bottom: 5px;
+}
+
 
 /* saving animation */
 
@@ -427,6 +491,20 @@ h4 {
   background: teal;
   padding: 15px;
   margin: 20px;
+  position: fixed;
+  z-index: 99;
+}
+
+.next, .back {
+  top: 86%;
+}
+
+.next {
+  left: 86%;
+}
+
+.back {
+  left: 20%;
 }
 
 .switch-wrapper {
@@ -441,3 +519,61 @@ h4 {
   background-color: rgb(246, 247, 249);
   width: 100vw;
 }
+
+.instructions-container {
+  border: 5px solid #1B2F57;
+  padding: 10px;
+  border-radius: 10px;
+}
+.sample-account-mask-key {
+  font-size: large;
+  font-weight: bold;
+}
+.row-container {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Omnes-medium';
+  border-bottom: 1px solid #1B2F57;
+}
+
+.mask-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.maskSwitch {
+  align-self: center;
+}
+
+.maskInput {
+  width: 400px !important;
+  
+}
+
+.noLeftMargin {
+  margin: 0px;
+}
+ 
+.switch-container {
+   display: flex;
+}
+
+.margin-right {
+  margin-right: 40px;
+}
+
+.th {
+  margin: 0px 15px;
+}
+
+.th-right {
+  width: 90px;
+}
+
+.th-left {
+  display: flex;
+  align-self: center;
+}
+
+
+

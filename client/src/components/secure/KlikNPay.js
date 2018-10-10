@@ -126,12 +126,12 @@ class KlikNPay extends Component {
         </div> : '';
         return (
 
-            <React.Fragment>
+            <div className='behindForm'>
                 {savingStatus}
                 <div className='container'>
                     
                         <h2 className='form-title'>KlikNPay</h2>
-                        <form className='col s12'>
+                        <form className='col s12 form'>
                             <Row>
                             <Input s={6} className='datepicker' name='target_go_live_date' type='date' onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} value={this.dateFormat(this.state.target_go_live_date)} label='Proposed go live date'>
                             <Icon>calendar_today</Icon>
@@ -190,7 +190,7 @@ class KlikNPay extends Component {
                         </form>
                     {/* <Link to={}>Next</Link> */}
                 </div>
-            </React.Fragment>
+            </div>
     )};
 };
 

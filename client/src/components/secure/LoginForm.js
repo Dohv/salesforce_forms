@@ -55,7 +55,7 @@ const LoginForm = (props) => {
                         name="action">Submit</Button>
                 </Row>
                 <div className="logo">
-                    <img id="klik_logo" src={require('../../assets/klik_logo.jpg')} alt="klik_logo" />
+                    <img id="klik_logo" src={require('../../assets/checkalt_logo.png')} alt="checkalt_logo" />
                 </div> 
             </form>
         </div>

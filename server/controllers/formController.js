@@ -31,7 +31,7 @@ module.exports = {
   },
 
   getFormDataFromSF: async (req, res, next) => {
-    console.log('form button was clicked');
+    //console.log('form button was clicked');
     let { accountId, formType } = req.body;
     switch(formType) {
       case 'KlikNPay':
@@ -178,6 +178,7 @@ module.exports = {
             const result = JSON.parse(bbody);
             //console.log(result);
             const formId = result.records[0].Id;
+            console.log({sfFieldName, fieldValue});
             request({
               url: 'https://cs77.salesforce.com/services/data/v43.0/composite/sobjects',
               method: 'PATCH',
@@ -200,6 +201,7 @@ module.exports = {
                 console.log('sf form data error', werror);
               } else {
                 const result = JSON.parse(tbody);
+                // console.log({tresponse});
                 console.log({success: 'updated form' });
                 res.json({ result });
               }

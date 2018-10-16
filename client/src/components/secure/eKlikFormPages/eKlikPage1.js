@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Row, Input, Icon } from 'react-materialize'
+import { Row, Input } from 'react-materialize'
 import formDataServices from '../../../services/formDataServices';
 
 
-class eKlik extends Component {
+class eKlik1 extends Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -39,17 +39,25 @@ class eKlik extends Component {
             Mail_or_Telephone_Orders_Company: localStorage.getItem("Mail_or_Telephone_Orders_Company") ? localStorage.getItem("Mail_or_Telephone_Orders_Company") : false,
             Adult_Entertainment_Businesses: localStorage.getItem("Adult_Entertainment_Businesses") ? localStorage.getItem("Adult_Entertainment_Businesses") : false,
             Telemarketing_Company: localStorage.getItem("Telemarketing_Company") ? localStorage.getItem("Telemarketing_Company") : false,
-            
+            test: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
     }
+    // //memory leak fix https://www.youtube.com/watch?v=8BNdxFzMeVg 8 min in
+    _isMounted = false;
 
     componentDidMount() {
+        this._isMounted = true;
         this.getFormData();
     }
+
+    componentWillMount() {
+        this._isMounted = false;
+    }
+
 
     async handleSave(e) {
         const target = e.target;
@@ -59,41 +67,47 @@ class eKlik extends Component {
         await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'));
         this.setState({isSaving: false});
     }
-
+    
+    
+    
     async getFormData() {
         await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
-        this.setState({
-            eKlik_Company_Name: localStorage.getItem("eKlik_Company_Name"),
-            eKlik_Primary_Contact: localStorage.getItem("eKlik_Primary_Contact"),
-            eKlik_Primary_Contact_Phone: localStorage.getItem("eKlik_Primary_Contact_Phone"),
-            eKlik_Primary_Contact_Phone_Extension: localStorage.getItem("eKlik_Primary_Contact_Phone_Extension"),
-            eKlik_Primary_Contact_Email: localStorage.getItem("eKlik_Primary_Contact_Email"),
-            eKlik_Business_Owner_Name: localStorage.getItem("eKlik_Business_Owner_Name"),
-            eKlik_Business_Owner_Title: localStorage.getItem("eKlik_Business_Owner_Title"),
-            eKlik_Business_Owner_Phone: localStorage.getItem("eKlik_Business_Owner_Phone"),
-            eKlik_Business_Owner_Email: localStorage.getItem("eKlik_Business_Owner_Email"),
-            eKlik_Physical_Address: localStorage.getItem("eKlik_Physical_Address"),
-            Company_Website: localStorage.getItem("Company_Website"),
-            eKlik_Privately_or_Publicly_Held: localStorage.getItem("eKlik_Privately_or_Publicly_Held"),
-            Ticker_Symbol: localStorage.getItem("Ticker_Symbol"),
-            Primary_Reason_for_accepting_payments: localStorage.getItem("Primary_Reason_for_accepting_payments"), 
-            Name_of_Exchange: localStorage.getItem("Name_of_Exchange"),
-            is_Property_Management_Company: JSON.parse(localStorage.getItem("is_Property_Management_Company")),
-            Payday_Lenders: JSON.parse(localStorage.getItem("Payday_Lenders")),
-            Subprime_Loan_Originator: JSON.parse(localStorage.getItem("Subprime_Loan_Originator")),
-            Credit_Repair_Services_Company: JSON.parse(localStorage.getItem("Credit_Repair_Services_Company")),
-            Debt_Consolidation_Services: JSON.parse(localStorage.getItem("Debt_Consolidation_Services")),
-            Loan_Modification_Services: JSON.parse(localStorage.getItem("Loan_Modification_Services")),
-            Online_Payment_Processor: JSON.parse(localStorage.getItem("Online_Payment_Processor")),
-            Online_Gambling_Related_Operations: JSON.parse(localStorage.getItem("Online_Gambling_Related_Operations")),
-            Business_Located_Outside_the_US: JSON.parse(localStorage.getItem("Business_Located_Outside_the_US")),
-            Mail_or_Telephone_Orders_Company: JSON.parse(localStorage.getItem("Mail_or_Telephone_Orders_Company")),
-            Adult_Entertainment_Businesses: JSON.parse(localStorage.getItem("Adult_Entertainment_Businesses")),
-            Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")),
-            
-        });
+        if(this._isMounted) {
+            this.setState({
+                eKlik_Company_Name: localStorage.getItem("eKlik_Company_Name"),
+                eKlik_Primary_Contact: localStorage.getItem("eKlik_Primary_Contact"),
+                eKlik_Primary_Contact_Phone: localStorage.getItem("eKlik_Primary_Contact_Phone"),
+                eKlik_Primary_Contact_Phone_Extension: localStorage.getItem("eKlik_Primary_Contact_Phone_Extension"),
+                eKlik_Primary_Contact_Email: localStorage.getItem("eKlik_Primary_Contact_Email"),
+                eKlik_Business_Owner_Name: localStorage.getItem("eKlik_Business_Owner_Name"),
+                eKlik_Business_Owner_Title: localStorage.getItem("eKlik_Business_Owner_Title"),
+                eKlik_Business_Owner_Phone: localStorage.getItem("eKlik_Business_Owner_Phone"),
+                eKlik_Business_Owner_Email: localStorage.getItem("eKlik_Business_Owner_Email"),
+                eKlik_Physical_Address: localStorage.getItem("eKlik_Physical_Address"),
+                Company_Website: localStorage.getItem("Company_Website"),
+                eKlik_Privately_or_Publicly_Held: localStorage.getItem("eKlik_Privately_or_Publicly_Held"),
+                Ticker_Symbol: localStorage.getItem("Ticker_Symbol"),
+                Primary_Reason_for_accepting_payments: localStorage.getItem("Primary_Reason_for_accepting_payments"), 
+                Name_of_Exchange: localStorage.getItem("Name_of_Exchange"),
+                is_Property_Management_Company: JSON.parse(localStorage.getItem("is_Property_Management_Company")),
+                Payday_Lenders: JSON.parse(localStorage.getItem("Payday_Lenders")),
+                Subprime_Loan_Originator: JSON.parse(localStorage.getItem("Subprime_Loan_Originator")),
+                Credit_Repair_Services_Company: JSON.parse(localStorage.getItem("Credit_Repair_Services_Company")),
+                Debt_Consolidation_Services: JSON.parse(localStorage.getItem("Debt_Consolidation_Services")),
+                Loan_Modification_Services: JSON.parse(localStorage.getItem("Loan_Modification_Services")),
+                Online_Payment_Processor: JSON.parse(localStorage.getItem("Online_Payment_Processor")),
+                Online_Gambling_Related_Operations: JSON.parse(localStorage.getItem("Online_Gambling_Related_Operations")),
+                Business_Located_Outside_the_US: JSON.parse(localStorage.getItem("Business_Located_Outside_the_US")),
+                Mail_or_Telephone_Orders_Company: JSON.parse(localStorage.getItem("Mail_or_Telephone_Orders_Company")),
+                Adult_Entertainment_Businesses: JSON.parse(localStorage.getItem("Adult_Entertainment_Businesses")),
+                Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")),
+                
+            });
+        }
       window.Materialize.updateTextFields();
     }
+
+    
 
     handleInputChange(event) {
         const target = event.target;
@@ -144,6 +158,17 @@ class eKlik extends Component {
         return '0';
     }
 
+    onChange(e) {
+        let files = e.target.files;
+        console.log(files); 
+        let reader = new FileReader();
+        
+        reader.readAsDataURL(files[0]);
+        reader.onload = (e) => {
+            console.log(e.target.result);
+        }
+    }
+
     render() {
         const isPrivateOrPublicSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';  
         const isExchangeSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';   
@@ -175,6 +200,9 @@ class eKlik extends Component {
             {savingStatus}
                 <div className='container'>
                         <form className='col s12 form'>
+                            <div onSubmit={this.onFormSubmit}>
+                                <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
+                            </div>
                         <h4 >General Information</h4>
                             <Row>
                                 <Input s={6} name='eKlik_Company_Name' label="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
@@ -281,4 +309,4 @@ class eKlik extends Component {
     )};
 }
 
-export default eKlik;
+export default eKlik1;

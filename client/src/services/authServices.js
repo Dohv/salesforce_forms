@@ -1,9 +1,6 @@
 import axios from 'axios';
 
 const authServices = {
-  test: () => {
-    console.log(this.state);
-  },
 
   isAuthenticated: () => {
     const result = localStorage.getItem('token');

@@ -7,7 +7,7 @@ import KlikNPay from './KlikNPay';
 
 
 
-const FormMenu = ({match, isFormChosen, handleFormChoice}) => {
+const FormMenu = ({match, handleFormChoice}) => {
 
     const formSelect = (e) => {
         //console.log(e.target.innerHTML);
@@ -16,6 +16,18 @@ const FormMenu = ({match, isFormChosen, handleFormChoice}) => {
 
     let products = (localStorage.getItem('sfAccountProducts').split(';'));
     products = JSON.parse(products)
+    if(window.location.pathname === '/forms') {
+        const buttons = document.querySelectorAll('.chooseFormButton');
+        buttons.forEach((button) => {
+          //console.log(button.id);
+          if(button.id !== localStorage.getItem('selectedForm')) {
+            button.classList.remove("mystyle");
+          } else {
+            button.classList.remove("changeFormMenu")
+          }
+
+        })  
+    }
    
     return (
         <div className='formMenu'>
@@ -28,7 +40,7 @@ const FormMenu = ({match, isFormChosen, handleFormChoice}) => {
                         })}
                     </h4>
             
-
+                    
 
                 <Route path={`${match.url}/Remit`} component={Remit}/>
                 <Route path={`${match.url}/eKlik`} component={eKlik}/>

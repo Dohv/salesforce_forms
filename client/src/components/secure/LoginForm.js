@@ -16,7 +16,6 @@ const timeBasedGreeting = () => {
 }
 
 const LoginForm = (props) => {
-    console.log(props.isLoading);
     const loading = props.isLoading ? <div className='loadingAnimation'><Loading /></div> : <div className='emptyLoadingSpace'></div>;
     return (
         <div>

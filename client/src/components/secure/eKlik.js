@@ -5,10 +5,11 @@ import eKlikPage3 from './eKlikFormPages/eKlikPage3';
 import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
+import $ from "jquery";
 
 
 
-class Remit extends Component {
+class EKlik extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,19 +22,37 @@ class Remit extends Component {
         this.handleLastFormPage = this.handleLastFormPage.bind(this);
         this.handleBackRouteChangeAnimation = this.handleBackRouteChangeAnimation.bind(this);
         this.handleNextRouteChangeAnimation = this.handleNextRouteChangeAnimation.bind(this);
+        this.handleCurrentFormPage = this.handleCurrentFormPage.bind(this);
+        this,this.updateClass = this.updateClass.bind(this);
     }
     
+    componentDidMount() {
+        if(localStorage.getItem('selectedForm')) {
+            const buttons = document.querySelectorAll('.chooseFormButton');
+            
+            buttons.forEach((button) => {
+                if(button.id !== localStorage.getItem('selectedForm')) {
+                    button.classList.add("mystyle");
+                } else {
+                    button.classList.add("changeFormMenu")
+                }
+            })
+        }
+        this.updateClass(this.state.currentFormPage);
+    }
+
+    handleCurrentFormPage(num) {
+        this.setState({currentFormPage: num}, () => {})
+    }
+
       handleNextFormPage() {
         let next = this.state.currentFormPage + 1;
-        this.setState({ currentFormPage: next, function() {console.log(this.state.currentFormPage)}
-      });
+        this.setState({ currentFormPage: next
+      }, () => {});
         
       }
     
       handleLastFormPage() {
-        console.log('in handleLastFormPage function');
-        console.log(this.state.currentFormPage);
-    
         let last = this.state.currentFormPage - 1;
         this.setState({ currentFormPage: last, });
       }
@@ -42,28 +61,44 @@ class Remit extends Component {
           this.setState({
             enterOffset: -100,
             leaveOffset: 100,
-          }, function() {})
+          }, () => {})
       }
 
       handleNextRouteChangeAnimation() {
         this.setState({
           enterOffset: 100,
           leaveOffset: -100,
-        }, function() {})
+        }, () => {})
     }
+
+    updateClass(num) {
+        const listItems = document.querySelectorAll('.eklikList');
+            console.log(num);
+          listItems.forEach(div => {
+              $(div).removeClass('active lessThan');
+             let divNum = parseInt(div.id[div.id.length - 1]); 
+             console.log({divNum, num});
+            if(divNum === num) {
+                $(div).addClass('active')
+            }
+            if(divNum <= num) {
+                $(div).addClass('lessThan');
+            }
+          });
+      }
 
     render () {
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
-        const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
-        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink back' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0) }} to={`${this.props.match.path}/${lastPage}`}>Back</Link>;
+        const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage + 1) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
+        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink back ripple' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage - 1) }} to={`${this.props.match.path}/${lastPage}`}>Back</Link>;
         
         
         return (
             <React.Fragment>
                     {backButton}
                     {nextButton}
-                   <Sidebar /> 
+                   <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass}/> 
             <AnimatedSwitch
                 atEnter={{ offset: this.state.enterOffset }}
                 atLeave={{ offset: this.state.leaveOffset }}
@@ -85,4 +120,4 @@ class Remit extends Component {
     }
 };
 
-export default Remit;
+export default EKlik;

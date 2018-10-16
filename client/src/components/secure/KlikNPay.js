@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Row, Input, Icon } from 'react-materialize';
-import { Link } from "react-router-dom";
 import formDataServices from '../../services/formDataServices';
 
 class KlikNPay extends Component {

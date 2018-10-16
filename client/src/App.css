@@ -39,27 +39,10 @@
 }
 
 
-a.activeNavLink {
-  font-weight: bold;
-  font-size: 18px;
-  list-style-type: none;
-  color: #ffffff;
-}
-
-a.navLink {
-  font-size: 18px;
-  list-style-type: none;
-  color: #ffffff;
-}
-
-a, a:active, a:visited, a:hover {
-  text-decoration: none;
-}
-
 .leftNavContainer {
-  padding: 20px;
+  padding: 5px;
   position: fixed !important;
-  width: 180px;
+  width: 200px;
   background-color: #ffffff;
   height: 100vh; 
   border-right: 1px solid lightgrey;
@@ -68,7 +51,74 @@ a, a:active, a:visited, a:hover {
 }
 
 .sidebar-content {
-  border: 3px solid #55B748;
+  counter-reset: step;
+  padding: 0px;
+}
+
+.sidebar-content li {
+  list-style-type: none;
+  position: relative;
+  height: 50px;
+  margin: 30px 0px !important;
+  font-family: 'Omnes-medium';
+  border-radius: 4px;
+  padding-top: 12px;
+  color: #80868B;
+}
+
+.stepLink {
+  color: #80868B;
+}
+
+.sidebar-content li:active {
+  background-color: #DADCE0;
+  color: #000000;
+}
+
+.sidebar-content li:before {
+  content: counter(step);
+  counter-increment: step;
+  width: 30px;
+  height: 30px;
+  background:#80868B;
+  display: inline-block;
+  text-align: center;
+  line-height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  font-family: 'Omnes-light';
+  color: #ffffff;
+}
+
+.sidebar-content li:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 3px;
+  background-color: #80868B;
+  left: 13.3px;
+  top: -38px
+}
+
+.sidebar-content li:first-child:after {
+  content: none;
+}
+
+.sidebar-content li.active, .sidebar-content li.active > a {
+  color: #1B2F57;
+  background-color: #DADCE0;
+}
+
+.sidebar-content li.active:before, .sidebar-content li.active:after {
+  background-color: #55B748;
+}
+
+.sidebar-content li.lessThan > a {
+  color: #1B2F57;
+}
+
+.sidebar-content li.lessThan:after, .sidebar-content li.lessThan:before {
+  background-color: #55B748;
 }
 
 .header {
@@ -184,9 +234,7 @@ body {
   margin: 0 auto
 }
 
-.active {
-  color: #01579b !important;
-}
+
 
 /* label underline focus color */
 .input-field input[type=email]:focus {
@@ -250,8 +298,8 @@ input:-webkit-autofill {
   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-  -webkit-transition: box-shadow .2s, margin .2s; /* For Safari 3.1 to 6.0 */
-    transition: box-shadow .2s, margin .2s display .2s ease;
+  -webkit-transition: box-shadow .2s, margin .2s, display .2s ease; /* For Safari 3.1 to 6.0 */
+    transition: box-shadow .2s, margin .2s, display .2s ease;
 }
 
 /* .chooseFormButton:active {
@@ -278,7 +326,7 @@ input:-webkit-autofill {
   margin: 0px;
   height: 55px;
   font-size: 50px;
-  box-shadow: none;
+  box-shadow:0px 1px 2px 0px rgba(60, 64, 67, 0.3), 0px 2px 6px 2px rgba(60, 64, 67, 0.15);
   position: fixed;
   top: 84px;
   z-index: 99;
@@ -487,24 +535,48 @@ h4 {
 }
 
 .FFLink {
-  color: white;
-  background: teal;
-  padding: 15px;
-  margin: 20px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-family: 'Omnes-medium';
+  font-size: 14px;
+  letter-spacing: .6px;
+  padding-bottom: 6px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 6px;
+  pointer-events: initial;
+  text-transform: none;
   position: fixed;
   z-index: 99;
 }
 
 .next, .back {
-  top: 86%;
+  top: 87%;
 }
 
 .next {
-  left: 86%;
+  left: 88%;
+  color: white;
+  background: #1B2F57;
 }
 
 .back {
-  left: 20%;
+  left: 19%;
+  background: white;
+  color: #1B2F57;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: #3F6AB3 radial-gradient(circle, transparent 1%, #3F6AB3 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #3F6AB3;
+  background-size: 100%;
+  transition: background 0s;
 }
 
 .switch-wrapper {

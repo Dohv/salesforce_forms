@@ -66,3 +66,8 @@ app.use('/users', userRouter);
 app.get('*', function (req, res) {
   res.status(404).send({message: 'Oops! Something went wrong!'})
 });
+
+
+var jsforce = require('jsforce');
+var conn = new jsforce.Connection();
+

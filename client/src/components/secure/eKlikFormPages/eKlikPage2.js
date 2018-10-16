@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Row, Input, Icon } from 'react-materialize'
+import { Row, Input } from 'react-materialize'
 import formDataServices from '../../../services/formDataServices';
 
 
-class eKlik extends Component {
+class eKlik2 extends Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -41,9 +41,18 @@ class eKlik extends Component {
         this.handleSave = this.handleSave.bind(this);
     }
 
+
+    _isMounted = false;
+
     componentDidMount() {
-        this.getFormData();
+      this._isMounted = true;
+      this.getFormData();
     }
+
+    componentWillMount() {
+        this._isMounted = false;
+    }
+
 
     async handleSave(e) {
         const target = e.target;
@@ -56,33 +65,35 @@ class eKlik extends Component {
 
     async getFormData() {
         await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
-        this.setState({
-          eKlik_Bank_Routing_Number: localStorage.getItem("eKlik_Bank_Routing_Number"),
-          eKlik_Bank_Account_Number: localStorage.getItem("eKlik_Bank_Account_Number"),
-          Fiserv: JSON.parse(localStorage.getItem("Fiserv")),
-          RPPS: JSON.parse(localStorage.getItem("RPPS")),
-          Other_Online_Payment_Processor: localStorage.getItem("Other_Online_Payment_Processor"),
-          Check_Payment_Name_1: localStorage.getItem("Check_Payment_Name_1"),
-          Check_Payment_Name_2: localStorage.getItem("Check_Payment_Name_2"),
-          Check_Payment_Name_3: localStorage.getItem("Check_Payment_Name_3"),
-          Check_Payment_Name_4: localStorage.getItem("Check_Payment_Name_4"),
-          Check_Payment_Name_5: localStorage.getItem("Check_Payment_Name_5"),
-          Check_Payment_Name_6: localStorage.getItem("Check_Payment_Name_6"),
-          Check_Payment_Name_7: localStorage.getItem("Check_Payment_Name_7"),
-          Check_Payment_Name_8: localStorage.getItem("Check_Payment_Name_8"),
-          Check_Payment_Name_9: localStorage.getItem("Check_Payment_Name_9"),
-          Check_Payment_Name_10: localStorage.getItem("Check_Payment_Name_10"),
-          Remittance_Address_1: localStorage.getItem("Remittance_Address_1"),
-          Remittance_Address_2: localStorage.getItem("Remittance_Address_2"),
-          Remittance_Address_3: localStorage.getItem("Remittance_Address_3"),
-          Remittance_Address_4: localStorage.getItem("Remittance_Address_4"),
-          Remittance_Address_5: localStorage.getItem("Remittance_Address_5"),
-          Remittance_Address_6: localStorage.getItem("Remittance_Address_6"),
-          Remittance_Address_7: localStorage.getItem("Remittance_Address_7"),
-          Remittance_Address_8: localStorage.getItem("Remittance_Address_8"),
-          Remittance_Address_9: localStorage.getItem("Remittance_Address_9"),
-          Remittance_Address_10: localStorage.getItem("Remittance_Address_10"),
-        });
+       if(this._isMounted) {
+          this.setState({
+            eKlik_Bank_Routing_Number: localStorage.getItem("eKlik_Bank_Routing_Number"),
+            eKlik_Bank_Account_Number: localStorage.getItem("eKlik_Bank_Account_Number"),
+            Fiserv: JSON.parse(localStorage.getItem("Fiserv")),
+            RPPS: JSON.parse(localStorage.getItem("RPPS")),
+            Other_Online_Payment_Processor: localStorage.getItem("Other_Online_Payment_Processor"),
+            Check_Payment_Name_1: localStorage.getItem("Check_Payment_Name_1"),
+            Check_Payment_Name_2: localStorage.getItem("Check_Payment_Name_2"),
+            Check_Payment_Name_3: localStorage.getItem("Check_Payment_Name_3"),
+            Check_Payment_Name_4: localStorage.getItem("Check_Payment_Name_4"),
+            Check_Payment_Name_5: localStorage.getItem("Check_Payment_Name_5"),
+            Check_Payment_Name_6: localStorage.getItem("Check_Payment_Name_6"),
+            Check_Payment_Name_7: localStorage.getItem("Check_Payment_Name_7"),
+            Check_Payment_Name_8: localStorage.getItem("Check_Payment_Name_8"),
+            Check_Payment_Name_9: localStorage.getItem("Check_Payment_Name_9"),
+            Check_Payment_Name_10: localStorage.getItem("Check_Payment_Name_10"),
+            Remittance_Address_1: localStorage.getItem("Remittance_Address_1"),
+            Remittance_Address_2: localStorage.getItem("Remittance_Address_2"),
+            Remittance_Address_3: localStorage.getItem("Remittance_Address_3"),
+            Remittance_Address_4: localStorage.getItem("Remittance_Address_4"),
+            Remittance_Address_5: localStorage.getItem("Remittance_Address_5"),
+            Remittance_Address_6: localStorage.getItem("Remittance_Address_6"),
+            Remittance_Address_7: localStorage.getItem("Remittance_Address_7"),
+            Remittance_Address_8: localStorage.getItem("Remittance_Address_8"),
+            Remittance_Address_9: localStorage.getItem("Remittance_Address_9"),
+            Remittance_Address_10: localStorage.getItem("Remittance_Address_10"),
+          });
+        } 
       window.Materialize.updateTextFields();
     }
 
@@ -187,4 +198,4 @@ class eKlik extends Component {
     )};
 }
 
-export default eKlik;
+export default eKlik2;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RemitPage1 from './RemitFormPages/RemitPage1';
 import Blue from './Blue';
 import Red from './Red';
+import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
 
@@ -22,9 +23,22 @@ class Remit extends Component {
         this.handleNextRouteChangeAnimation = this.handleNextRouteChangeAnimation.bind(this);
     }
     
+    componentDidMount() {
+        if(localStorage.getItem('selectedForm')) {
+            const buttons = document.querySelectorAll('.chooseFormButton');
+            
+            buttons.forEach((button) => {
+                if(button.id !== localStorage.getItem('selectedForm')) {
+                    button.classList.add("mystyle");
+                } else {
+                    button.classList.add("changeFormMenu")
+                }
+            })
+        }
+    }
+
+
       handleNextFormPage() {
-        console.log('in handleNextFormPage function');
-        console.log(this.state.currentFormPage);
         let next = this.state.currentFormPage + 1;
         this.setState({ currentFormPage: next, function() {console.log(this.state.currentFormPage)}
       });
@@ -32,9 +46,6 @@ class Remit extends Component {
       }
     
       handleLastFormPage() {
-        console.log('in handleLastFormPage function');
-        console.log(this.state.currentFormPage);
-    
         let last = this.state.currentFormPage - 1;
         this.setState({ currentFormPage: last, });
       }
@@ -56,17 +67,15 @@ class Remit extends Component {
     render () {
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
-        const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation() }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
-        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation() }} to={`${this.props.match.path}/${lastPage}`}>Back</Link>;
+        const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
+        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink back' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0) }} to={`${this.props.match.path}/${lastPage}`}>Back</Link>;
         
         
         return (
             <React.Fragment>
-
-                <h2 className='form-title'>Remit</h2>
-
                     {backButton}
                     {nextButton}
+                    <Sidebar />
             <AnimatedSwitch
                 atEnter={{ offset: this.state.enterOffset }}
                 atLeave={{ offset: this.state.leaveOffset }}

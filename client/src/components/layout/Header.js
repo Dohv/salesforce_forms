@@ -33,7 +33,7 @@ class Header extends Component {
         return (
              <header className='header' id='navbar'>
                  <div className='headerComp'>
-                    <Link to={'/forms'} onClick={() => {this.handleAccountChange(); this.props.removeFormChoice()}}><i className="fas fa-home fa-3x checkaltGreen"></i></Link>
+                    <Link to={'/forms'} onClick={() => {this.handleAccountChange()}}><i className="fas fa-home fa-3x checkaltGreen"></i></Link>
                     <div className={'header-text'}>Checkalt</div>
                  </div>
                  <h3 className='account-text'>Account: {localStorage.getItem('sfAccountName')}</h3> 

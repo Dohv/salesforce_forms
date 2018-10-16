@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Row, Input, Icon } from 'react-materialize'
+import { Row, Input } from 'react-materialize'
 import formDataServices from '../../../services/formDataServices';
 
 
-class eKlik extends Component {
+class eKlik3 extends Component {
     constructor(props) {
         super(props);
         this.state ={
@@ -31,8 +31,15 @@ class eKlik extends Component {
         this.handleSave = this.handleSave.bind(this);
     }
 
+    _isMounted = false;
+
     componentDidMount() {
+        this._isMounted = true;
         this.getFormData();
+    }
+
+    componentWillMount() {
+        this._isMounted = false;
     }
 
     async handleSave(e) {
@@ -46,23 +53,25 @@ class eKlik extends Component {
 
     async getFormData() {
         await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
-        this.setState({
-          Mask_1: localStorage.getItem("Mask_1"),
-          Mask_2: localStorage.getItem("Mask_1"),
-          Mask_3: localStorage.getItem("Mask_1"),
-          Mask_4: localStorage.getItem("Mask_1"),
-          Mask_5: localStorage.getItem("Mask_1"),
-          Contains_Alpha_1: JSON.parse(localStorage.getItem("Contains_Alpha_1")),
-          Contains_Alpha_2: JSON.parse(localStorage.getItem("Contains_Alpha_2")),
-          Contains_Alpha_3: JSON.parse(localStorage.getItem("Contains_Alpha_3")),
-          Contains_Alpha_4: JSON.parse(localStorage.getItem("Contains_Alpha_4")),
-          Contains_Alpha_5: JSON.parse(localStorage.getItem("Contains_Alpha_5")),
-          Contains_Numeric_1: JSON.parse(localStorage.getItem("Contains_Numeric_1")),
-          Contains_Numeric_2: JSON.parse(localStorage.getItem("Contains_Numeric_2")),
-          Contains_Numeric_3: JSON.parse(localStorage.getItem("Contains_Numeric_3")),
-          Contains_Numeric_4: JSON.parse(localStorage.getItem("Contains_Numeric_4")),
-          Contains_Numeric_5: JSON.parse(localStorage.getItem("Contains_Numeric_5")),
-        });
+        if(this._isMounted) {
+            this.setState({
+            Mask_1: localStorage.getItem("Mask_1"),
+            Mask_2: localStorage.getItem("Mask_1"),
+            Mask_3: localStorage.getItem("Mask_1"),
+            Mask_4: localStorage.getItem("Mask_1"),
+            Mask_5: localStorage.getItem("Mask_1"),
+            Contains_Alpha_1: JSON.parse(localStorage.getItem("Contains_Alpha_1")),
+            Contains_Alpha_2: JSON.parse(localStorage.getItem("Contains_Alpha_2")),
+            Contains_Alpha_3: JSON.parse(localStorage.getItem("Contains_Alpha_3")),
+            Contains_Alpha_4: JSON.parse(localStorage.getItem("Contains_Alpha_4")),
+            Contains_Alpha_5: JSON.parse(localStorage.getItem("Contains_Alpha_5")),
+            Contains_Numeric_1: JSON.parse(localStorage.getItem("Contains_Numeric_1")),
+            Contains_Numeric_2: JSON.parse(localStorage.getItem("Contains_Numeric_2")),
+            Contains_Numeric_3: JSON.parse(localStorage.getItem("Contains_Numeric_3")),
+            Contains_Numeric_4: JSON.parse(localStorage.getItem("Contains_Numeric_4")),
+            Contains_Numeric_5: JSON.parse(localStorage.getItem("Contains_Numeric_5")),
+            });
+        }
       window.Materialize.updateTextFields();
     }
 
@@ -218,7 +227,7 @@ class eKlik extends Component {
     )};
 }
 
-export default eKlik;
+export default eKlik3;
                     
 
                               

@@ -26,6 +26,9 @@ class App extends Component {
       sfAccountType: localStorage.getItem('sfAccountType') ? localStorage.getItem('sfAccountType') : '',
       clients: JSON.parse(localStorage.getItem('clients')) ? JSON.parse(localStorage.getItem('clients')) : [],
       isFormChosen: false,
+      currentFormPage: 1,
+      enterOffset: 100,
+      leaveOffset: -100,
     };
 
     // Bind functions:
@@ -33,7 +36,6 @@ class App extends Component {
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
     this.handleMessageReset = this.handleMessageReset.bind(this);
     this.handleFormChoice = this.handleFormChoice.bind(this);
-    this.removeFormChoice = this.removeFormChoice.bind(this);
   }
   
 
@@ -76,42 +78,20 @@ class App extends Component {
   handleFormChoice() {
     this.setState({
       isFormChosen: true,
-    }, () => {
-      //console.log(localStorage.getItem('selectedForm'));
+    }, ()=>{
       const buttons = document.querySelectorAll('.chooseFormButton');
-      buttons.forEach((button) => {
-        //console.log(button.id);
-        if(button.id !== localStorage.getItem('selectedForm')) {
-          button.classList.add("mystyle");
-        } else {
-          button.classList.add("changeFormMenu")
-        }
-      })
-
+    buttons.forEach((button) => {
+      //console.log(button.id);
+      if(button.id !== localStorage.getItem('selectedForm')) {
+        button.classList.add("mystyle");
+      } else {
+        button.classList.add("changeFormMenu")
+      }
+    })
     })
   }
 
-  removeFormChoice() {
-    this.setState({
-      isFormChosen: false,
-    }, () => {
-        const buttons = document.querySelectorAll('.chooseFormButton');
-        buttons.forEach((button) => {
-          //console.log(button.id);
-          if(button.id !== localStorage.getItem('selectedForm')) {
-            button.classList.remove("mystyle");
-          } else {
-            button.classList.remove("changeFormMenu")
-          }
-        })  
-    })
-  }
-
-
-  
   render() {
-    
-    {if (window.location.pathname === '/forms') {this.removeFormChoice()}}
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} /> : '';
     return (
       <BrowserRouter>
@@ -125,7 +105,11 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
                                               />} /> 
-              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} sfAccountType={this.state.sfAccountType} handleFormChoice={this.handleFormChoice} isFormChosen={this.state.isFormChosen} />} />;
+              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
+                                                sfAccountType={this.state.sfAccountType} 
+                                                handleFormChoice={this.handleFormChoice} 
+                                                isFormChosen={this.state.isFormChosen} 
+                                              />} />;
               <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} />} />
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
               <PrivateRoute component={NoMatch} />

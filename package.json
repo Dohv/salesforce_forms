@@ -10,7 +10,7 @@
     "start-dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client-dev\"",
     "start": "node app.js",
     "debugger": "DEBUG=*:* npm run dev",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install"
   },
   "repository": {
     "type": "git",

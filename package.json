@@ -8,7 +8,7 @@
     "server-dev": "nodemon server/app.js",
     "client-dev": "npm start --prefix client",
     "start-dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client-dev\"",
-    "start": "node app.js",
+    "start": "node ./server/app.js",
     "debugger": "DEBUG=*:* npm run dev"
   },
   "repository": {

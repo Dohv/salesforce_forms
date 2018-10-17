@@ -23,7 +23,7 @@ class EKlik extends Component {
         this.handleBackRouteChangeAnimation = this.handleBackRouteChangeAnimation.bind(this);
         this.handleNextRouteChangeAnimation = this.handleNextRouteChangeAnimation.bind(this);
         this.handleCurrentFormPage = this.handleCurrentFormPage.bind(this);
-        this,this.updateClass = this.updateClass.bind(this);
+        this.updateClass = this.updateClass.bind(this);
     }
     
     componentDidMount() {
@@ -38,7 +38,9 @@ class EKlik extends Component {
                 }
             })
         }
-        this.updateClass(this.state.currentFormPage);
+        //console.log(window.location.pathname[window.location.pathname.length - 1]);
+        this.updateClass(parseInt(window.location.pathname[window.location.pathname.length - 1]));
+
     }
 
     handleCurrentFormPage(num) {
@@ -69,25 +71,27 @@ class EKlik extends Component {
           enterOffset: 100,
           leaveOffset: -100,
         }, () => {})
-    }
-
+    } 
     updateClass(num) {
         const listItems = document.querySelectorAll('.eklikList');
-            console.log(num);
           listItems.forEach(div => {
               $(div).removeClass('active lessThan');
-             let divNum = parseInt(div.id[div.id.length - 1]); 
-             console.log({divNum, num});
+             let divNum = parseInt(div.id[div.id.length - 1], 10); 
             if(divNum === num) {
                 $(div).addClass('active')
             }
-            if(divNum <= num) {
+            if(divNum < num) {
                 $(div).addClass('lessThan');
             }
           });
       }
 
     render () {
+        let location = parseInt(window.location.pathname[window.location.pathname.length - 1]);
+         if(location !== this.state.currentFormPage) {
+            this.updateClass(location);
+        }
+        
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
         const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage + 1) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
@@ -98,7 +102,7 @@ class EKlik extends Component {
             <React.Fragment>
                     {backButton}
                     {nextButton}
-                   <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass}/> 
+                   <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location}/> 
             <AnimatedSwitch
                 atEnter={{ offset: this.state.enterOffset }}
                 atLeave={{ offset: this.state.leaveOffset }}

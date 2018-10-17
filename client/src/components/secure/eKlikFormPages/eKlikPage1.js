@@ -39,7 +39,6 @@ class eKlik1 extends Component {
             Mail_or_Telephone_Orders_Company: localStorage.getItem("Mail_or_Telephone_Orders_Company") ? localStorage.getItem("Mail_or_Telephone_Orders_Company") : false,
             Adult_Entertainment_Businesses: localStorage.getItem("Adult_Entertainment_Businesses") ? localStorage.getItem("Adult_Entertainment_Businesses") : false,
             Telemarketing_Company: localStorage.getItem("Telemarketing_Company") ? localStorage.getItem("Telemarketing_Company") : false,
-            test: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -200,9 +199,6 @@ class eKlik1 extends Component {
             {savingStatus}
                 <div className='container'>
                         <form className='col s12 form'>
-                            <div onSubmit={this.onFormSubmit}>
-                                <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
-                            </div>
                         <h4 >General Information</h4>
                             <Row>
                                 <Input s={6} name='eKlik_Company_Name' label="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />

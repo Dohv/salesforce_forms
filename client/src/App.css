@@ -42,7 +42,7 @@
 .leftNavContainer {
   padding: 5px;
   position: fixed !important;
-  width: 200px;
+  width: 210px;
   background-color: #ffffff;
   height: 100vh; 
   border-right: 1px solid lightgrey;
@@ -62,7 +62,7 @@
   margin: 30px 0px !important;
   font-family: 'Omnes-medium';
   border-radius: 4px;
-  padding-top: 12px;
+  padding: 12px;
   color: #80868B;
 }
 
@@ -96,7 +96,7 @@
   height: 100%;
   width: 3px;
   background-color: #80868B;
-  left: 13.3px;
+  left: 25.3px;
   top: -38px
 }
 

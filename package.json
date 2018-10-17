@@ -9,7 +9,8 @@
     "client-dev": "npm start --prefix client",
     "start-dev": "concurrently --kill-others-on-fail \"npm run server-dev\" \"npm run client-dev\"",
     "start": "node ./server/app.js",
-    "debugger": "DEBUG=*:* npm run dev"
+    "debugger": "DEBUG=*:* npm run dev",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
     "type": "git",

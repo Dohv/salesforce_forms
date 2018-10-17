@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 
  
-mongoose.connect("mongodb://localhost:27017/ApiAuth", { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/ApiAuth", { useNewUrlParser: true});
 
 
 var db = mongoose.connection;

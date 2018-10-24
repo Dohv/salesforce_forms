@@ -36,7 +36,7 @@ const formDataServices = {
         })
        } 
     } catch(error) {
-      console.log("this is getFormData error:", error, accountId, formType);
+      console.log("this is getFormData error:", {error, token: localStorage.getItem("token")});
     }
   },
 

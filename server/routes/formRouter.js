@@ -5,7 +5,7 @@ const passportConfig = require('../passport');
 const { getFormDataFromSF, postNewForm, updateFormData, getClients } = require('../controllers/formController');
 
 formRouter.post('/form',
-                passport.authenticate('jwt', {session: false}), 
+                passport.authenticate('jwt', {session: false}),
                 getFormDataFromSF
               );
 formRouter.post('/clients',

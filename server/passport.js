@@ -16,8 +16,11 @@ passport.use(new JWTStrategy({
     
     // if user doesn't exsist, ...
     if(!user) {
+      console.log('no user');
       return done(null, false);
     }
+
+    console.log('found user', user);
 
     // Otherwise, return the user
     done(null, user);

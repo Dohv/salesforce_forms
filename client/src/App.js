@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import authServices from './services/authServices';
 import formDataServices from './services/formDataServices';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Header from "./components/layout/Header";
 import Login from './components/secure/Login';
@@ -98,6 +98,7 @@ class App extends Component {
         <div>
             {headerhandler}
             <Switch>
+
               <Route exact path="/login" component={props => <Login {...props}
                                                 handleSignInSubmit={this.handleSignInSubmit} isLoggedIn={this.state.isLoggedIn}
                                                 isLoading={this.state.isLoading}
@@ -105,6 +106,13 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
                                               />} /> 
+              <Route exact path="/" render={() => (
+                this.state.loggedIn ? (
+                  <Redirect to="/forms"/>
+                ) : (
+                  <Redirect to="/login"/>
+                )
+              )}/>                               
               <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
                                                 sfAccountType={this.state.sfAccountType} 
                                                 handleFormChoice={this.handleFormChoice} 

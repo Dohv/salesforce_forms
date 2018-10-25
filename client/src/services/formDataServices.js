@@ -10,7 +10,6 @@ const formDataServices = {
     }
     try {
       let formData = await axios.post('/api/form', { accountId, formType }, {"headers": headers});
-      console.log({accountId, formType, headers});
       if(formData.data.data === 0) {
        try {
           await axios.post('/api/new', { accountId, formType }, {"headers": headers});
@@ -36,7 +35,7 @@ const formDataServices = {
         })
        } 
     } catch(error) {
-      console.log("this is getFormData error:", {error, token: localStorage.getItem("token")});
+      console.log("this is getFormData error:", error);
     }
   },
 

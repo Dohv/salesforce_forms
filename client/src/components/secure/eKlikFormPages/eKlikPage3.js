@@ -115,7 +115,7 @@ class eKlik3 extends Component {
             {savingStatus}
                 <div className='container'>
                         <form className='col s12 form'>
-                          <h4 >Account Masking Information (optional - stringly suggested)</h4>
+                          <h4 >Account Masking Information (optional - strongly suggested)</h4>
                           <Row>
                           <p className='form-comment'>Describe the Structure(s) of the Account Numbers Consumers Might See on Their Statements/Invoices, aka the "Account Mask", in the Chart Below</p>
                           <br/> 

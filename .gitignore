@@ -1,4 +1,4 @@
-.env
+
 
 /node_modules
 /configuration
@@ -9,5 +9,4 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/seeds
 npm-debug.log*

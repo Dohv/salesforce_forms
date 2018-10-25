@@ -10,9 +10,9 @@ passport.use(new JWTStrategy({
   secretOrKey: process.env.JWT_SECRET
 }, async (payload, done) => {
   try {
-    console.log('about to find User by id', {stuff: payload.sub});
+    //console.log('about to find User by id', {user: payload.sub});
     // Find the user specified in token
-    const user = await User.findById(payload.sub);
+    const user = await User.find({id: payload.sub});
     
     // if user doesn't exsist, ...
     if(!user) {
@@ -20,7 +20,7 @@ passport.use(new JWTStrategy({
       return done(null, false);
     }
 
-    console.log('found user', user);
+    //console.log('found user', user);
 
     // Otherwise, return the user
     done(null, user);

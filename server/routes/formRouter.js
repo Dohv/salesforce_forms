@@ -6,18 +6,22 @@ const { getFormDataFromSF, postNewForm, updateFormData, getClients } = require('
 
 formRouter.post('/form',
                 passport.authenticate('jwt', {session: false}),
+                
                 getFormDataFromSF
               );
 formRouter.post('/clients',
-              passport.authenticate('jwt', {session: false}), 
+              //passport.authenticate('jwt', {session: false}), 
+              //passport.authenticate('local', {session: false}),
               getClients
             );
 formRouter.post('/new',
-                passport.authenticate('jwt', {session: false}),
+                //passport.authenticate('jwt', {session: false}),
+                //passport.authenticate('local', {session: false}),
                 postNewForm
               );
 formRouter.post('/update',
-              passport.authenticate('jwt', {session: false}),
+              //passport.authenticate('jwt', {session: false}),
+              //passport.authenticate('local', {session: false}),
               updateFormData
             );
 

@@ -55,7 +55,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   //to let react-router handle routing in prod.
   app.get('*', (req, res) => {
-      const index = path.join(__dirname, 'client/build', 'index.html')
+      const index = path.resolve(__dirname, 'client/build', 'index.html')
       res.sendFile(index);
   });
 }

@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === 'production') {
   //to let react-router handle routing in prod.
   app.get('*', (req, res) => {
       console.log("about to resolve path");
-      const index = path.resolve(__dirname, 'client/build', 'index.html');
+      const index = path.resolve(__dirname, '/build', 'index.html');
       console.log(index);
       console.log('resolved path');
       res.sendFile(index);

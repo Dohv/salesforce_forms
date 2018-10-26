@@ -68,8 +68,9 @@ module.exports = {
           const result = JSON.parse(body);
           const url = result.instance_url;
           const sfToken = result.access_token;
+          console.log(result);
            request({
-            url: `${url}/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
+            url: `https://cs77.salesforce.com/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken

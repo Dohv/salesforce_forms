@@ -70,7 +70,7 @@ module.exports = {
           const sfToken = result.access_token;
           console.log(result);
            request({
-            url: `https://cs77.salesforce.com/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
+            url: `${url}/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken

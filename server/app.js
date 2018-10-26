@@ -57,6 +57,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req, res) => {
       console.log("about to resolve path");
       const index = path.resolve(__dirname, 'client/build', 'index.html');
+      console.log(index);
       console.log('resolved path');
       res.sendFile(index);
   });

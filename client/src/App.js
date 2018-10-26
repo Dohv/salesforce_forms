@@ -106,6 +106,11 @@ class App extends Component {
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
                                               />} /> 
+              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
+                                                sfAccountType={this.state.sfAccountType} 
+                                                handleFormChoice={this.handleFormChoice} 
+                                                isFormChosen={this.state.isFormChosen} 
+                                              />} />;
               <Route exact path="/" render={() => (
                 this.state.loggedIn ? (
                   <Redirect to="/forms"/>
@@ -113,11 +118,6 @@ class App extends Component {
                   <Redirect to="/login"/>
                 )
               )}/>                               
-              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
-                                                sfAccountType={this.state.sfAccountType} 
-                                                handleFormChoice={this.handleFormChoice} 
-                                                isFormChosen={this.state.isFormChosen} 
-                                              />} />;
               <PrivateRoute path={'/clients'} component={props => <ClientList {...props} clients={this.state.clients} />} />
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
               <PrivateRoute component={NoMatch} />

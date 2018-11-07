@@ -13,32 +13,6 @@
   font-family: 'Omnes-light';
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-
 .leftNavContainer {
   padding: 5px;
   position: fixed !important;
@@ -122,8 +96,8 @@
 }
 
 .header {
-  font-family: 'Omnes-light';
-  background-color: #1B2F57;
+  font-family: 'Helvetica Neue Light';
+  background-color: #233E76;
   text-align: center;
   display: flex;
   justify-content: space-between;
@@ -196,29 +170,65 @@ body {
   flex-direction: column;
 }
 
+
 .login-header {
   color: #646464;
 }
 
 .greeting {
   color: rgb(23, 173, 25);
-  font-size: 7vh;
+  font-size: 36px;
   font-family: 'Omnes-Light';
   display: flex;
   justify-content: center;
-  margin: 30px 0 20px 0;
+  margin: 70px 0 20px 0;
+}
+
+
+.center-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#email, #password {
+  border-left: none;
+  line-height: 2.6;
+}
+
+.input-group-addon {
+  background: white;
+}
+
+.login-button-container {
+  text-align: center;
+}
+
+#login-button {
+  width: 100px;
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: white;
-  width: 75vw;
-  height: 70vh;
+  width: 650px;
+  height: 550px;
   border-radius: 25px;
   -webkit-box-shadow: 0px 0px 4px 1px rgba(37, 37, 37, 0.46);
   -moz-box-shadow: 0px 0px 4px 1px rgba(37, 37, 37, 0.46);
   box-shadow: 0px 0px 4px 1px rgba(37, 37, 37, 0.46);
+}
+
+@media(max-width: 700px) {
+  .login-form {
+    width: 75vw;
+    height: 65vh
+  }
+
+  .greeting {
+    font-size: 31px;
+  }
 }
 
 .loginFormInput {
@@ -254,7 +264,8 @@ body {
 }
 
 #klik_logo {
-  height: 10vh;
+  width: 60%;
+  height: auto;
   margin-bottom: 3vh;
 }
 
@@ -646,5 +657,15 @@ h4 {
   align-self: center;
 }
 
+.name {
+  display: none;
+}
 
+/* --------------- login page mobile ---------------- */
+
+/* @media only screen and (max-width: 600px) {
+  .greeting {
+    font-size: 5vh;
+  }
+} */
 

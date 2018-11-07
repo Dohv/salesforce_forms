@@ -1,6 +1,7 @@
 import React from 'react';
 import Loading from '../Loading';
-import { Row, Button } from 'react-materialize';
+//import { Row } from 'react-materialize';
+import { Form, Row, Col, Button, FormControl, FormGroup, InputGroup, HelpBlock } from 'react-bootstrap';
 
 const timeBasedGreeting = () => {
     let greeting = "";
@@ -17,45 +18,51 @@ const timeBasedGreeting = () => {
 
 const LoginForm = (props) => {
     const loading = props.isLoading ? <div className='loadingAnimation'><Loading /></div> : <div className='emptyLoadingSpace'></div>;
+    
     return (
-        <div>
+        <div className='login-form'>
             <form   onSubmit={(e) => props.submitForm(e)}
-                className="login-form">
+                className='center-form'>
             <div className="greeting">{timeBasedGreeting()}</div>
             
-                <div className="row">
-                    <div className="input-field col s12 loginFormInput">
-                        <i className="material-icons prefix">account_circle</i>
-                        <input id="email" 
-                            type="email" 
-                            value={props.email}
+                
+                <FormGroup>
+                    <InputGroup>
+                    <InputGroup.Addon><i className="fas fa-user"></i></InputGroup.Addon>
+                    <FormControl 
+                        autoFocus
+                        id="email" 
+                        type="email" 
+                        placeholder='Email'
+                        value={props.email}
+                        name="email"
+                        onChange={props.handleEmailChange}/>
+                    </InputGroup>
+                </FormGroup>  
+                
+                <FormGroup>
+                    <InputGroup>
+                    <InputGroup.Addon><i className="fas fa-lock"></i></InputGroup.Addon>
+                    <FormControl id="password" 
+                            type="password" 
+                            placeholder='Password'
+                            value={props.password}
                             name="email"
-                            onChange={props.handleEmailChange} />
-                        <label className='login-label' htmlFor="email">Email</label>
-                    </div>
-                </div>
-                    
-                <div className="row password-animation-container">
-                    <div className="input-field col s12 loginFormInput">
-                        <i className="material-icons prefix">lock</i>
-                        <input id="password" 
-                        type="password" 
-                        value={props.password}
-                        name="password"
-                        onChange={props.handlePasswordChange}
-                        />
-                        <label className='login-label' htmlFor="password">Password</label>
+                            onChange={props.handlePasswordChange}/>
+                    </InputGroup>
+                </FormGroup> 
+              
+                    <div className='login-button-container'>
+                        <Button 
+                            id='login-button'
+                            bsStyle="primary" 
+                            type="submit" 
+                            name="action">
+                            Login
+                        </Button> 
                     </div>
                     {loading}
-                </div>
-                <Row>
-                    <Button className="btn waves-effect waves-light login-submit light-blue darken-4" 
-                        type="submit" 
-                        name="action">Submit</Button>
-                </Row>
-                <div className="logo">
-                    <img id="klik_logo" src={require('../../assets/checkalt_logo.png')} alt="checkalt_logo" />
-                </div> 
+                    
             </form>
         </div>
     );

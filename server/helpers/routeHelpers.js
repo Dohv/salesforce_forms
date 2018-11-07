@@ -42,6 +42,7 @@ module.exports = {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema);
       if(result.error) {
+        
         return res.status(400).json(result.error);
       }
       
@@ -68,9 +69,9 @@ module.exports = {
           const result = JSON.parse(body);
           const url = result.instance_url;
           const sfToken = result.access_token;
-          console.log(result);
+          //console.log(result);
            request({
-            url: `${url}/services/data/v43.0/query?q=select+id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
+            url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken
@@ -84,6 +85,7 @@ module.exports = {
                   return res.json({message: 'There is no email for that account.'});
                 } else {
                     //console.log(vresult.records[0]);
+                   res.locals.contactName = vresult.records[0].Name
                    res.locals.accountName = vresult.records[0].Account.Name; 
                    res.locals.accountId = vresult.records[0].Account.Id;
                    res.locals.accountType = vresult.records[0].Account.Type;

@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { Row, Input } from 'react-materialize'
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 
 
 class eKlik1 extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             isLoggedIn: this.props.isLoggedIn,
             isSaving: false,
+            phone_number: '',
             eKlik_Company_Name: '',
             eKlik_Primary_Contact: '',
             eKlik_Primary_Contact_Phone: '',
@@ -103,7 +105,7 @@ class eKlik1 extends Component {
                 
             });
         }
-      window.Materialize.updateTextFields();
+      //window.Materialize.updateTextFields();
     }
 
     
@@ -136,17 +138,6 @@ class eKlik1 extends Component {
             return result;
         }
         return this.state.target_go_live_date;
-    }
-
-    phoneNumberFormat(s) {
-        if(s.length >= 9) {
-            var s2 = (""+s).replace(/\D/g, '');
-            var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
-            return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
-        }
-
-        return this.state.phone_number;
-
     }
 
     isSelected(e) {
@@ -198,108 +189,198 @@ class eKlik1 extends Component {
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>
-                        <form className='col s12 form'>
-                        <h4 >General Information</h4>
-                            <Row>
-                                <Input s={6} name='eKlik_Company_Name' label="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                <Input s={6} name='eKlik_Primary_Contact' label="Primary Contact" value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
-                            </Row>
-                            <Row>
-                                <Input s={4} name='eKlik_Primary_Contact_Phone' label="Phone" value={this.phoneNumberFormat(this.state.eKlik_Primary_Contact_Phone)} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                <Input s={2} name='eKlik_Primary_Contact_Phone_Extension' label="Ext." value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                    
-                                <Input s={6} name='eKlik_Primary_Contact_Email' label="Email" value={this.state.eKlik_Primary_Contact_Email} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                            </Row>
-                            <Row>
-                                <Input s={6} name='eKlik_Business_Owner_Name' label="Business Owner Name" value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                <Input s={6} name='eKlik_Business_Owner_Title' label="Business Owner Title" value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                            </Row>
-                            <Row>
-                                <Input s={6} name='eKlik_Business_Owner_Phone' label="Business Owner Phone" value={this.phoneNumberFormat(this.state.eKlik_Business_Owner_Phone)} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                <Input s={6} name='eKlik_Business_Owner_Email' label="Business Owner Email" value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                            </Row>
+                        <Form className='col s12 form'>
+                            <h4 >General Information</h4>
+                            <FormGroup>
+                               <Row>
+                                    <Col md={6}>
+                                        <FormControl name='eKlik_Company_Name' placeholder="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormControl name='eKlik_Primary_Contact' placeholder="Primary Contact" value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
+                                    </Col>
+                               </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={5}>
+                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' placeholder="Phone" value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col md={2}>
+                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' placeholder="Ext." value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col md={5}>
+                                        <FormControl s={6} name='eKlik_Primary_Contact_Email' placeholder="Email" value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <FormControl s={6} name='eKlik_Business_Owner_Name' placeholder="Business Owner Name" value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormControl s={6} name='eKlik_Business_Owner_Title' placeholder="Business Owner Title" value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col> 
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' placeholder="Business Owner Phone" value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormControl s={6} name='eKlik_Business_Owner_Email' placeholder="Business Owner Email" value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                </Row> 
+                            </FormGroup>
                             
-                            <Row>
-                                <Input s={5} name='eKlik_Physical_Address' label="Address" value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                <Input s={3} name= 'eKlik_City' label="City" value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                <Input s={2} name='eKlik_State' label="State" value={this.state.eKlik_State} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                <Input s={2} name='eKlik_Zip_Code' label="Zip Code" value={this.state.eKlik_Zip_Code} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                            <Input s={12} value={this.state.Company_Website} name='Company_Website' label='Company Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                                <Input s={6} type='select' name='eKlik_Privately_or_Publicly_Held' label="Is your company Privately or Publicly Held" value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
-                                    <option value='0' disabled>Choose</option>
-                                    <option value='Publicly'>Publicly</option>
-                                    <option value='Privately'>Privately</option>
-                                </Input>
-                                <Input s={6}type='text' name='Primary_Reason_for_accepting_payments' label='Primary reason for accepting payments' />
-                             
-                            </Row>
-                            <Row>
-                                <Input s={6} type='select' name='Name_of_Exchange' label="Name of Exchange" value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
-                                    <option value='0' disabled>Choose</option>
-                                    <option value='NASDAQ'>NASDAQ</option>
-                                    <option value='NYSE'>NYSE</option>
-                                </Input>
-                                <Input s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' label='Ticker Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
-                             
-                            </Row>
-                            <Row>
-                                <p className='form-comment'>Does your business engage in any of the following:</p>
-                                <div className="eKlikSwitch switch">Property Management Company   <label className='yesNo'>No<input type="checkbox" name='is_Property_Management_Company' checked={isPropertyManagementCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Payday Lenders, Check Cashing, Currency Exchange<label className='yesNo'>No<input type="checkbox" name='Payday_Lenders' checked={isPaydayLenders} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Subprime Loan Originator<label className='yesNo'>No<input type="checkbox" name='Subprime_Loan_Originator' checked={isSubprimeLoanOriginator} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Credit Repair Services Company<label className='yesNo'>No<input type="checkbox" name='Credit_Repair_Services_Company' checked={isCreditRepairServicesCompnay} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Debt Consolidation Services or Forgiveness Programs<label className='yesNo'>No<input type="checkbox" name='Debt_Consolidation_Services' checked={isDebtConsolidationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Loan Modification Services<label className='yesNo'>No<input type="checkbox" name='Loan_Modification_Services' checked={isLoanModificationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Online Payment Processor or Third Party Payment Processor<label className='yesNo'>No<input type="checkbox" name='Online_Payment_Processor' checked={isOnlinePaymentProcessor} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Online Gambling Related Operations<label className='yesNo'>No<input type="checkbox" name='Online_Gambling_Related_Operations' checked={isOnlineGamblingRelatedOperations} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Business Located Outside the US<label className='yesNo'>No<input type="checkbox" name='Business_Located_Outside_the_US' checked={isBusinessLocatedOutsideTheUS} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Mail Order or Telephone Orders Company<label className='yesNo'>No<input type="checkbox" name='Mail_or_Telephone_Orders_Company' checked={isMailOrTelephoneOrdersCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Adult Entertainment Businesses<label className='yesNo'>No<input type="checkbox" name='Adult_Entertainment_Businesses' checked={isAdultEntertainmentBusinesses} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
-                            <Row>
-                                <div className="eKlikSwitch switch">Telemarketing Company<label className='yesNo'>No<input type="checkbox" name='Telemarketing_Company' checked={isTelemarketingCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div> 
-                            </Row>
+                            <FormGroup>
+                                <Row>
+                                   <Col md={5}>
+                                        <FormControl name='eKlik_Physical_Address' placeholder="Address" value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                   </Col>
+                                    <Col md={3}>
+                                        <FormControl name= 'eKlik_City' placeholder="City" value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                    <Col md={2}>
+                                        <FormControl name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                    <Col md={2}>
+                                        <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={12}>
+                                        <FormControl value={this.state.Company_Website} name='Company_Website' placeholder='Company Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup controlId="formControlsSelect">
+                                <Row>
+                                    <Col md={6}>
+                                        <ControlLabel>Is your company Privately or Publicly Held</ControlLabel>
+                                        <FormControl componentClass="select" placeholder="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
+                                        <option value='0' disabled>Choose</option>
+                                            <option value='Publicly'>Publicly</option>
+                                            <option value='Privately'>Privately</option>
+                                        </FormControl>
+                                    </Col>
                             
-                        </form>
+                                    <Col md={6}>
+                                        <FormControl type='text' name='Primary_Reason_for_accepting_payments' placeholder='Primary reason for accepting payments' />
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+      
+                            <FormGroup>
+                               <Row>
+                                    <Col md={6}>
+                                        <ControlLabel>Name of Exchange</ControlLabel>
+                                        <FormControl componentClass="select" placeholder="select" name='Name_of_Exchange' value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                        <option value='0' disabled>Choose</option>
+                                            <option value='NASDAQ'>NASDAQ</option>
+                                            <option value='NYSE'>NYSE</option>
+                                        </FormControl>
+                                    </Col>
+                                    <Col md={6}>
+                                        <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' placeholder='Ticker Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                               </Row>
+                             
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <p className='form-comment'>Does your business engage in any of the following:</p>
+                                    <Col md={6}>
+                                        <Checkbox className='checkbox' name='is_Property_Management_Company' checked={isPropertyManagementCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Property Management Company
+                                        </Checkbox>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Checkbox name='Payday_Lenders' checked={isPaydayLenders} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                        Payday Lenders, Check Cashing, Currency Exchange  
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <Checkbox name='Subprime_Loan_Originator' checked={isSubprimeLoanOriginator} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Subprime Loan Originator
+                                        </Checkbox>
+                                    </Col>
+                                    <Col md={6}>
+                                       <Checkbox name='Credit_Repair_Services_Company' checked={isCreditRepairServicesCompnay} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Credit Repair Services Company
+                                        </Checkbox> 
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <Checkbox name='Debt_Consolidation_Services' checked={isDebtConsolidationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Debt Consolidation Services or Forgiveness
+                                        </Checkbox>
+                                    </Col>
+                                    <Col md={6}>
+                                        <Checkbox name='Loan_Modification_Services' checked={isLoanModificationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Loan Modification Services
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <Checkbox name='Online_Payment_Processor' checked={isOnlinePaymentProcessor} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} >
+                                            Online Payment Processor or Third Party Payment Processor
+                                        </Checkbox>
+                                    </Col>
+                                     
+                                    <Col md={6}>
+                                        <Checkbox name='Online_Gambling_Related_Operations' checked={isOnlineGamblingRelatedOperations} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Online Gambling Related Operations
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                   <Col md={6}>
+                                        <Checkbox name='Business_Located_Outside_the_US' checked={isBusinessLocatedOutsideTheUS} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Business Located Outside the US
+                                        </Checkbox> 
+                                   </Col>
+                                    
+                                    <Col md={6}>
+                                        <Checkbox name='Mail_or_Telephone_Orders_Company' checked={isMailOrTelephoneOrdersCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Mail Order or Telephone Orders Company
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
                     
+                            <FormGroup>
+                                <Row>
+                                    <Col md={6}>
+                                        <Checkbox name='Adult_Entertainment_Businesses' checked={isAdultEntertainmentBusinesses} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Adult Entertainment Businesses 
+                                        </Checkbox>
+                                    </Col> 
+                                    <Col md={6}>
+                                        <Checkbox name='Telemarketing_Company' checked={isTelemarketingCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Telemarketing Company
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                        </Form>
                 </div>
-
             </div>
             </React.Fragment>
     )};

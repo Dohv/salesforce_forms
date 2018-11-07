@@ -18,6 +18,7 @@ const signToken = user => {
 }
 
 controller.signUp = async (req, res, next) => {
+  console.log('in user controller');
   const { email, password } = req.value.body;
   
   const foundUser = await User.findOne({ email });
@@ -40,11 +41,27 @@ controller.signIn = async (req, res, next) => {
   const {email, id} = req.user;
   const token = signToken(req.user); 
   const message = 'Welcome!';
+  const sfContactName = res.locals.contactName;
   const sfAccountName = res.locals.accountName;
   const sfAccountId = res.locals.accountId;
   const sfAccountType = res.locals.accountType;
   const sfAccountProducts = res.locals.accountProducts;
-  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts });
+
+  var query = { _id: id };
+  var update = { last_login_date: Date.now() };
+  var options = { new: true };
+
+  // const foundUser = await User.findByIdAndUpdate();
+  // console.log(foundUser);
+
+  await User.findByIdAndUpdate(query, {$set: update}, options, (err, doc) => {
+    if (err) {
+      console.log(err, doc)
+    }
+    //console.log({id, doc});
+  })
+
+  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts, sfContactName });
 }
 
 controller.secret = async (req, res, next) => {
@@ -105,7 +122,16 @@ controller.forgot = (req, res, next) => {
   res.json({ message: 'Forgot Password'})     
 }
 
-controller.logout = (req, res) => {
+controller.logout = async (req, res) => {
+  const id = req.body.id;
+  var query = { _id: id };
+  var update = { last_logout_date: Date.now() };
+  var options = { new: true };
+  await User.findByIdAndUpdate(query, {$set: update}, options, (err, doc) => {
+    if (err) {
+        console.log(err, doc)
+    }
+  })
   req.logout();
 
   res.json({message: 'logged out'});

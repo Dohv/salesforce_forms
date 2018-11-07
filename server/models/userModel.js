@@ -12,7 +12,15 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  last_login_date: {
+    type: Date,
+    default: Date.now
+  },
+  last_logout_date: {
+    type: Date,
+    default: Date.now
+}
 });
 
 userSchema.pre('save', async function(next) {

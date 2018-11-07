@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Row, Input } from 'react-materialize'
+import { Row, Input, Button } from 'react-materialize'
 import formDataServices from '../../../services/formDataServices';
-
 
 class eKlik2 extends Component {
     constructor(props) {
         super(props);
-        this.state ={
+        this.state = {
             isLoggedIn: this.props.isLoggedIn,
             isSaving: false,
             eKlik_Bank_Routing_Number: '',
@@ -34,11 +33,15 @@ class eKlik2 extends Component {
             Remittance_Address_8: '',
             Remittance_Address_9: '',
             Remittance_Address_10: '',
+            nameInputs: [],
+            newName: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.addNameInputs = this.addNameInputs.bind(this);
+        this.addOne = this.addOne.bind(this);
     }
 
 
@@ -47,12 +50,12 @@ class eKlik2 extends Component {
     componentDidMount() {
       this._isMounted = true;
       this.getFormData();
+      
     }
 
     componentWillMount() {
         this._isMounted = false;
     }
-
 
     async handleSave(e) {
         const target = e.target;
@@ -94,7 +97,7 @@ class eKlik2 extends Component {
             Remittance_Address_10: localStorage.getItem("Remittance_Address_10"),
           });
         } 
-      window.Materialize.updateTextFields();
+      this.addNameInputs();
     }
 
     handleInputChange(event) {
@@ -115,7 +118,48 @@ class eKlik2 extends Component {
         return '0';
     }
 
-    render() {
+    _lastInputNameCreated = 1;
+
+    addOne(e) {
+      e.preventDefault();
+      this._lastInputNameCreated = this._lastInputNameCreated + 1;
+
+      if(this._lastInputNameCreated <= 10) {
+        let nameValue = `Check_Payment_Name_${this._lastInputNameCreated.toString()}`;
+        let labelValue = `Name ${this._lastInputNameCreated.toString()}`;
+        let stateValue = this.state[nameValue];
+        this.setState({
+          nameInputs: [...this.state.nameInputs, <Input s={6} key={this.state.nameInputs.length + 1} className='checkName' name={nameValue} label={labelValue} defaultValue={stateValue} onChange={this.handleInputChange} onInput={this.handleSave} />]
+        })
+      } 
+    }
+    
+    addNameInputs() {
+      const ten = [2,3,4,5,6,7,8,9,10]
+      const result = []
+      ten.forEach((el, i) => {
+        let nameValue = `Check_Payment_Name_${el.toString()}`;
+        let labelValue = `Name ${el.toString()}`;
+        let stateValue = this.state[nameValue]
+        if(stateValue !== '') {
+          this._lastInputNameCreated = el;
+          result.push(
+            <Input s={6} key={i} className='checkName' name={nameValue} label={labelValue} defaultValue={stateValue} onChange={this.handleInputChange} onInput={this.handleSave} />
+          )
+        }
+      })
+
+      return this.setState({nameInputs: result});
+    }
+
+    
+
+    render() { 
+      if(this._lastInputNameCreated >= 10) {
+        document.getElementById('addNameButton').classList.add('name');
+      }
+        let newName = this.state.newName;
+        let renderNameInputs = this.state.nameInputs;
         let isFiserv = this.state.Fiserv ? true : false;
         let isRPPS = this.state.RPPS ? true : false;
         let savingStatus = this.state.isSaving ? 
@@ -149,25 +193,12 @@ class eKlik2 extends Component {
                             </Row>
                             <Row>
                               <p className='form-comment'>Indicate All the Possible Names Customers Might Use On a Check Payment to Your Business</p>
-                              <Input s={6} name='Check_Payment_Name_1' label="Name 1" value={this.state.Check_Payment_Name_1} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Check_Payment_Name_2' label="Name 2" value={this.state.Check_Payment_Name_2} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                              <Input s={6} className='checkName' name='Check_Payment_Name_1' label='Name 1' value={this.state.Check_Payment_Name_1} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                            {renderNameInputs}
+                            {newName}
+                              
                             </Row>
-                            <Row>
-                              <Input s={6} name='Check_Payment_Name_3' label="Name 3" value={this.state.Check_Payment_Name_3} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Check_Payment_Name_4' label="Name 4" value={this.state.Check_Payment_Name_4} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Check_Payment_Name_5' label="Name 5" value={this.state.Check_Payment_Name_5} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Check_Payment_Name_6' label="Name 6" value={this.state.Check_Payment_Name_6} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Check_Payment_Name_7' label="Name 7" value={this.state.Check_Payment_Name_7} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Check_Payment_Name_8' label="Name 8" value={this.state.Check_Payment_Name_8} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Check_Payment_Name_9' label="Name 9" value={this.state.Check_Payment_Name_9} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Check_Payment_Name_10' label="Name 10" value={this.state.Check_Payment_Name_10} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
+                            <Button floating small="true" id='addNameButton' className='green addButton' waves='light' icon='add' onClick={this.addOne}/>
                             <Row>
                               <p className='form-comment'>Indicate All the Possible Remittance Addresses Where Customers Might Send Your Payments</p>
                               <Input s={6} name='Remittance_Address_1' label="Address 1" value={this.state.Remittance_Address_1} onChange={this.handleInputChange} onBlur={this.handleSave} />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import * as EmailValidator from 'email-validator';
 import LoginForm from './LoginForm';   
 
 class Login extends Component {
@@ -16,13 +17,15 @@ class Login extends Component {
     }
 
     submitForm(e) {
-        e.preventDefault();
+        
         if (this.state.email === '' || this.state.password === '') {
             this.setState({valid: false})
         } else {
             this.setState({valid: true});
             this.props.handleSignInSubmit(this.state.email, this.state.password);
         }
+
+        return false;
     }
 
     handleEmailChange(event) {
@@ -38,16 +41,9 @@ class Login extends Component {
             password
         });
     }
-
-    toast() {
-        window.Materialize.toast(this.props.messageAlert, 4000)
-        setTimeout(this.props.handleMessageReset, 1);
-    }
     
     render() {
-        const flashMessage = this.props.messageAlert !== '' ? this.toast() : '';
         
-
         const {target} = this.props.location.state || {target: {pathname: '/forms'}}
 
         if(this.props.isLoggedIn) {
@@ -55,8 +51,10 @@ class Login extends Component {
         }
         return (
                 <div className='loginPage'>
-                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} />
-                    {flashMessage}
+                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} 
+                    />
+
+
                 </div>
         );
     }

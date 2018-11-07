@@ -15,7 +15,7 @@ const authServices = {
          password
        })
        if (login) {
-         //console.log(login.data);
+         console.log(login.data);
         localStorage.setItem("flashMessage", login.data.message)
         localStorage.setItem("token", login.data.token);
         localStorage.setItem("email", login.data.email);
@@ -27,15 +27,16 @@ const authServices = {
         localStorage.setItem("sfAccountId", login.data.sfAccountId);
         localStorage.setItem("sfAccountType", login.data.sfAccountType);
         localStorage.setItem("sfAccountProducts", JSON.stringify(login.data.sfAccountProducts));
+        localStorage.setItem("sfContactName", login.data.sfContactName);
        } 
     } catch(error) {
       console.log("this is login error:", error);
     }
   },
 
-  logOut: async () => {
+  logOut: async (id) => {
     try {
-      await axios.post('/users/logout');
+      await axios.post('/users/logout',{ id });
       localStorage.removeItem('token');
       localStorage.removeItem('email');
       localStorage.removeItem('id');

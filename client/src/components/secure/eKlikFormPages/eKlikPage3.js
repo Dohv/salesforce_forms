@@ -72,7 +72,6 @@ class eKlik3 extends Component {
             Contains_Numeric_5: JSON.parse(localStorage.getItem("Contains_Numeric_5")),
             });
         }
-      window.Materialize.updateTextFields();
     }
 
     handleInputChange(event) {

@@ -59,7 +59,7 @@ class App extends Component {
   } 
 
   async handleLogOutSubmit() {
-    await authServices.logOut();
+    await authServices.logOut(localStorage.getItem('id'));
       this.setState({ 
         isLoggedIn: authServices.isAuthenticated(),
         currentUserId: '',

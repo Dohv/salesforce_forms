@@ -1,10 +1,19 @@
 {
-  "main.css": "static/css/main.fcb46cd5.css",
-  "main.css.map": "static/css/main.fcb46cd5.css.map",
-  "main.js": "static/js/main.d716cc87.js",
-  "main.js.map": "static/js/main.d716cc87.js.map",
+  "main.css": "static/css/main.287cde48.css",
+  "main.css.map": "static/css/main.287cde48.css.map",
+  "main.js": "static/js/main.4d5834f1.js",
+  "main.js.map": "static/js/main.4d5834f1.js.map",
+  "static/media/HelveticaNeueLTPro-Lt.otf": "static/media/HelveticaNeueLTPro-Lt.47caac1c.otf",
+  "static/media/HelveticaNeueLTPro-Md.otf": "static/media/HelveticaNeueLTPro-Md.036b63e1.otf",
+  "static/media/HelveticaNeueLTStd-Lt.otf": "static/media/HelveticaNeueLTStd-Lt.39320288.otf",
+  "static/media/HelveticaNeueLTStd-Md.otf": "static/media/HelveticaNeueLTStd-Md.f9ae3c0e.otf",
   "static/media/Omnes-Light.otf": "static/media/Omnes-Light.cc8b8522.otf",
   "static/media/Omnes-Medium.otf": "static/media/Omnes-Medium.b9bcd8a3.otf",
-  "static/media/checkalt_logo.png": "static/media/checkalt_logo.c47c45a0.png",
-  "static/media/klik_bgd.jpg": "static/media/klik_bgd.5184213e.jpg"
+  "static/media/Omnes-Regular.otf": "static/media/Omnes-Regular.f2af66f6.otf",
+  "static/media/checkalt_login.png": "static/media/checkalt_login.f5e60115.png",
+  "static/media/eklik@3x.png": "static/media/eklik@3x.c9984985.png",
+  "static/media/knp@3x.png": "static/media/knp@3x.d4e73e9c.png",
+  "static/media/login_background.png": "static/media/login_background.fd5a5097.png",
+  "static/media/remit@3x.png": "static/media/remit@3x.4509cd79.png",
+  "static/media/remitstation@3x.png": "static/media/remitstation@3x.93d00076.png"
 }

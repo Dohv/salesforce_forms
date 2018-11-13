@@ -54,7 +54,6 @@ class Login extends Component {
                     <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} 
                     />
 
-
                 </div>
         );
     }

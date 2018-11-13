@@ -29,6 +29,7 @@ class App extends Component {
       currentFormPage: 1,
       enterOffset: 100,
       leaveOffset: -100,
+      isMenuClicked: false,
     };
 
     // Bind functions:
@@ -36,6 +37,7 @@ class App extends Component {
     this.handleLogOutSubmit = this.handleLogOutSubmit.bind(this);
     this.handleMessageReset = this.handleMessageReset.bind(this);
     this.handleFormChoice = this.handleFormChoice.bind(this);
+    this.handleMobileMenuClick = this.handleMobileMenuClick.bind(this);
   }
   
 
@@ -91,8 +93,27 @@ class App extends Component {
     })
   }
 
+  timeBasedGreeting = () => {
+    let greeting = "";
+    let time = new Date().getHours();
+    if (time < 10) {
+        greeting = "Good Morning, ";
+    } else if (time < 20) {
+        greeting = "Good Afternoon, ";
+    } else {
+        greeting = "Good Evening, ";
+    }
+ return greeting;
+}
+
+handleMobileMenuClick() {
+  this.setState({
+    isMenuClicked: false,
+  })
+}
+
   render() {
-    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} /> : '';
+    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>
         <div>
@@ -110,6 +131,8 @@ class App extends Component {
                                                 sfAccountType={this.state.sfAccountType} 
                                                 handleFormChoice={this.handleFormChoice} 
                                                 isFormChosen={this.state.isFormChosen} 
+                                                timeBasedGreeting={this.timeBasedGreeting}
+                                                isMobileMenuClicked={this.isMobileMenuClicked}
                                               />} />;
               <Route exact path="/" render={() => (
                 this.state.loggedIn ? (

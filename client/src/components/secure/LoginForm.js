@@ -1,7 +1,8 @@
 import React from 'react';
 import Loading from '../Loading';
-//import { Row } from 'react-materialize';
-import { Form, Row, Col, Button, FormControl, FormGroup, InputGroup, HelpBlock } from 'react-bootstrap';
+import { Image, Button, FormControl, FormGroup, InputGroup, HelpBlock } from 'react-bootstrap';
+
+import logo from '../../assets/checkalt_login.png';
 
 const timeBasedGreeting = () => {
     let greeting = "";
@@ -28,7 +29,7 @@ const LoginForm = (props) => {
                 
                 <FormGroup>
                     <InputGroup>
-                    <InputGroup.Addon><i className="fas fa-user"></i></InputGroup.Addon>
+                    <InputGroup.Addon><i className="far fa-user"></i></InputGroup.Addon>
                     <FormControl 
                         autoFocus
                         id="email" 
@@ -42,7 +43,7 @@ const LoginForm = (props) => {
                 
                 <FormGroup>
                     <InputGroup>
-                    <InputGroup.Addon><i className="fas fa-lock"></i></InputGroup.Addon>
+                    <InputGroup.Addon><i className="far fa-lock"></i></InputGroup.Addon>
                     <FormControl id="password" 
                             type="password" 
                             placeholder='Password'
@@ -54,8 +55,7 @@ const LoginForm = (props) => {
               
                     <div className='login-button-container'>
                         <Button 
-                            id='login-button'
-                            bsStyle="primary" 
+                            className='login-button' 
                             type="submit" 
                             name="action">
                             Login
@@ -64,6 +64,8 @@ const LoginForm = (props) => {
                     {loading}
                     
             </form>
+            <Image className='checkalt_login_logo' src={logo} responsive />
+            <p className='copy-right'>Powered by Checkalt &copy; 2018</p>
         </div>
     );
 }

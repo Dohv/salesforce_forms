@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../Loading';
-import { Image, Button, FormControl, FormGroup, InputGroup, HelpBlock } from 'react-bootstrap';
+import { Image, Button, FormControl, FormGroup, InputGroup, HelpBlock, Col } from 'react-bootstrap';
 
 import logo from '../../assets/checkalt_login.png';
 
@@ -61,7 +61,7 @@ const LoginForm = (props) => {
                             Login
                         </Button> 
                     </div>
-                    {loading}
+
                     
             </form>
             <Image className='checkalt_login_logo' src={logo} responsive />

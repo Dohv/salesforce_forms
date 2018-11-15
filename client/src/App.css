@@ -323,7 +323,7 @@ body {
 .center-form {
   display: flex;
   flex-direction: column;
-  margin: 0 190px;
+  margin: 0 auto;
 }
 
 #email, #password {
@@ -392,7 +392,7 @@ body {
   }
 
   .center-form {
-    margin: 0 40px 65px 40px;
+    display: block;
   }
 
   .greeting {
@@ -428,7 +428,7 @@ body {
 
 @media(max-width: 400px) {
   .greeting {
-    margin: 36px 0px 10px 0px;
+    margin: 0px 0px 10px 0px;
   }
 }
 

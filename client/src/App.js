@@ -11,6 +11,7 @@ import FormMenu from './components/secure/FormMenu';
 import Logout from './components/secure/Logout';
 import ClientList from './components/secure/ClientList';
 import NoMatch from './components/NoMatch';
+import $ from 'jquery';
 
 class App extends Component {
   constructor(props) {
@@ -111,6 +112,7 @@ handleMobileMenuClick() {
     isMenuClicked: false,
   })
 }
+
 
   render() {
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';

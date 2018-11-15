@@ -25,18 +25,13 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting}) => {
 
     let products = (localStorage.getItem('sfAccountProducts').split(';'));
     products = JSON.parse(products);
-    // if(window.location.pathname === '/forms') {
-    //     const buttons = document.querySelectorAll('.chooseFormButton');
-    //     buttons.forEach((button) => {
-    //       //console.log(button.id);
-    //       if(button.id !== localStorage.getItem('selectedForm')) {
-    //         button.classList.remove("mystyle");
-    //       } else {
-    //         button.classList.remove("changeFormMenu")
-    //       }
-
-    //     })  
-    // }
+    const element = document.querySelector('.formButtonContainer');
+    if(match.path === '/forms' &&  element) {
+        
+        
+        element.classList.remove('displayNone');
+        
+    }
    
     return (
         <div className='formMenu'>

@@ -6,6 +6,8 @@ import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
 import $ from "jquery";
+import BackButton from '../BackButton';
+import {Col} from 'react-bootstrap';
 
 
 
@@ -100,9 +102,16 @@ class EKlik extends Component {
         
         return (
             <React.Fragment>
-                    {backButton}
                     {nextButton}
-                   <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location}/> 
+                    {backButton}
+                    <div className='container'>
+                        <div className='setup'>
+                            eKlik Setup
+                        </div>
+                    
+                        <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location}/> 
+                    
+                    </div>
             <AnimatedSwitch
                 atEnter={{ offset: this.state.enterOffset }}
                 atLeave={{ offset: this.state.leaveOffset }}

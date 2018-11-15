@@ -393,7 +393,7 @@ body {
 
   .center-form {
     display: block;
-    margin: 0;
+    margin-bottom: 50px;
   }
 
   .greeting {

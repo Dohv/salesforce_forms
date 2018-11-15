@@ -393,10 +393,12 @@ body {
 
   .center-form {
     display: block;
+    margin: 0;
   }
 
   .greeting {
     font-size: 31px;
+    margin: 0px;
   }
 
   .checkalt_login_logo {
@@ -426,17 +428,6 @@ body {
   }
 }
 
-@media(max-width: 400px) {
-  .greeting {
-    margin: 0px 0px 10px 0px;
-  }
-}
-
-@media(max-width: 320px) {
-  .greeting {
-    margin: 26px 0px 20px 0px;
-  }
-}
 
 .loginFormInput {
   margin: 20px;

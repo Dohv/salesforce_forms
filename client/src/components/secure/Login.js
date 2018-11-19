@@ -17,7 +17,7 @@ class Login extends Component {
     }
 
     submitForm(e) {
-        
+        e.preventDefault();
         if (this.state.email === '' || this.state.password === '') {
             this.setState({valid: false})
         } else {

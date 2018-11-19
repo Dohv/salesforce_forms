@@ -61,7 +61,6 @@ const LoginForm = (props) => {
                             Login
                         </Button> 
                     </div>
-                    {loading}
                     
             </form>
             <Image className='checkalt_login_logo' src={logo} responsive />

@@ -236,6 +236,7 @@
   width: 190px;
   top: 68px;
   left: 45%;
+  z-index: 1;
 }
 
 @media(min-width: 701px) {
@@ -448,7 +449,7 @@ body {
   }
 
   .checkalt_login_logo {
-    margin: 30px 0px 10px 0px;
+    margin: 0px 0px 10px 0px;
   }
 }
 

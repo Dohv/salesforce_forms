@@ -44,6 +44,7 @@ class App extends Component {
 
   async handleSignInSubmit(email, password) {
     this.setState({ isLoading: true })
+    console.log({email, password});
     await authServices.logIn(email, password);
     this.setState({ 
       currentUserId: localStorage.getItem('id'),

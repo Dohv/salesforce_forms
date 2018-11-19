@@ -21,7 +21,7 @@ const LoginForm = (props) => {
     const loading = props.isLoading ? <div className='loadingAnimation'><Loading /></div> : <div className='emptyLoadingSpace'></div>;
     
     return (
-        <div className='login-form'>
+        <div id='login-form' className='login-form'>
             <form   onSubmit={(e) => props.submitForm(e)}
                 className='center-form'>
             <div className="greeting">{timeBasedGreeting()}</div>

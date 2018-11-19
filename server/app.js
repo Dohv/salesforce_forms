@@ -52,7 +52,7 @@ app.use((req, res, next) => {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, '../client/build')));
   //to let react-router handle routing in prod.
   app.get('*', (req, res) => {
       console.log("about to resolve path");
@@ -74,6 +74,6 @@ app.get('*', function (req, res) {
 });
 
 
-var jsforce = require('jsforce');
-var conn = new jsforce.Connection();
+// var jsforce = require('jsforce');
+// var conn = new jsforce.Connection();
 

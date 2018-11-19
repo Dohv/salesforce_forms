@@ -386,7 +386,7 @@ body {
   box-shadow: 0px 0px 4px 1px rgba(37, 37, 37, 0.46);
 }
 
-/* @media(max-width: 700px) {
+@media(max-width: 700px) {
   .login-form {
     width: 75vw;
     height: 65vh
@@ -429,7 +429,7 @@ body {
   .header-comp-right {
     margin-right: 0px;
   }
-} */
+}
 
 @media(max-width: 350px) {
   .login-form {

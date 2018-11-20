@@ -333,6 +333,7 @@ body {
   padding-top: 10px;
   box-shadow: none !important;
   font-family: 'Helvetica-Neue-Pro-Light';
+  font-size: 16px;
 }
 
 #email:focus, #password:focus {

@@ -329,6 +329,7 @@ body {
 }
 
 #email, #password {
+  border-style: solid;
   border-left: none;
   padding-top: 10px;
   box-shadow: none !important;

@@ -75,7 +75,7 @@ class Header extends Component {
 
         return (
              <header className='header' id='navbar' ref={ node => this.node = node }>
-                 <div className='headerComp'>
+                 <div className='headerComp header-comp-left'>
                     <Image className='whiteLogo' src={whiteLogo} responsive />
                     <p className='app-title'>Onboarding Center</p>
                  </div>

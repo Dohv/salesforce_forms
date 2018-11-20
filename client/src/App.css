@@ -175,8 +175,8 @@
 
 .hamburgerContainer {
   position: absolute;
-  left: 75%;
-  top: 0px;
+  left: 80%;
+  top: -4px;
   cursor: pointer;
   height: 80px;
   width: 80px;
@@ -368,6 +368,7 @@ body {
 
 .checkalt_login_logo {
   margin: 80px 0px 30px 0px;
+  max-width: 40%;
 }
 
 .copy-right {
@@ -414,6 +415,14 @@ body {
     margin: 10px 20px;
   }
 
+  .header-comp-left {
+    margin-left: 0px;
+  }
+
+  .whiteLogo {
+    max-width: 76%;
+  }
+
   p.app-title {
     margin: 0px;
   }
@@ -422,13 +431,19 @@ body {
     display: none;
   }
 
-  .hambugerContainer {
-    display: show;
-    
+  .hamburgerContainer {
+    display: show; 
   }
 
   .header-comp-right {
     margin-right: 0px;
+  }
+}
+
+@media(max-width: 400px) {
+  .hamburgerContainer {
+    left: 74%;
+    top: -4px;
   }
 }
 
@@ -536,6 +551,12 @@ input:-webkit-autofill {
   }
 }
 
+@media(max-width: 350px) {
+  .formMenuGreeting {
+    font-size: 30px;
+  }
+}
+
 
 .chooseFormButton {
   display: flex;
@@ -640,13 +661,9 @@ thumbnail a>img, .thumbnail>img {
 
 .loadingAnimation {
   width: 64px;
-  height: 64px;
+  height: 35px;
   margin: auto;
   position: relative;
-}
-
-.emptyLoadingSpace {
-  margin: auto;
 }
 
 .lds-ellipsis {
@@ -710,6 +727,13 @@ thumbnail a>img, .thumbnail>img {
 .emptyLoadingSpace {
   height: 64px;
   width: 25px;
+  margin: 0 auto;
+}
+
+@media(max-width: 350px) {
+  .emptyLoadingSpace {
+    height: 35px;
+  }
 }
 
 .character-counter {

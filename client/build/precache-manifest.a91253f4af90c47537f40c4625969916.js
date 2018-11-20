@@ -44,12 +44,12 @@ self.__precacheManifest = [
     "url": "/static/media/HelveticaNeueLTStd-Md.f9ae3c0e.otf"
   },
   {
-    "revision": "47caac1c850a63f46fbebb64056d90ff",
-    "url": "/static/media/HelveticaNeueLTPro-Lt.47caac1c.otf"
-  },
-  {
     "revision": "036b63e154cec317213b3e765bfd6815",
     "url": "/static/media/HelveticaNeueLTPro-Md.036b63e1.otf"
+  },
+  {
+    "revision": "47caac1c850a63f46fbebb64056d90ff",
+    "url": "/static/media/HelveticaNeueLTPro-Lt.47caac1c.otf"
   },
   {
     "revision": "f2af66f60b4f7db6adb01b2b795f5a9e",
@@ -68,7 +68,7 @@ self.__precacheManifest = [
     "url": "/static/media/login_background.fd5a5097.png"
   },
   {
-    "revision": "e87fe90ce1d25aaae4311174987bd883",
+    "revision": "24789ced49646fae61e77747b170834c",
     "url": "/index.html"
   }
 ];

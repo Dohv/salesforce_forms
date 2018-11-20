@@ -331,7 +331,7 @@ body {
 #email, #password {
   border-left: none;
   padding-top: 10px;
-  box-shadow: inset 0px 0px 0px 0px;
+  -webkit-box-shadow: inset 0px 0px 0px 0px;
   font-family: 'Helvetica-Neue-Pro-Light';
   font-size: 16px;
 }
@@ -369,7 +369,7 @@ body {
 
 .checkalt_login_logo {
   margin: 80px 0px 30px 0px;
-  max-width: 40%;
+  max-width: 50%;
 }
 
 .copy-right {

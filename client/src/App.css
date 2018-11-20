@@ -329,10 +329,9 @@ body {
 }
 
 #email, #password {
-  border-style: none;
   border-left: none;
   padding-top: 10px;
-  box-shadow: none !important;
+  box-shadow: inset 0px 0px 0px 0px;
   font-family: 'Helvetica-Neue-Pro-Light';
   font-size: 16px;
 }

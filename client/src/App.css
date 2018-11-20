@@ -398,7 +398,7 @@ body {
   .center-form {
     display: block;
     width: 220px;
-    margin: 0 auto;
+    margin: 40px auto;
   }
 
   .greeting {
@@ -407,7 +407,7 @@ body {
   }
 
   .checkalt_login_logo {
-    margin: 0px 0px 10px 0px;
+    margin: 15px 0px 10px 0px;
   }
 
 
@@ -456,7 +456,7 @@ body {
   
   .center-form {
     display: block;
-    margin-bottom: 0 auto;
+    margin: 0 auto;
     width: 220px;
   }
 

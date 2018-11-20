@@ -662,7 +662,7 @@ thumbnail a>img, .thumbnail>img {
 
 .loadingAnimation {
   width: 64px;
-  height: 35px;
+  height: 30px;
   margin: auto;
   position: relative;
 }
@@ -672,7 +672,7 @@ thumbnail a>img, .thumbnail>img {
   position: absolute;
   width: 64px;
   height: 64px;
-  top: 30px;
+  top: 11px;
 }
 .lds-ellipsis div {
   position: absolute;
@@ -726,7 +726,7 @@ thumbnail a>img, .thumbnail>img {
 
 
 .emptyLoadingSpace {
-  height: 64px;
+  height: 30px;
   width: 25px;
   margin: 0 auto;
 }

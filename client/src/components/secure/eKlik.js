@@ -3,11 +3,10 @@ import eKlikPage1 from './eKlikFormPages/eKlikPage1';
 import eKlikPage2 from './eKlikFormPages/eKlikPage2';
 import eKlikPage3 from './eKlikFormPages/eKlikPage3';
 import Sidebar from '../layout/Sidebar';
-import {Link, Route } from "react-router-dom";
+import {Link, Route, Redirect } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
 import $ from "jquery";
 import BackButton from '../BackButton';
-import {Col} from 'react-bootstrap';
 
 
 
@@ -75,14 +74,15 @@ class EKlik extends Component {
         }, () => {})
     } 
     updateClass(num) {
-        const listItems = document.querySelectorAll('.eklikList');
-          listItems.forEach(div => {
+        const listItems = $('.stepLink');
+          $.each(listItems, function(i, div) {
               $(div).removeClass('active lessThan');
-             let divNum = parseInt(div.id[div.id.length - 1], 10); 
-            if(divNum === num) {
-                $(div).addClass('active')
-            }
-            if(divNum < num) {
+             let divNum = parseInt(div.id);
+             if(divNum === num) {
+                 $(div).addClass('active')
+                }
+                if(divNum < num) {
+                    console.log({div, divNum}); 
                 $(div).addClass('lessThan');
             }
           });
@@ -109,7 +109,7 @@ class EKlik extends Component {
                             eKlik Setup
                         </div>
                     
-                        <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location}/> 
+                        <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location} /> 
                     
                     </div>
             <AnimatedSwitch

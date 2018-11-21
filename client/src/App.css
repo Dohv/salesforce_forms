@@ -39,7 +39,7 @@
 
 .leftNavContainer {
   padding: 5px;
-  position: fixed !important;
+  position: fixed;
   width: 210px;
   background-color: #ffffff;
   z-index: 99;
@@ -49,9 +49,11 @@
 .sidebar-content {
   counter-reset: step;
   padding: 0px;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar-content li {
+.sidebar-content a {
   list-style-type: none;
   position: relative;
   height: 50px;
@@ -63,16 +65,21 @@
 }
 
 .stepLink {
+  display: flex;
   color: #80868B;
   text-decoration: none !important;
 }
 
-.sidebar-content li:active {
+.stepLinkTitle {
+  margin-top: 6px;
+}
+
+.sidebar-content a:active {
   background-color: #DADCE0;
   color: #000000;
 }
 
-.sidebar-content li:before {
+.sidebar-content a:before {
   content: counter(step);
   counter-increment: step;
   width: 30px;
@@ -88,34 +95,35 @@
   color: #d0d0d0;
 }
 
-.sidebar-content li:after {
+.sidebar-content a:after {
   content: '';
   position: absolute;
-  height: 100%;
+  height: 164%;
   width: 2px;
   background-color: #d0d0d0;
-  left: 25.3px;
-  top: -38px
+  left: 26.3px;
+  top: -68px
 }
 
-.sidebar-content li:first-child:after {
+.sidebar-content a:first-child:after {
   content: none;
 }
 
-.sidebar-content li.active, .sidebar-content li.active > a {
+.sidebar-content a.active {
   color: #1B2F57;
   background-color: #eeeeee;
 }
 
-.sidebar-content li.active:before, .sidebar-content li.active:after {
+.sidebar-content a.active:before, .sidebar-content a.active:after {
   background-color: #233E76;
 }
 
-.sidebar-content li.lessThan > a {
-  color: #1B2F57;
+.sidebar-content a.lessThan:before, .sidebar-content a.active:before {
+  border: none;
 }
 
-.sidebar-content li.lessThan:after, .sidebar-content li.lessThan:before {
+
+.sidebar-content a.lessThan:after, .sidebar-content a.lessThan:before {
   background-color: #233E76;
 }
 
@@ -786,8 +794,9 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .form-comment {
+  font-family: 'Omnes-medium';
   font-size: 1.5rem;
-  margin-left: 10px
+  margin: 35px 0px 10px 10px
 }
 
 .eklik-page-title {
@@ -986,11 +995,116 @@ thumbnail a>img, .thumbnail>img {
   display: none;
 }
 
-/* --------------- login page mobile ---------------- */
+/* --------------- form page ipad ---------------- */
 
-/* @media only screen and (max-width: 600px) {
-  .greeting {
-    font-size: 5vh;
+@media(max-width: 1199px) {
+  .setup {
+    margin-left: 0px;
   }
-} */
+
+  .leftNavContainer {
+    position: static;
+    width: 100%;
+    height: 200px;
+  }
+  
+  .form {
+    margin-left: 0px;
+  }
+  .sidebar-content {
+    flex-direction: row;
+  }
+  
+  .sidebar-content a{
+    float: left;
+    width: 33.33%;
+    height: 100%;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 20px;
+    z-index: 1;
+  }
+
+  .sidebar-content a:before {
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    font-size: 20px;
+    z-index: 2;
+  }
+
+  .sidebar-content a:after {
+    width: 100%;
+    height: 2px;
+    top: 39px;
+    left: -42%;
+    z-index: -1;
+  }
+
+  .stepLink {
+    display: block;
+  }
+
+  .stepLinkTitle {
+    margin: 0;
+  }
+}
+
+
+@media(max-width: 991px) {
+  .sidebar-content a:after {
+    left: -39.5%;
+  }
+
+  .longerFormInputLabels {
+    font-size: 12px;
+  }
+}
+
+@media(max-width: 767px) {
+  .sidebar-content a:after {
+    left: -38%;
+  }
+
+  .longerFormInputLabels {
+    font-size: 14px;
+  }
+}
+
+@media(max-width: 600px) {
+  .sidebar-content a:after {
+    left: -36%;
+  }
+}
+
+@media(max-width: 550px) {
+  .sidebar-content a:after {
+    left: -33.7%;
+  }
+}
+
+@media(max-width: 450px) {
+  .sidebar-content a:after {
+    left: -31%;
+  }
+
+  .form {
+    padding: 5px 15px;
+  }
+}
+
+
+@media(max-width: 400px) {
+  .sidebar-content a:after {
+    left: -27%;
+  }
+}
+
+@media(max-width: 350px) {
+  .sidebar-content a:after {
+    left: -25%;
+  }
+}
 

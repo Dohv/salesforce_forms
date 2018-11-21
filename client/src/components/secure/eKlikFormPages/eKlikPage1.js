@@ -196,11 +196,11 @@ class eKlik1 extends Component {
                             <h4 className='eklik-page-title'>General Information</h4>
                             <FormGroup>
                                <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Company Name</ControlLabel>
                                         <FormControl name='eKlik_Company_Name' placeholder="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Primary Contact</ControlLabel>
                                         <FormControl name='eKlik_Primary_Contact' placeholder="Primary Contact" value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
                                     </Col>
@@ -208,15 +208,15 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={4}>
+                                    <Col xs={8} sm={3} md={3}>
                                         <ControlLabel>Primary Phone</ControlLabel>
                                         <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' placeholder="Primary Phone" value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
-                                    <Col xs={3}>
+                                    <Col xs={4} sm={3} md={3}>
                                         <ControlLabel>Ext.</ControlLabel>
                                         <FormControl name='eKlik_Primary_Contact_Phone_Extension' placeholder="Ext." value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
-                                    <Col xs={5}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Primary Email</ControlLabel>
                                         <FormControl name='eKlik_Primary_Contact_Email' placeholder="Primary Email" value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
@@ -224,11 +224,11 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Name</ControlLabel>
                                         <FormControl name='eKlik_Business_Owner_Name' placeholder="Business Owner Name" value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Title</ControlLabel>
                                         <FormControl name='eKlik_Business_Owner_Title' placeholder="Business Owner Title" value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col> 
@@ -236,11 +236,11 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Bisiness Owner Phone</ControlLabel>
                                         <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' placeholder="Business Owner Phone" value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Email</ControlLabel>
                                         <FormControl name='eKlik_Business_Owner_Email' placeholder="Business Owner Email" value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
@@ -249,19 +249,19 @@ class eKlik1 extends Component {
                             
                             <FormGroup>
                                 <Row>
-                                   <Col xs={5}>
+                                   <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Address</ControlLabel>
                                         <FormControl name='eKlik_Physical_Address' placeholder="Address" value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                    </Col>
-                                    <Col xs={3}>
+                                    <Col xs={4} sm={3} md={3}>
                                         <ControlLabel>City</ControlLabel>
                                         <FormControl name= 'eKlik_City' placeholder="City" value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={2}>
+                                    <Col xs={4} sm={3} md={3}>
                                         <ControlLabel>State</ControlLabel>  
                                         <FormControl name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={2}>
+                                    <Col xs={4} sm={3} md={3}>
                                     <ControlLabel>Zip Code</ControlLabel>
                                         <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
@@ -269,11 +269,11 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                     <ControlLabel>Company Website</ControlLabel>
                                         <FormControl value={this.state.Company_Website} name='Company_Website' placeholder='Company Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                     <ControlLabel>Primary reason for accepting payments</ControlLabel>
                                         <FormControl type='text' name='Primary_Reason_for_accepting_payments' placeholder='Primary reason for accepting payments' />
                                     </Col>
@@ -281,15 +281,15 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup controlId="formControlsSelect">
                                 <Row>
-                                    <Col xs={5}>
-                                        <ControlLabel>Is your company Privately or Publicly Held</ControlLabel>
+                                    <Col xs={12} sm={5} md={5}>
+                                        <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
                                         <FormControl componentClass="select" placeholder="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
                                         <option value='0' disabled>Choose</option>
                                             <option value='Publicly'>Publicly</option>
                                             <option value='Privately'>Privately</option>
                                         </FormControl>
                                     </Col>
-                                    <Col xs={3}>
+                                    <Col xs={6} sm={3} md={3}>
                                         <ControlLabel>Name of Exchange</ControlLabel>
                                         <FormControl componentClass="select" placeholder="select" name='Name_of_Exchange' value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                         <option value='0' disabled>Choose</option>
@@ -297,7 +297,7 @@ class eKlik1 extends Component {
                                             <option value='NYSE'>NYSE</option>
                                         </FormControl>
                                     </Col>
-                                    <Col xs={4}>
+                                    <Col xs={6} sm={4} md={4}>
                                         <ControlLabel>Ticker_Symbol</ControlLabel>
                                         <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' placeholder='Ticker Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
@@ -308,12 +308,12 @@ class eKlik1 extends Component {
                             <FormGroup>
                                 <Row>
                                     <p className='form-comment'>Does your business engage in any of the following:</p>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox className='checkbox' name='is_Property_Management_Company' checked={isPropertyManagementCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Property Management Company
                                         </Checkbox>
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Payday_Lenders' checked={isPaydayLenders} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                         Payday Lenders, Check Cashing, Currency Exchange  
                                         </Checkbox>
@@ -322,12 +322,12 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Subprime_Loan_Originator' checked={isSubprimeLoanOriginator} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Subprime Loan Originator
                                         </Checkbox>
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                        <Checkbox name='Credit_Repair_Services_Company' checked={isCreditRepairServicesCompnay} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Credit Repair Services Company
                                         </Checkbox> 
@@ -336,12 +336,12 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Debt_Consolidation_Services' checked={isDebtConsolidationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Debt Consolidation Services or Forgiveness
                                         </Checkbox>
                                     </Col>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Loan_Modification_Services' checked={isLoanModificationServices} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Loan Modification Services
                                         </Checkbox>
@@ -350,13 +350,13 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Online_Payment_Processor' checked={isOnlinePaymentProcessor} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} >
                                             Online Payment Processor or Third Party Payment Processor
                                         </Checkbox>
                                     </Col>
                                      
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Online_Gambling_Related_Operations' checked={isOnlineGamblingRelatedOperations} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Online Gambling Related Operations
                                         </Checkbox>
@@ -365,13 +365,13 @@ class eKlik1 extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Row>
-                                   <Col xs={6}>
+                                   <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Business_Located_Outside_the_US' checked={isBusinessLocatedOutsideTheUS} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Business Located Outside the US
                                         </Checkbox> 
                                    </Col>
                                     
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Mail_or_Telephone_Orders_Company' checked={isMailOrTelephoneOrdersCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Mail Order or Telephone Orders Company
                                         </Checkbox>
@@ -381,12 +381,12 @@ class eKlik1 extends Component {
                     
                             <FormGroup>
                                 <Row>
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Adult_Entertainment_Businesses' checked={isAdultEntertainmentBusinesses} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Adult Entertainment Businesses 
                                         </Checkbox>
                                     </Col> 
-                                    <Col xs={6}>
+                                    <Col xs={12} sm={6} md={6}>
                                         <Checkbox name='Telemarketing_Company' checked={isTelemarketingCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Telemarketing Company
                                         </Checkbox>

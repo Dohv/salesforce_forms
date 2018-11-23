@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
@@ -104,11 +105,9 @@ class eKlik1 extends Component {
                 Business_Located_Outside_the_US: JSON.parse(localStorage.getItem("Business_Located_Outside_the_US")),
                 Mail_or_Telephone_Orders_Company: JSON.parse(localStorage.getItem("Mail_or_Telephone_Orders_Company")),
                 Adult_Entertainment_Businesses: JSON.parse(localStorage.getItem("Adult_Entertainment_Businesses")),
-                Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")),
-                
+                Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")),  
             });
         }
-      //window.Materialize.updateTextFields();
     }
 
     
@@ -187,6 +186,12 @@ class eKlik1 extends Component {
             <div className="lds-ripple"><div></div><div></div></div>
             <p>saving</p> 
         </div> : '';
+
+        let nextPage = (this.props.currentFormPage + 1).toString();
+        let path = this.props.match.path;
+        const currPath = path.slice(0, path.lastIndexOf('/'))
+        const nextButton = this.props.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { console.log({currPath, nextPage}); this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
+
         return (
             <React.Fragment>
             <div className='behindForm'>
@@ -249,7 +254,7 @@ class eKlik1 extends Component {
                             
                             <FormGroup>
                                 <Row>
-                                   <Col xs={12} sm={6} md={6}>
+                                   <Col xs={12} sm={5} md={5}>
                                         <ControlLabel>Address</ControlLabel>
                                         <FormControl name='eKlik_Physical_Address' placeholder="Address" value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                    </Col>
@@ -257,11 +262,11 @@ class eKlik1 extends Component {
                                         <ControlLabel>City</ControlLabel>
                                         <FormControl name= 'eKlik_City' placeholder="City" value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={4} sm={3} md={3}>
+                                    <Col xs={4} sm={2} md={2}>
                                         <ControlLabel>State</ControlLabel>  
                                         <FormControl name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
-                                    <Col xs={4} sm={3} md={3}>
+                                    <Col xs={4} sm={2} md={2}>
                                     <ControlLabel>Zip Code</ControlLabel>
                                         <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
@@ -391,6 +396,7 @@ class eKlik1 extends Component {
                                             Telemarketing Company
                                         </Checkbox>
                                     </Col>
+                                    {nextButton}
                                 </Row>
                             </FormGroup>
                         </Form>

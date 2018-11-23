@@ -11,7 +11,6 @@ import FormMenu from './components/secure/FormMenu';
 import Logout from './components/secure/Logout';
 import ClientList from './components/secure/ClientList';
 import NoMatch from './components/NoMatch';
-import $ from 'jquery';
 
 class App extends Component {
   constructor(props) {

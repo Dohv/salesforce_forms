@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Input, Button } from 'react-materialize'
+import {Link} from 'react-router-dom';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, ButtonToolbar, Button } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
 
 class eKlik2 extends Component {
@@ -35,6 +36,8 @@ class eKlik2 extends Component {
             Remittance_Address_10: '',
             nameInputs: [],
             newName: '',
+            addressInputs: [],
+            newAddress: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,6 +45,7 @@ class eKlik2 extends Component {
         this.handleSave = this.handleSave.bind(this);
         this.addNameInputs = this.addNameInputs.bind(this);
         this.addOne = this.addOne.bind(this);
+        this.removeInput = this.removeInput.bind(this);
     }
 
 
@@ -100,7 +104,8 @@ class eKlik2 extends Component {
             Remittance_Address_10: localStorage.getItem("Remittance_Address_10"),
           });
         } 
-      this.addNameInputs();
+       this.addNameInputs();
+      this.addAddressInputs();
     }
 
     handleInputChange(event) {
@@ -122,6 +127,7 @@ class eKlik2 extends Component {
     }
 
     _lastInputNameCreated = 1;
+    _lastInputAddressCreated = 1;
 
     addOne(e) {
       e.preventDefault();
@@ -131,8 +137,25 @@ class eKlik2 extends Component {
         let nameValue = `Check_Payment_Name_${this._lastInputNameCreated.toString()}`;
         let labelValue = `Name ${this._lastInputNameCreated.toString()}`;
         let stateValue = this.state[nameValue];
+        console.log({stateValue});
         this.setState({
-          nameInputs: [...this.state.nameInputs, <Input s={6} key={this.state.nameInputs.length + 1} className='checkName' name={nameValue} label={labelValue} defaultValue={stateValue} onChange={this.handleInputChange} onInput={this.handleSave} />]
+          nameInputs: [...this.state.nameInputs, 
+            <FormGroup key={this.state.nameInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={nameValue}
+                        placeholder={labelValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>   
+          ]
         })
       } 
     }
@@ -143,16 +166,104 @@ class eKlik2 extends Component {
       ten.forEach((el, i) => {
         let nameValue = `Check_Payment_Name_${el.toString()}`;
         let labelValue = `Name ${el.toString()}`;
-        let stateValue = this.state[nameValue]
+        let stateValue = this.state[nameValue];
+        // console.log(stateValue);
         if(stateValue !== '') {
           this._lastInputNameCreated = el;
           result.push(
-            <Input s={6} key={i} className='checkName' name={nameValue} label={labelValue} defaultValue={stateValue} onChange={this.handleInputChange} onInput={this.handleSave} />
+            <FormGroup key={this.state.nameInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={nameValue}
+                        placeholder={labelValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e)}}
+                        onInput={(e) => this.handleSave(e)} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>
           )
         }
       })
 
       return this.setState({nameInputs: result});
+    }
+
+    async removeInput(div) {
+      div.value = '';
+      this.setState({isSaving: true});
+      await formDataServices.updateFormData(localStorage.getItem("Account_Name"), div.name, div.value, localStorage.getItem('selectedForm'));
+      this.setState({isSaving: false});
+      div.parentNode.remove();
+    }
+
+    addOneAddress(e) {
+      e.preventDefault();
+      this._lastInputAddressCreated = this._lastInputAddressCreated + 1;
+
+      if(this._lastInputAddressCreated <= 10) {
+        let addressValue = `Remittance_Address_${this._lastInputAddressCreated.toString()}`;
+        let labelValue = `Address ${this._lastInputAddressCreated.toString()}`;
+        let stateValue = this.state[addressValue];
+        this.setState({
+          nameInputs: [...this.state.addressInputs, 
+            <FormGroup key={this.state.addressInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={addressValue}
+                        placeholder={labelValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>   
+          ]
+        })
+      } 
+    }
+    
+    addAddressInputs() {
+      const ten = [2,3,4,5,6,7,8,9,10]
+      const result = []
+      ten.forEach((el, i) => {
+        let addressValue = `Remittance_Address_${el.toString()}`;
+        let labelValue = `Address ${el.toString()}`;
+        let stateValue = this.state[addressValue];
+        
+        if(stateValue !== '') {
+          this._lastInputAddressCreated = el;
+          result.push(
+            <FormGroup key={this.state.addressInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={addressValue}
+                        placeholder={labelValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e)}}
+                        onInput={(e) => this.handleSave(e)} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>
+          )
+        }
+      })
+
+      return this.setState({addressInputs: result});
     }
 
     
@@ -161,8 +272,14 @@ class eKlik2 extends Component {
       if(this._lastInputNameCreated >= 10) {
         document.getElementById('addNameButton').classList.add('name');
       }
-        let newName = this.state.newName;
-        let renderNameInputs = this.state.nameInputs;
+
+      if(this._lastInputNameCreated >= 10) {
+        document.getElementById('addNameButton').classList.add('name');
+      }
+      let newName = this.state.newName;
+      let renderNameInputs = this.state.nameInputs;
+      let newAddress = this.state.newAddress;
+      let renderAddressInputs = this.state.addressInputs;
         let isFiserv = this.state.Fiserv ? true : false;
         let isRPPS = this.state.RPPS ? true : false;
         let savingStatus = this.state.isSaving ? 
@@ -170,40 +287,125 @@ class eKlik2 extends Component {
             <div className="lds-ripple"><div></div><div></div></div>
             <p>saving</p> 
         </div> : '';
+
+        let nextPage = (this.props.currentFormPage + 1).toString();
+        let path = this.props.match.path;
+        const currPath = path.slice(0, path.lastIndexOf('/'))
+        const nextButton = this.props.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { console.log({currPath, nextPage}); this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
+
         return (
             <React.Fragment>
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>
-                        <form className='col s12 form'>
+                  <Form className='form'>
                         <h4 >Basic Setup Information</h4>
-                        <Row>
-                              <p className='form-comment'>Bank Account Information for Where You Would Like the Funds Deposited</p>
-                              <Input s={6} name='eKlik_Bank_Routing_Number' label="Bank Routing Number" value={this.state.eKlik_Bank_Routing_Number} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                              <Input s={6} name='eKlik_Bank_Account_Number' label="Bank Account Number" value={this.state.eKlik_Bank_Account_Number} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                            </Row>
-                            <Row>
+                        <FormGroup>
+                               <Row>
+                                    <Col xs={6} sm={6} md={6}>
+                                        <ControlLabel>Bank Routing Number</ControlLabel>
+                                        <FormControl 
+                                          name='eKlik_Bank_Routing_Number'
+                                          placeholder="Bank Routing Number" 
+                                          value={this.state.eKlik_Bank_Routing_Number} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                    </Col>
+                                    <Col xs={6} sm={6} md={6}>
+                                        <ControlLabel>Primary Contact</ControlLabel>
+                                        <FormControl 
+                                          name='eKlik_Bank_Account_Number' 
+                                          placeholder="Bank Account Number" 
+                                          value={this.state.eKlik_Bank_Account_Number} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />  
+                                    </Col>
+                               </Row>
+                            </FormGroup>
                               <p className='form-comment'>Are You Currently Enrolled Directly With Any of the following Online Payment Processors?</p>
-                              <div className="eKlikSwitch switch">Fiserv<label className='yesNo'>No<input type="checkbox" name='Fiserv' checked={isFiserv} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                                <span className="lever"></span>Yes</label></div>
-                            </Row>
-                            <Row>
-                              <div className="eKlikSwitch switch">RPPS<label className='yesNo'>No<input type="checkbox" name='RPPS' checked={isRPPS} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
-                              <span className="lever"></span>Yes</label></div>
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Other_Online_Payment_Processor' label="Other" value={this.state.Other_Online_Payment_Processor} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                            </Row>
-                            <Row>
-                              <p className='form-comment'>Indicate All the Possible Names Customers Might Use On a Check Payment to Your Business</p>
-                              <Input s={6} className='checkName' name='Check_Payment_Name_1' label='Name 1' value={this.state.Check_Payment_Name_1} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                              <FormGroup>
+                                <Row>
+                                    <Col xs={6} sm={6} md={6}>
+                                        <Checkbox 
+                                          name='Fiserv' 
+                                          checked={isFiserv} 
+                                          onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Fiserv 
+                                        </Checkbox>
+                                    </Col> 
+                                    <Col xs={6} sm={6} md={6}>
+                                        <Checkbox 
+                                          name='RPPS' 
+                                          checked={isRPPS} 
+                                          onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            RPPS
+                                        </Checkbox>
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Other</ControlLabel>
+                                        <FormControl 
+                                          name='Other_Online_Payment_Processor'
+                                          placeholder="Other" 
+                                          value={this.state.Other_Online_Payment_Processor} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                    </Col>
+                               </Row>
+                            </FormGroup>
+                            <p className='form-comment'>Indicate All the Possible Names Customers Might Use On a Check Payment to Your Business</p>
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Name 1</ControlLabel>
+                                        <FormControl 
+                                          name='Check_Payment_Name_1'
+                                          placeholder="Name 1" 
+                                          value={this.state.Check_Payment_Name_1} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                          <i className="fal fa-times"></i>
+                                    </Col>
+                               </Row>
+                            </FormGroup> 
                             {renderNameInputs}
                             {newName}
-                              
-                            </Row>
-                            <Button floating small="true" id='addNameButton' className='green addButton' waves='light' icon='add' onClick={this.addOne}/>
-                            <Row>
-                              <p className='form-comment'>Indicate All the Possible Remittance Addresses Where Customers Might Send Your Payments</p>
+                            <ButtonToolbar>
+                              <Button id='addNameButton' bsSize="small" onClick={this.addOne}>
+                              <i className="far fa-plus"></i>
+                                Add
+                              </Button>
+                            </ButtonToolbar>
+                            <p className='form-comment'>Indicate All the Possible Remittance Addresses Where Customers Might Send Your Payments</p>
+
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Address 1</ControlLabel>
+                                        <FormControl 
+                                          name='Remittance_Address_1'
+                                          placeholder="Address 1" 
+                                          value={this.state.Remittance_Address_1} 
+                                          onChange={this.handleInputChange} 
+                                          onInput={this.handleSave} />
+                                          <i className="fal fa-times"></i>
+                                    </Col>
+                               </Row>
+                            </FormGroup> 
+                            {renderAddressInputs}
+                            {newAddress}
+                            <ButtonToolbar>
+                              <Button id='addNameButton' bsSize="small" onClick={this.addOneAddress}>
+                              <i className="far fa-plus"></i>
+                                Add
+                              </Button>
+                            </ButtonToolbar>
+                            
+                            {/* 
+                            
                               <Input s={6} name='Remittance_Address_1' label="Address 1" value={this.state.Remittance_Address_1} onChange={this.handleInputChange} onBlur={this.handleSave} />
                               <Input s={6} name='Remittance_Address_2' label="Address 2" value={this.state.Remittance_Address_2} onChange={this.handleInputChange} onBlur={this.handleSave} />
                             </Row>
@@ -222,8 +424,10 @@ class eKlik2 extends Component {
                             <Row>
                               <Input s={6} name='Remittance_Address_9' label="Address 9" value={this.state.Remittance_Address_9} onChange={this.handleInputChange} onBlur={this.handleSave} />
                               <Input s={6} name='Remittance_Address_10' label="Address 10" value={this.state.Remittance_Address_10} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                        </form>
+                            
+                            </Row> */}
+                            {nextButton}
+                        </Form>
                     
                 </div>
 

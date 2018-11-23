@@ -761,6 +761,7 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .setup {
+  margin-top: 10px;
   margin-left: 221px;
   border-bottom: 2px solid #d0d0d0;
   margin-bottom: 10px;
@@ -879,7 +880,6 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .FFLink {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   font-family: 'Omnes-medium';
   font-size: 14px;
@@ -890,22 +890,17 @@ thumbnail a>img, .thumbnail>img {
   padding-top: 6px;
   pointer-events: initial;
   text-transform: none;
-  position: fixed;
-  z-index: 99;
-}
-
-.next, .back {
-  top: 87%;
+  float: right;
 }
 
 .next {
-  left: 88%;
   color: white;
-  background: #1B2F57;
+  background: #3F6AB3;
+  margin-right: 15px;
 }
 
 .back {
-  left: 19%;
+  border: 2px solid #d0d0d0;
   background: white;
   color: #1B2F57;
 }
@@ -921,6 +916,10 @@ thumbnail a>img, .thumbnail>img {
   background-color: #3F6AB3;
   background-size: 100%;
   transition: background 0s;
+}
+
+.fa-caret-left, .fa-caret-left {
+  margin-right: 5px;
 }
 
 .switch-wrapper {
@@ -993,6 +992,27 @@ thumbnail a>img, .thumbnail>img {
 
 .name {
   display: none;
+}
+
+.fa-times {
+  color: #d90000;
+  float: right;
+  margin-top: -22px;
+  margin-right: 13px;
+  cursor: pointer;
+}
+
+#addNameButton {
+  font-family: 'Omnes-medium';
+  font-size: 14px;
+  color: #233E76;
+  background: #ffffff;
+  border: 1px solid #d0d0d0;
+}
+
+.fa-plus {
+  color: #233E76;
+  margin-right: 5px;
 }
 
 /* --------------- form page ipad ---------------- */
@@ -1077,6 +1097,11 @@ thumbnail a>img, .thumbnail>img {
   .sidebar-content a:after {
     left: -36%;
   }
+
+  .stepLinkTitle {
+    font-size: 14px;
+    text-align: center;
+  }
 }
 
 @media(max-width: 550px) {
@@ -1087,7 +1112,7 @@ thumbnail a>img, .thumbnail>img {
 
 @media(max-width: 450px) {
   .sidebar-content a:after {
-    left: -31%;
+    left: -30.3%;
   }
 
   .form {
@@ -1104,7 +1129,7 @@ thumbnail a>img, .thumbnail>img {
 
 @media(max-width: 350px) {
   .sidebar-content a:after {
-    left: -25%;
+    left: -23%;
   }
 }
 

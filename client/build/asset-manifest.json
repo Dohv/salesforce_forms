@@ -1,9 +1,9 @@
 {
-  "main.css": "/static/css/main.35db4ade.chunk.css",
-  "main.js": "/static/js/main.4ab9a946.chunk.js",
-  "main.js.map": "/static/js/main.4ab9a946.chunk.js.map",
-  "static/js/1.02191a54.chunk.js": "/static/js/1.02191a54.chunk.js",
-  "static/js/1.02191a54.chunk.js.map": "/static/js/1.02191a54.chunk.js.map",
+  "main.css": "/static/css/main.1d1571c2.chunk.css",
+  "main.js": "/static/js/main.12a3fd2c.chunk.js",
+  "main.js.map": "/static/js/main.12a3fd2c.chunk.js.map",
+  "static/js/1.afdc11ad.chunk.js": "/static/js/1.afdc11ad.chunk.js",
+  "static/js/1.afdc11ad.chunk.js.map": "/static/js/1.afdc11ad.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
   "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
   "static/media/App.css": "/static/media/Omnes-Medium.b9bcd8a3.otf",
@@ -12,8 +12,8 @@
   "static/media/knp@3x.png": "/static/media/knp@3x.d4e73e9c.png",
   "static/media/remitstation@3x.png": "/static/media/remitstation@3x.93d00076.png",
   "static/media/eklik@3x.png": "/static/media/eklik@3x.c9984985.png",
-  "static/css/main.35db4ade.chunk.css.map": "/static/css/main.35db4ade.chunk.css.map",
+  "static/css/main.1d1571c2.chunk.css.map": "/static/css/main.1d1571c2.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.f486ccc1d6d544987cb0736c63994805.js": "/precache-manifest.f486ccc1d6d544987cb0736c63994805.js",
+  "precache-manifest.3439e1ea1cda13202396bacf9bc58cce.js": "/precache-manifest.3439e1ea1cda13202396bacf9bc58cce.js",
   "service-worker.js": "/service-worker.js"
 }

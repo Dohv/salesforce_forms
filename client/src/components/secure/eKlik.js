@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import eKlikPage1 from './eKlikFormPages/eKlikPage1';
-import eKlikPage2 from './eKlikFormPages/eKlikPage2';
-import eKlikPage3 from './eKlikFormPages/eKlikPage3';
+import EKlikPage1 from './eKlikFormPages/eKlikPage1';
+import EKlikPage2 from './eKlikFormPages/eKlikPage2';
+import EKlikPage3 from './eKlikFormPages/eKlikPage3';
 import Sidebar from '../layout/Sidebar';
 import {Link, Route, Redirect } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
@@ -82,7 +82,6 @@ class EKlik extends Component {
                  $(div).addClass('active')
                 }
                 if(divNum < num) {
-                    console.log({div, divNum}); 
                 $(div).addClass('lessThan');
             }
           });
@@ -97,16 +96,16 @@ class EKlik extends Component {
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
         const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage + 1) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
-        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink back ripple' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage - 1) }} to={`${this.props.match.path}/${lastPage}`}>Back</Link>;
+        const backButton = this.state.currentFormPage === 1 ? '' : <Link className='FFLink back ripple' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage - 1) }} to={`${this.props.match.path}/${lastPage}`}><i className="fas fa-caret-left"></i>Back</Link>;
         
         
         return (
             <React.Fragment>
-                    {nextButton}
-                    {backButton}
+                    
                     <div className='container'>
                         <div className='setup'>
                             eKlik Setup
+                            {backButton}
                         </div>
                     
                         <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location} /> 
@@ -121,9 +120,9 @@ class EKlik extends Component {
                             })}
                 className='switch-wrapper'
             >
-                <Route path={`${this.props.match.path}/1`} component={eKlikPage1}/>
-                <Route path={`${this.props.match.path}/2`} component={eKlikPage2}/>
-                <Route path={`${this.props.match.path}/3`} component={eKlikPage3}/>
+                <Route path={`${this.props.match.path}/1`} component={(props) => (<EKlikPage1 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/2`} component={(props) => (<EKlikPage2 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/3`} component={(props) => (<EKlikPage3 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
             </AnimatedSwitch>
                 
 

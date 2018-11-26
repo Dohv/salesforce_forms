@@ -367,7 +367,7 @@ class eKlik2 extends Component {
                                           value={this.state.Check_Payment_Name_1} 
                                           onChange={this.handleInputChange} 
                                           onBlur={this.handleSave} />
-                                          <i className="fal fa-times"></i>
+                                          
                                     </Col>
                                </Row>
                             </FormGroup> 
@@ -391,7 +391,7 @@ class eKlik2 extends Component {
                                           value={this.state.Remittance_Address_1} 
                                           onChange={this.handleInputChange} 
                                           onInput={this.handleSave} />
-                                          <i className="fal fa-times"></i>
+                                          
                                     </Col>
                                </Row>
                             </FormGroup> 

@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/HelveticaNeueLTStd-Lt.39320288.otf"
   },
   {
-    "revision": "12a3fd2c9eba955fdec1",
+    "revision": "38d9ebf481cdb718a796",
     "url": "/static/css/main.1d1571c2.chunk.css"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = [
     "url": "/static/media/remitstation@3x.93d00076.png"
   },
   {
-    "revision": "12a3fd2c9eba955fdec1",
-    "url": "/static/js/main.12a3fd2c.chunk.js"
+    "revision": "38d9ebf481cdb718a796",
+    "url": "/static/js/main.38d9ebf4.chunk.js"
   },
   {
     "revision": "f9ae3c0ee46d3053a591a61d37c9f05e",
@@ -52,10 +52,6 @@ self.__precacheManifest = [
     "url": "/static/media/HelveticaNeueLTPro-Lt.47caac1c.otf"
   },
   {
-    "revision": "f2af66f60b4f7db6adb01b2b795f5a9e",
-    "url": "/static/media/Omnes-Regular.f2af66f6.otf"
-  },
-  {
     "revision": "cc8b85227dfc3af2293b0a8e1d8bb68a",
     "url": "/static/media/Omnes-Light.cc8b8522.otf"
   },
@@ -64,11 +60,15 @@ self.__precacheManifest = [
     "url": "/static/media/Omnes-Medium.b9bcd8a3.otf"
   },
   {
+    "revision": "f2af66f60b4f7db6adb01b2b795f5a9e",
+    "url": "/static/media/Omnes-Regular.f2af66f6.otf"
+  },
+  {
     "revision": "fd5a50970e50a2fadb09e21bbdf1a647",
     "url": "/static/media/login_background.fd5a5097.png"
   },
   {
-    "revision": "8ac6be793cef7aeddf0b8373fc1899a1",
+    "revision": "cc063f8bb802cde2dbcf64a04e91a2b2",
     "url": "/index.html"
   }
 ];

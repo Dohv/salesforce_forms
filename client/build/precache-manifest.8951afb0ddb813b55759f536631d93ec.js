@@ -44,16 +44,16 @@ self.__precacheManifest = [
     "url": "/static/js/main.dced28a6.chunk.js"
   },
   {
-    "revision": "39320288ef6e12c430663a64c9610272",
-    "url": "/static/media/HelveticaNeueLTStd-Lt.39320288.otf"
-  },
-  {
     "revision": "f9ae3c0ee46d3053a591a61d37c9f05e",
     "url": "/static/media/HelveticaNeueLTStd-Md.f9ae3c0e.otf"
   },
   {
     "revision": "47caac1c850a63f46fbebb64056d90ff",
     "url": "/static/media/HelveticaNeueLTPro-Lt.47caac1c.otf"
+  },
+  {
+    "revision": "39320288ef6e12c430663a64c9610272",
+    "url": "/static/media/HelveticaNeueLTStd-Lt.39320288.otf"
   },
   {
     "revision": "036b63e154cec317213b3e765bfd6815",

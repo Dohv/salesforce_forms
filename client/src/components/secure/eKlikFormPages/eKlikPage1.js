@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
-import ReactResizeDetector from 'react-resize-detector';
 
 
 class eKlik1 extends Component {

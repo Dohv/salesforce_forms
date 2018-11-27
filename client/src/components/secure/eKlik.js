@@ -87,7 +87,7 @@ class EKlik extends Component {
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
         const nextButton = location === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage + 1) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
-        const backButton = location === 1 ? '' : <Link className='FFLink back ripple' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage - 1) }} to={`${this.props.match.path}/${lastPage}`}><i className="fas fa-caret-left"></i>Back</Link>;
+        const backButton = location === 1 ? <Link className='FFLink back ripple' to={'/forms'}><i className="fas fa-caret-left"></i>Back</Link> : <Link className='FFLink back ripple' onClick={() => { this.handleLastFormPage(); this.handleBackRouteChangeAnimation(); window.scrollTo(0, 0); this.updateClass(this.state.currentFormPage - 1) }} to={`${this.props.match.path}/${lastPage}`}><i className="fas fa-caret-left"></i>Back</Link>;
         
         
         return (

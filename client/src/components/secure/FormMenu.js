@@ -25,11 +25,12 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting}) => {
 
     let products = (localStorage.getItem('sfAccountProducts').split(';'));
     products = JSON.parse(products);
-    const element = document.querySelector('.formButtonContainer');
-    if(match.path === '/forms' &&  element) {
+    const formButtonContainer = document.querySelector('.formButtonContainer');
+    const greeting = document.querySelector('.formMenuGreeting');
+    if(match.path === '/forms' &&  formButtonContainer) {
         
-        
-        element.classList.remove('displayNone');
+        greeting.classList.remove('displayNone');
+        formButtonContainer.classList.remove('displayNone');
         
     }
    

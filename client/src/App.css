@@ -546,7 +546,7 @@ input:-webkit-autofill {
 
 .formMenuGreeting {
   border-bottom: 2px solid #D0D0D0;
-  margin: 20px 100px;
+  margin: 95px 100px 20px 100px;
   font-family: 'Omnes-regular';
   color: #233E76;
   font-size: 32px;
@@ -581,13 +581,13 @@ input:-webkit-autofill {
   }
 
   .formMenuGreeting {
-    margin: 20px 28px;
+    margin: 80px 28px 20px 28px;
   }
 }
 
 @media(max-width: 350px) {
   .formMenuGreeting {
-    font-size: 30px;
+    font-size: 27px;
   }
 }
 

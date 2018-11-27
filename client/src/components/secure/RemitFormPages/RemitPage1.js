@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { Row, Input, Icon } from 'react-materialize'
+import {Link} from 'react-router-dom';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, ButtonToolbar, Button } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import NumberFormat from 'react-number-format';
+import ReactTooltip from 'react-tooltip';
 
 
 class Remit1 extends Component {
@@ -11,6 +16,18 @@ class Remit1 extends Component {
             isSaving: false,
             Remit_Target_Go_Live_Date: '',
             Remit_Today_s_Date: '',
+            Remit_FI_Rep_Contact_Email: '',
+            Remit_FI_Rep_Contact_Name: '',	
+            Remit_FI_Rep_Contact_Phone: '',
+            Remit_FI_Rep_Contact_Title: '',
+            Remit_Company_Name: '',
+            Action_Requested: '',
+            Billing_Account_Number: '',
+            Deposit_Account_Number: '',
+            EIN_TIN: '',
+            Remit_Company_Contact_Email: '',	
+            Remit_Company_Contact_Name: '',		
+            Remit_Company_Contact_Phone: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -22,11 +39,15 @@ class Remit1 extends Component {
      _isMounted = false;
 
      componentDidMount() {
+        const x = document.querySelector('.formButtonContainer'); 
+        const y = document.querySelector('.formMenuGreeting');
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
          this._isMounted = true;
          this.getFormData();
      }
  
      componentWillMount() {
+         
          this._isMounted = false;
      }
 
@@ -47,8 +68,6 @@ class Remit1 extends Component {
             Remit_Today_s_Date: localStorage.getItem("Remit_Today_s_Date"),
           });  
         }
-        
-      window.Materialize.updateTextFields();
     }
 
     handleInputChange(event) {
@@ -59,44 +78,6 @@ class Remit1 extends Component {
         this.setState({
           [name]: value
         });
-    }
-
-    dateFormat(string, stateName) {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let formatedDate = [];
-        
-        if(string.indexOf(',') !== -1) {
-            const splitStr = string.split(' ');
-            const monthNumber = months.indexOf(splitStr[1].slice(0, -1)) + 1;
-            formatedDate.push(splitStr[2])
-            formatedDate.push('-');
-            monthNumber < 10 ? formatedDate.push(`0${monthNumber}`) : formatedDate.push(monthNumber);
-            formatedDate.push('-');
-            formatedDate.push(splitStr[0]);
-            let result = formatedDate.join('');
-
-            return result;
-        }
-        return this.state[stateName];
-    }
-
-    phoneNumberFormat(s) {
-        if(s.length >= 9) {
-            var s2 = (""+s).replace(/\D/g, '');
-            var m = s2.match(/^(\d{3})(\d{3})(\d{4})$/);
-            return (!m) ? null : "(" + m[1] + ") " + m[2] + "-" + m[3];
-        }
-
-        return this.state.phone_number;
-
-    }
-
-    isSelected(e) {
-        if(this.state[e.target.name]) {
-            return this.state[e.target.name];
-        }
-
-        return '0';
     }
 
     // onChange(e) {
@@ -125,17 +106,115 @@ class Remit1 extends Component {
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>
-                        <form className='col s12 form'>
-                            <Row>
-                                <Input s={6} className='datepicker' name='Remit_Target_Go_Live_Date' type='date' onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} value={this.dateFormat(this.state.Remit_Target_Go_Live_Date, 'Remit_Target_Go_Live_Date')} label='Proposed go live date'>
-                                <Icon>calendar_today</Icon>
-                                </Input>
-                                <Input s={6} className='datepicker' name='Remit_Today_s_Date' type='date' onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} value={this.dateFormat(this.state.Remit_Today_s_Date, 'Remit_Today_s_Date')} label="Today's date">
-                                <Icon>calendar_today</Icon>
-                                </Input>
-                            </Row>
-                        </form>
-                    
+                        <Form className='form'>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Target Go Live Date</ControlLabel>
+                                        <FormControl
+                                            type='date' 
+                                            dateformat="MM/DD/YYY"
+                                            name='Remit_Target_Go_Live_Date' 
+                                            value={this.state.Remit_Target_Go_Live_Date} 
+                                            onChange={(e) => {this.handleInputChange(e)}}
+                                            onBlur={(e) => {this.handleSave(e)}} 
+                                        />   
+                                    </Col>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Today's Date</ControlLabel>
+                                        <FormControl
+                                            type='date' 
+                                            dateformat="MM/DD/YYY"
+                                            name='Remit_Today_s_Date' 
+                                            value={this.state.Remit_Today_s_Date} 
+                                            onChange={(e) => {this.handleInputChange(e)}}
+                                            onBlur={(e) => {this.handleSave(e)}} 
+                                        />   
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>FI Contact Name</ControlLabel>
+                                        <FormControl name='Remit_FI_Rep_Contact_Name' placeholder="Primary Email" value={this.state.Remit_FI_Rep_Contact_Name} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>FI Contact Title</ControlLabel>
+                                        <FormControl name='Remit_FI_Rep_Contact_Title' placeholder="FI Contact Title" value={this.state.Remit_FI_Rep_Contact_Title} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>FI Contact Phone</ControlLabel>
+                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='Remit_FI_Rep_Contact_Phone' 
+                                        placeholder="FI Contact Phone" value={this.state.Remit_FI_Rep_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>FI Contact Email</ControlLabel>
+                                        <FormControl name='Remit_FI_Rep_Contact_Email' placeholder="FI Contact Email" value={this.state.Remit_FI_Rep_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Company Name</ControlLabel>
+                                        <FormControl name='Remit_Company_Name' placeholder="Company Name" value={this.state.Remit_Company_Name} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Action Requested</ControlLabel>
+                                        <FormControl componentClass="select" placeholder="Choose an item" name='Action_Requested' value={this.state.Action_Requested} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
+                                        <option value='0'>Choose an item</option>
+                                            <option value='New'>New</option>
+                                            <option value='Add'>Add</option>
+                                            <option value="Change">Change</option>
+                                        </FormControl>
+                                    </Col>
+
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel>Billing Account Number</ControlLabel>
+                                        <FormControl name='Billing_Account_Number' placeholder="Billing Account Number" value={this.state.Billing_Account_Number} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                    </Col>
+                                    
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel className='longerFormInputLabels'>Deposit Account Number (if different)</ControlLabel>
+                                        <FormControl name='Deposit_Account_Number' placeholder="Deposit Account Number" value={this.state.Deposit_Account_Number} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel>EIN/TIN</ControlLabel>
+                                        <FormControl name='EIN_TIN' placeholder="EIN/TIN" value={this.state.EIN_TIN} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel>Company Contact Name</ControlLabel>
+                                        <FormControl name='Remit_Company_Contact_Name' placeholder="Company Contact Name" value={this.state.Remit_Company_Contact_Name} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel>Company Contact Phone</ControlLabel>
+                                        <FormControl name='Remit_Company_Contact_Phone' placeholder="Company Contact Phone" value={this.state.Remit_Company_Contact_Phone} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                    <Col xs={12} sm={4} md={4}>
+                                        <ControlLabel>Company Contact Email</ControlLabel>
+                                        <FormControl name='Remit_Company_Contact_Email' placeholder="Company Contact Email" value={this.state.Remit_Company_Contact_Email} type="text" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                    </Col>
+                                </Row>
+                            </FormGroup>
+                            {/* <p data-tip="hello world">Tooltip</p> */}
+
+                        </Form>
+                        {/* <ReactTooltip /> */}
                 </div>
 
             </div>

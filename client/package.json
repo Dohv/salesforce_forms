@@ -12,11 +12,14 @@
     "react-addons-css-transition-group": "^15.6.2",
     "react-albus": "^2.0.0",
     "react-bootstrap": "^0.32.4",
+    "react-datepicker": "^2.0.0",
     "react-dom": "^16.4.1",
     "react-materialize": "^2.4.2",
     "react-number-format": "^4.0.3",
+    "react-resize-detector": "^3.2.1",
     "react-router-dom": "^4.3.1",
-    "react-router-transition": "^1.2.1"
+    "react-router-transition": "^1.2.1",
+    "react-tooltip": "^3.9.0"
   },
   "devDependencies": {
     "react-scripts": "^2.1.1"

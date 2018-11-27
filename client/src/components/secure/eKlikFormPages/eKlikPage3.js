@@ -37,7 +37,7 @@ class eKlik3 extends Component {
     componentDidMount() {
         const x = document.querySelector('.formButtonContainer'); 
         const y = document.querySelector('.formMenuGreeting');
-        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')} 
         this._isMounted = true;
         this.getFormData();
     }
@@ -127,7 +127,7 @@ class eKlik3 extends Component {
                           <p className='form-comment'>Indicate All Acceptable Variations</p>
                           </Row>
                           <Row>
-                            <div className="container instructions-container">
+                            <div className="instructions-container">
                             
                             <p className='instruction sample-account-mask-key'><b>Sample Account Mask Key:</b></p>
                             

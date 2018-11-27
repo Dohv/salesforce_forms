@@ -76,7 +76,7 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting}) => {
                                             <p className='fb_title'>{product}</p>
                                             <p className='fb_description'>{description}</p>
                                             <p className='startHereContainer'>
-                                                <Button className={`startHereButton login-button ${product}`}>Start here<i className="fas fa-caret-right"></i></Button>
+                                                <Button className={`startHereButton login-button ${product}`}>Start Here<i className="fas fa-caret-right"></i></Button>
                                             </p>
                                         </Thumbnail>
                                     </Link>

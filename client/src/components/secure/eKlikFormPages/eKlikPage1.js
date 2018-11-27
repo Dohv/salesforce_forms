@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
+import ReactResizeDetector from 'react-resize-detector';
 
 
 class eKlik1 extends Component {
@@ -60,6 +61,7 @@ class eKlik1 extends Component {
     }
 
     componentWillMount() {
+        
         this._isMounted = false;
     }
 
@@ -120,34 +122,6 @@ class eKlik1 extends Component {
         this.setState({
           [name]: value
         });
-    }
-
-    dateFormat(string) {
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        let formatedDate = [];
-        
-        if(string.indexOf(',') !== -1) {
-            const splitStr = string.split(' ');
-            console.log(splitStr);
-            const monthNumber = months.indexOf(splitStr[1].slice(0, -1)) + 1;
-            formatedDate.push(splitStr[2])
-            formatedDate.push('-');
-            monthNumber < 10 ? formatedDate.push(`0${monthNumber}`) : formatedDate.push(monthNumber);
-            formatedDate.push('-');
-            formatedDate.push(splitStr[0]);
-            let result = formatedDate.join('');
-
-            return result;
-        }
-        return this.state.target_go_live_date;
-    }
-
-    isSelected(e) {
-        if(this.state[e.target.name]) {
-            return this.state[e.target.name];
-        }
-
-        return '0';
     }
 
     onChange(e) {

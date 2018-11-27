@@ -29,7 +29,7 @@ const LoginForm = (props) => {
                 
                 <FormGroup>
                     <InputGroup>
-                    <InputGroup.Addon><i className="far fa-user"></i></InputGroup.Addon>
+                    <InputGroup.Addon className='login-addon'><i className="far fa-user"></i></InputGroup.Addon>
                     <FormControl 
                         autoFocus
                         id="email" 
@@ -43,7 +43,7 @@ const LoginForm = (props) => {
                 
                 <FormGroup>
                     <InputGroup>
-                    <InputGroup.Addon><i className="far fa-lock"></i></InputGroup.Addon>
+                    <InputGroup.Addon className='login-addon'><i className="far fa-lock"></i></InputGroup.Addon>
                     <FormControl id="password" 
                             type="password" 
                             placeholder='Password'
@@ -64,8 +64,10 @@ const LoginForm = (props) => {
                     {loading}
                     
             </form>
-            <Image className='checkalt_login_logo' src={logo} responsive />
-            <p className='copy-right'>Powered by Checkalt &copy; 2018</p>
+            <div className='logo-copyright-container'>
+                <Image className='checkalt_login_logo' src={logo} responsive />
+                <p className='copy-right'>Powered by Checkalt &copy; 2018</p>
+            </div>
         </div>
     );
 }

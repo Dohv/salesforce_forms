@@ -43,7 +43,7 @@
   width: 210px;
   background-color: #ffffff;
   z-index: 99;
-  top: 107px;
+  top: 143px;
 }
 
 .sidebar-content {
@@ -131,6 +131,9 @@
   font-family: 'Omnes-light';
   background-color: #233E76;
   text-align: center;
+  position: fixed;
+  top: 0;
+  z-index: 99;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -149,6 +152,15 @@
   display: flex;
   align-items: center;
   margin: 20px 100px;
+}
+
+.header-comp-right {
+  width: 230px;
+  margin-right: 0px;
+}
+
+.whiteLogo {
+  max-width: 33%;
 }
 
 .app-title {
@@ -183,8 +195,8 @@
 
 .hamburgerContainer {
   position: absolute;
-  left: 80%;
-  top: -4px;
+  left: 75%;
+  top: -8px;
   cursor: pointer;
   height: 80px;
   width: 80px;
@@ -192,8 +204,8 @@
 
 .hamburger {
   position: absolute;
-  width: 60px;
-  height: 3px;
+  width: 40px;
+  height: 2px;
   background: white;
   top: 50%;
   left: 50%;
@@ -203,19 +215,19 @@
 .hamburger:before, .hamburger:after {
   content: '';
   position: absolute;
-  width: 60px;
-  height: 3px;
+  width: 40px;
+  height: 2px;
   background: white;
   transition: .5s;
   left: 0px;
 }
 
 .hamburger:before {
-  top: -16px;
+  top: -12px;
 }
 
 .hamburger:after {
-  top: 16px;
+  top: 12px;
 }
 
 .xActive .hamburger {
@@ -242,7 +254,7 @@
   color: white;
   height: 100px;
   width: 190px;
-  top: 68px;
+  top: 55px;
   left: 45%;
   z-index: 1;
 }
@@ -336,8 +348,11 @@ body {
   margin: 0 auto;
 }
 
+.login-addon {
+  background: #eeeeee !important;
+}
+
 #email, #password {
-  border-left: none;
   padding-top: 10px;
   -webkit-box-shadow: inset 0px 0px 0px 0px;
   font-family: 'Helvetica-Neue-Pro-Light';
@@ -375,9 +390,15 @@ body {
   color: white;
 }
 
+.logo-copyright-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .checkalt_login_logo {
   margin: 80px 0px 30px 0px;
-  max-width: 50%;
+  max-width: 36%;
 }
 
 .copy-right {
@@ -388,6 +409,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
   width: 650px;
   height: 550px;
@@ -416,6 +438,7 @@ body {
 
   .checkalt_login_logo {
     margin: 15px 0px 10px 0px;
+    max-width: 75%;
   }
 
 
@@ -426,10 +449,8 @@ body {
 
   .header-comp-left {
     margin-left: 0px;
-  }
-
-  .whiteLogo {
-    max-width: 76%;
+    align-items: flex-start;
+    margin-left: 30px;
   }
 
   p.app-title {
@@ -458,13 +479,6 @@ body {
 @media(width: 375px) and (height: 812px) {
   .center-form {
     margin: 42px auto;
-  }
-}
-
-@media(max-width: 400px) {
-  .hamburgerContainer {
-    left: 74%;
-    top: -4px;
   }
 }
 
@@ -761,8 +775,9 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .setup {
-  margin-top: 10px;
-  margin-left: 221px;
+  background: white;
+  margin-top: 110px;
+  margin-left: 220.4px;
   border-bottom: 2px solid #d0d0d0;
   margin-bottom: 10px;
   font-size: 32px;
@@ -784,7 +799,7 @@ thumbnail a>img, .thumbnail>img {
 .form {
   padding: 5px 75px;
   background-color: #F5F5F5;
-  margin-left: 220px;
+  margin: 10px 0px 0px 220px;
   padding-bottom: 50px;
   border: 2px solid #d0d0d0;
   color: #233E76;
@@ -891,6 +906,7 @@ thumbnail a>img, .thumbnail>img {
   pointer-events: initial;
   text-transform: none;
   float: right;
+  text-decoration: none;
 }
 
 .next {
@@ -903,6 +919,7 @@ thumbnail a>img, .thumbnail>img {
   border: 2px solid #d0d0d0;
   background: white;
   color: #1B2F57;
+  text-decoration: none !important;
 }
 
 .ripple {
@@ -1018,6 +1035,10 @@ thumbnail a>img, .thumbnail>img {
 /* --------------- form page ipad ---------------- */
 
 @media(max-width: 1199px) {
+  .whiteLogo {
+    max-width: 45%;
+  }
+  
   .setup {
     margin-left: 0px;
   }
@@ -1030,6 +1051,7 @@ thumbnail a>img, .thumbnail>img {
   
   .form {
     margin-left: 0px;
+    margin-top: 0px;
   }
   .sidebar-content {
     flex-direction: row;
@@ -1092,8 +1114,17 @@ thumbnail a>img, .thumbnail>img {
     font-size: 14px;
   }
 }
+@media(max-width: 700px) {
+  .setup {
+    margin-top: 90px;
+  }
+}
 
 @media(max-width: 600px) {
+  .whiteLogo {
+    max-width: 55%;
+  }
+
   .sidebar-content a:after {
     left: -36%;
   }
@@ -1117,6 +1148,7 @@ thumbnail a>img, .thumbnail>img {
 
   .form {
     padding: 5px 15px;
+    overflow: auto;
   }
 }
 

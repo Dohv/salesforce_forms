@@ -11,7 +11,7 @@ const Sidebar = ({currentFormPage, handleCurrentFormPage, updateClass, location}
   } else if(formType === "KlikNPay") {
     list = <KlikNPayList />
   } else if(formType === "Remit") {
-    list = <RemitList />
+    list = <RemitList handleCurrentFormPage={handleCurrentFormPage} updateClass={updateClass} />
   } else {
     console.log('error with formType in Sidebar.js');
   }

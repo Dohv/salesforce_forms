@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import MobileHeaderMenu from './MobileHeaderMenu';
 import {Image} from 'react-bootstrap';
 import home from '../../assets/home_icon@3x.png';
-import whiteLogo from '../../assets/checkalt_white.png';
+import whiteLogo from '../../assets/checkalt_white@3x.png';
 import hamburger from '../../assets/hamburger_icon@3x.png';
 import $ from 'jquery';
 
@@ -72,7 +72,7 @@ class Header extends Component {
     render() {
 
         const dropDown = this.state.isMenuClicked ? <MobileHeaderMenu handleAccountChange={this.handleAccountChange} /> : '';
-
+        
         return (
              <header className='header' id='navbar' ref={ node => this.node = node }>
                  <div className='headerComp header-comp-left'>

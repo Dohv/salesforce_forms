@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, ButtonToolbar, Button } from 'react-bootstrap';
+import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 
 class eKlik2 extends Component {
@@ -61,6 +62,7 @@ class eKlik2 extends Component {
     }
 
     componentWillMount() {
+      
         this._isMounted = false;
     }
 
@@ -304,16 +306,21 @@ class eKlik2 extends Component {
                                <Row>
                                     <Col xs={6} sm={6} md={6}>
                                         <ControlLabel>Bank Routing Number</ControlLabel>
-                                        <FormControl 
-                                          name='eKlik_Bank_Routing_Number'
+                                        <NumberFormat 
+                                          format="##########" 
+                                          mask="#" type="text" 
+                                          className='form-control' name='eKlik_Bank_Routing_Number' 
                                           placeholder="Bank Routing Number" 
                                           value={this.state.eKlik_Bank_Routing_Number} 
                                           onChange={this.handleInputChange} 
-                                          onBlur={this.handleSave} />
+                                          onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={6} sm={6} md={6}>
-                                        <ControlLabel>Primary Contact</ControlLabel>
-                                        <FormControl 
+                                        <ControlLabel>Bank Account Number</ControlLabel>
+                                        <NumberFormat
+                                          format="##########" 
+                                          mask="#" type="text" 
+                                          className='form-control' 
                                           name='eKlik_Bank_Account_Number' 
                                           placeholder="Bank Account Number" 
                                           value={this.state.eKlik_Bank_Account_Number} 

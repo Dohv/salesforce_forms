@@ -5,7 +5,8 @@ import Red from './Red';
 import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
-
+import $ from "jquery";
+import BackButton from '../BackButton';
 
 
 class Remit extends Component {
@@ -21,22 +22,20 @@ class Remit extends Component {
         this.handleLastFormPage = this.handleLastFormPage.bind(this);
         this.handleBackRouteChangeAnimation = this.handleBackRouteChangeAnimation.bind(this);
         this.handleNextRouteChangeAnimation = this.handleNextRouteChangeAnimation.bind(this);
+        this.handleCurrentFormPage = this.handleCurrentFormPage.bind(this);
+        this.updateClass = this.updateClass.bind(this);
     }
     
     componentDidMount() {
-        if(localStorage.getItem('selectedForm')) {
-            const buttons = document.querySelectorAll('.chooseFormButton');
-            
-            buttons.forEach((button) => {
-                if(button.id !== localStorage.getItem('selectedForm')) {
-                    button.classList.add("mystyle");
-                } else {
-                    button.classList.add("changeFormMenu")
-                }
-            })
-        }
+        const x = document.querySelector('.formButtonContainer'); 
+        const y = document.querySelector('.formMenuGreeting');
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+        this.updateClass(parseInt(window.location.pathname[window.location.pathname.length - 1]));
     }
 
+    handleCurrentFormPage(num) {
+        this.setState({currentFormPage: num}, () => {})
+    }
 
       handleNextFormPage() {
         let next = this.state.currentFormPage + 1;
@@ -64,7 +63,26 @@ class Remit extends Component {
         }, function() {})
     }
 
+    updateClass(num) {
+        const listItems = $('.stepLink');
+          $.each(listItems, function(i, div) {
+              $(div).removeClass('active lessThan');
+             let divNum = parseInt(div.id[div.id.length - 1]);
+             if(divNum === num) {
+                 $(div).addClass('active')
+                }
+                if(divNum < num) {
+                $(div).addClass('lessThan');
+            }
+          });
+      }
+
     render () {
+        let location = parseInt(window.location.pathname[window.location.pathname.length - 1]);
+         if(location !== this.state.currentFormPage) {
+            this.updateClass(location);
+        }
+
         let nextPage = (this.state.currentFormPage + 1).toString();
         let lastPage = (this.state.currentFormPage - 1).toString();
         const nextButton = this.state.currentFormPage === 3 ? '' : <Link className='FFLink next' onClick={() => { this.handleNextFormPage(); this.handleNextRouteChangeAnimation(); window.scrollTo(0, 0) }} to={`${this.props.match.path}/${nextPage}`}>Next</Link>;
@@ -73,9 +91,15 @@ class Remit extends Component {
         
         return (
             <React.Fragment>
-                    {backButton}
-                    {nextButton}
-                    <Sidebar />
+            <div className='container'>
+                        <div className='setup'>
+                            Remit Setup
+                            {backButton}
+                        </div>
+                    
+                        <Sidebar currentFormPage={this.state.currentFormPage} handleCurrentFormPage={this.handleCurrentFormPage} updateClass={this.updateClass} location={location} /> 
+                    
+                    </div>
             <AnimatedSwitch
                 atEnter={{ offset: this.state.enterOffset }}
                 atLeave={{ offset: this.state.leaveOffset }}

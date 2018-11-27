@@ -301,7 +301,7 @@ class eKlik2 extends Component {
             {savingStatus}
                 <div className='container'>
                   <Form className='form'>
-                        <h4 >Basic Setup Information</h4>
+                        <h4 className='eklik-page-title'>Basic Setup Information</h4>
                         <FormGroup>
                                <Row>
                                     <Col xs={6} sm={6} md={6}>
@@ -332,7 +332,7 @@ class eKlik2 extends Component {
                               <p className='form-comment'>Are You Currently Enrolled Directly With Any of the following Online Payment Processors?</p>
                               <FormGroup>
                                 <Row>
-                                    <Col xs={6} sm={6} md={6}>
+                                    <Col xs={6} sm={3} md={3}>
                                         <Checkbox 
                                           name='Fiserv' 
                                           checked={isFiserv} 
@@ -340,7 +340,7 @@ class eKlik2 extends Component {
                                             Fiserv 
                                         </Checkbox>
                                     </Col> 
-                                    <Col xs={6} sm={6} md={6}>
+                                    <Col xs={6} sm={3} md={3}>
                                         <Checkbox 
                                           name='RPPS' 
                                           checked={isRPPS} 
@@ -348,10 +348,6 @@ class eKlik2 extends Component {
                                             RPPS
                                         </Checkbox>
                                     </Col>
-                                </Row>
-                            </FormGroup>
-                            <FormGroup>
-                               <Row>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Other</ControlLabel>
                                         <FormControl 

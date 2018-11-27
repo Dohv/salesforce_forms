@@ -134,6 +134,15 @@ class eKlik1 extends Component {
         }
     }
 
+    usStates() {
+        let states = ["AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU",                      "HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO",                 "MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA",                 "PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
+                  
+        return states.map(state => {
+                return(<option key={state} value={state}>{state}</option>)
+        });
+
+    }
+
     render() {
         const isPrivateOrPublicSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';  
         const isExchangeSelected = this.state.Name_of_Exchange ? this.state.Name_of_Exchange : '0';   
@@ -215,7 +224,7 @@ class eKlik1 extends Component {
                             <FormGroup>
                                 <Row>
                                     <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Bisiness Owner Phone</ControlLabel>
+                                        <ControlLabel>Business Owner Phone</ControlLabel>
                                         <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' placeholder="Business Owner Phone" value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
@@ -237,11 +246,13 @@ class eKlik1 extends Component {
                                     </Col>
                                     <Col xs={4} sm={2} md={2}>
                                         <ControlLabel>State</ControlLabel>  
-                                        <FormControl name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl componentClass="select" name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={() => {this.handleInputChange(); this.handleSave()}}>
+                                        {this.usStates()}
+                                        </FormControl>
                                     </Col>
                                     <Col xs={4} sm={2} md={2}>
                                     <ControlLabel>Zip Code</ControlLabel>
-                                        <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                 </Row>
                             </FormGroup>
@@ -262,7 +273,7 @@ class eKlik1 extends Component {
                                     <Col xs={12} sm={5} md={5}>
                                         <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
                                         <FormControl componentClass="select" placeholder="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
-                                        <option value='0' disabled>Choose</option>
+                                            <option value=''>Choose</option>
                                             <option value='Publicly'>Publicly</option>
                                             <option value='Privately'>Privately</option>
                                         </FormControl>
@@ -276,7 +287,7 @@ class eKlik1 extends Component {
                                         </FormControl>
                                     </Col>
                                     <Col xs={6} sm={4} md={4}>
-                                        <ControlLabel>Ticker_Symbol</ControlLabel>
+                                        <ControlLabel>Ticker Symbol</ControlLabel>
                                         <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' placeholder='Ticker Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                     

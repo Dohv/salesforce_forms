@@ -72,6 +72,7 @@
 
 .stepLinkTitle {
   margin-top: 6px;
+  font-family: 'Helvetica-Neue-Pro-Medium';
 }
 
 .sidebar-content a:active {
@@ -653,6 +654,10 @@ thumbnail a>img, .thumbnail>img {
   transition: visibility .1s ease-in-out;
 }
 
+.startHereButton:hover {
+  background: #233E76;
+}
+
 .Station {
   margin-top: 20px;
 }
@@ -803,6 +808,7 @@ thumbnail a>img, .thumbnail>img {
   padding-bottom: 50px;
   border: 2px solid #d0d0d0;
   color: #233E76;
+  font-family: 'Helvetica-Neue-Pro-Light';
 }
 
 .placeholder-size {
@@ -810,13 +816,14 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .form-comment {
-  font-family: 'Omnes-medium';
+  font-family: 'Helvetica-Neue-Pro-Medium';
   font-size: 1.5rem;
   margin: 35px 0px 10px 10px
 }
 
 .eklik-page-title {
   font-size: 22px;
+  font-family: 'Omnes-regular';
 }
 
 .switch {
@@ -913,6 +920,13 @@ thumbnail a>img, .thumbnail>img {
   color: white;
   background: #3F6AB3;
   margin-right: 15px;
+  text-decoration: none !important;
+}
+
+.next:hover {
+  background: #233E76;
+  color: white;
+  text-decoration: none;
 }
 
 .back {
@@ -922,17 +936,8 @@ thumbnail a>img, .thumbnail>img {
   text-decoration: none !important;
 }
 
-.ripple {
-  background-position: center;
-  transition: background 0.8s;
-}
-.ripple:hover {
-  background: #3F6AB3 radial-gradient(circle, transparent 1%, #3F6AB3 1%) center/15000%;
-}
-.ripple:active {
-  background-color: #3F6AB3;
-  background-size: 100%;
-  transition: background 0s;
+.back:hover {
+  border-color: #777c77;
 }
 
 .fa-caret-left, .fa-caret-left {

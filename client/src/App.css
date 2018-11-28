@@ -482,11 +482,6 @@ body {
   }
 }
 
-@media(width: 375px) and (height: 812px) {
-  .center-form {
-    margin: 42px auto;
-  }
-}
 
 @media(max-width: 350px) {
   .login-form {

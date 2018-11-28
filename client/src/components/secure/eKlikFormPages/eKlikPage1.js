@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
+import ReactResizeDetector from 'react-resize-detector';
+import $ from 'jquery';
 
 
 class eKlik1 extends Component {
@@ -42,6 +44,7 @@ class eKlik1 extends Component {
             Mail_or_Telephone_Orders_Company: localStorage.getItem("Mail_or_Telephone_Orders_Company") ? localStorage.getItem("Mail_or_Telephone_Orders_Company") : false,
             Adult_Entertainment_Businesses: localStorage.getItem("Adult_Entertainment_Businesses") ? localStorage.getItem("Adult_Entertainment_Businesses") : false,
             Telemarketing_Company: localStorage.getItem("Telemarketing_Company") ? localStorage.getItem("Telemarketing_Company") : false,
+            formWidth: '', 
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -106,7 +109,7 @@ class eKlik1 extends Component {
                 Business_Located_Outside_the_US: JSON.parse(localStorage.getItem("Business_Located_Outside_the_US")),
                 Mail_or_Telephone_Orders_Company: JSON.parse(localStorage.getItem("Mail_or_Telephone_Orders_Company")),
                 Adult_Entertainment_Businesses: JSON.parse(localStorage.getItem("Adult_Entertainment_Businesses")),
-                Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")),  
+                Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")), 
             });
         }
     }
@@ -140,10 +143,18 @@ class eKlik1 extends Component {
         return states.map(state => {
                 return(<option key={state} value={state}>{state}</option>)
         });
-
     }
 
+    onResize = (width, height) => {
+        this.setState({formWidth: width});
+    }
+
+    
     render() {
+       $('.setup').width($('.form').css('width'));
+       $('.setup').css('top', $('.header').css('height'));
+
+
         const isPrivateOrPublicSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';  
         const isExchangeSelected = this.state.Name_of_Exchange ? this.state.Name_of_Exchange : '0';   
         
@@ -161,7 +172,17 @@ class eKlik1 extends Component {
         let isAdultEntertainmentBusinesses = this.state.Adult_Entertainment_Businesses ? true : false;
         let isTelemarketingCompany = this.state.Telemarketing_Company ? true : false;
         
-        
+        let privPub = this.state.eKlik_Privately_or_Publicly_Held;
+        let list = document.querySelectorAll('.privPub');
+        if(privPub !== 'Publicly') {
+            list.forEach(element => {
+                element.classList.add('displayNone');
+            });
+        } else {
+            list.forEach(element => {
+                element.classList.remove('displayNone');
+            });
+        }
         
         let savingStatus = this.state.isSaving ? 
         <div className="saving-anime">
@@ -185,11 +206,11 @@ class eKlik1 extends Component {
                                <Row>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Company Name</ControlLabel>
-                                        <FormControl name='eKlik_Company_Name' placeholder="Company Name" value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Primary Contact</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact' placeholder="Primary Contact" value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
+                                        <FormControl name='eKlik_Primary_Contact' value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
                                     </Col>
                                </Row>
                             </FormGroup>
@@ -197,15 +218,15 @@ class eKlik1 extends Component {
                                 <Row>
                                     <Col xs={8} sm={3} md={3}>
                                         <ControlLabel>Primary Phone</ControlLabel>
-                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' placeholder="Primary Phone" value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={4} sm={3} md={3}>
                                         <ControlLabel>Ext.</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' placeholder="Ext." value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Primary Email</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact_Email' placeholder="Primary Email" value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                        <FormControl name='eKlik_Primary_Contact_Email' value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                 </Row>
                             </FormGroup>
@@ -213,11 +234,11 @@ class eKlik1 extends Component {
                                 <Row>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Name</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Name' placeholder="Business Owner Name" value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                        <FormControl name='eKlik_Business_Owner_Name' value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Title</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Title' placeholder="Business Owner Title" value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Business_Owner_Title' value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col> 
                                 </Row>
                             </FormGroup>
@@ -225,11 +246,11 @@ class eKlik1 extends Component {
                                 <Row>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Phone</ControlLabel>
-                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' placeholder="Business Owner Phone" value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
+                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Business Owner Email</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Email' placeholder="Business Owner Email" value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Business_Owner_Email' value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                 </Row> 
                             </FormGroup>
@@ -238,21 +259,21 @@ class eKlik1 extends Component {
                                 <Row>
                                    <Col xs={12} sm={5} md={5}>
                                         <ControlLabel>Address</ControlLabel>
-                                        <FormControl name='eKlik_Physical_Address' placeholder="Address" value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Physical_Address' value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                    </Col>
                                     <Col xs={4} sm={3} md={3}>
                                         <ControlLabel>City</ControlLabel>
-                                        <FormControl name= 'eKlik_City' placeholder="City" value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name= 'eKlik_City' value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                     <Col xs={4} sm={2} md={2}>
                                         <ControlLabel>State</ControlLabel>  
-                                        <FormControl componentClass="select" name='eKlik_State' placeholder="State" value={this.state.eKlik_State} onChange={() => {this.handleInputChange(); this.handleSave()}}>
+                                        <FormControl componentClass="select" name='eKlik_State' value={this.state.eKlik_State} onChange={() => {this.handleInputChange(); this.handleSave()}}>
                                         {this.usStates()}
                                         </FormControl>
                                     </Col>
                                     <Col xs={4} sm={2} md={2}>
                                     <ControlLabel>Zip Code</ControlLabel>
-                                        <FormControl name='eKlik_Zip_Code' placeholder="Zip Code" value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl name='eKlik_Zip_Code' value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                 </Row>
                             </FormGroup>
@@ -260,11 +281,11 @@ class eKlik1 extends Component {
                                 <Row>
                                     <Col xs={12} sm={6} md={6}>
                                     <ControlLabel>Company Website</ControlLabel>
-                                        <FormControl value={this.state.Company_Website} name='Company_Website' placeholder='Company Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl value={this.state.Company_Website} name='Company_Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                     <Col xs={12} sm={6} md={6}>
                                     <ControlLabel>Primary reason for accepting payments</ControlLabel>
-                                        <FormControl type='text' name='Primary_Reason_for_accepting_payments' placeholder='Primary reason for accepting payments' />
+                                        <FormControl type='text' name='Primary_Reason_for_accepting_payments' />
                                     </Col>
                                 </Row>
                             </FormGroup>
@@ -272,23 +293,23 @@ class eKlik1 extends Component {
                                 <Row>
                                     <Col xs={12} sm={5} md={5}>
                                         <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
-                                        <FormControl componentClass="select" placeholder="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
+                                        <FormControl componentClass="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
                                             <option value=''>Choose</option>
                                             <option value='Publicly'>Publicly</option>
                                             <option value='Privately'>Privately</option>
                                         </FormControl>
                                     </Col>
-                                    <Col xs={6} sm={3} md={3}>
+                                    <Col xs={6} sm={3} md={3} className='privPub'>
                                         <ControlLabel>Name of Exchange</ControlLabel>
-                                        <FormControl componentClass="select" placeholder="select" name='Name_of_Exchange' value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                        <FormControl componentClass="select" name='Name_of_Exchange' value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                         <option value='0' disabled>Choose</option>
                                             <option value='NASDAQ'>NASDAQ</option>
                                             <option value='NYSE'>NYSE</option>
                                         </FormControl>
                                     </Col>
-                                    <Col xs={6} sm={4} md={4}>
+                                    <Col xs={6} sm={4} md={4} className='privPub'>
                                         <ControlLabel>Ticker Symbol</ControlLabel>
-                                        <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' placeholder='Ticker Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
+                                        <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
                                     </Col>
                                     
                                 </Row>
@@ -383,6 +404,7 @@ class eKlik1 extends Component {
                                     {nextButton}
                                 </Row>
                             </FormGroup>
+                            <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
                         </Form>
                 </div>
             </div>

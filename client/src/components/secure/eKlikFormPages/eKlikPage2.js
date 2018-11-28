@@ -139,7 +139,6 @@ class eKlik2 extends Component {
         let nameValue = `Check_Payment_Name_${this._lastInputNameCreated.toString()}`;
         let labelValue = `Name ${this._lastInputNameCreated.toString()}`;
         let stateValue = this.state[nameValue];
-        console.log({stateValue});
         this.setState({
           nameInputs: [...this.state.nameInputs, 
             <FormGroup key={this.state.nameInputs.length + 1}>
@@ -150,7 +149,6 @@ class eKlik2 extends Component {
                         id={labelValue}
                         className='checkname'
                         name={nameValue}
-                        placeholder={labelValue} 
                         defaultValue={stateValue} 
                         onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
                         <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
@@ -169,7 +167,6 @@ class eKlik2 extends Component {
         let nameValue = `Check_Payment_Name_${el.toString()}`;
         let labelValue = `Name ${el.toString()}`;
         let stateValue = this.state[nameValue];
-        // console.log(stateValue);
         if(stateValue !== '') {
           this._lastInputNameCreated = el;
           result.push(
@@ -181,7 +178,6 @@ class eKlik2 extends Component {
                         id={labelValue}
                         className='checkname'
                         name={nameValue}
-                        placeholder={labelValue} 
                         defaultValue={stateValue} 
                         onChange={(e) => {this.handleInputChange(e)}}
                         onInput={(e) => this.handleSave(e)} />
@@ -198,10 +194,10 @@ class eKlik2 extends Component {
 
     async removeInput(div) {
       div.value = '';
+      div.parentNode.remove();
       this.setState({isSaving: true});
       await formDataServices.updateFormData(localStorage.getItem("Account_Name"), div.name, div.value, localStorage.getItem('selectedForm'));
       this.setState({isSaving: false});
-      div.parentNode.remove();
     }
 
     addOneAddress(e) {
@@ -221,8 +217,7 @@ class eKlik2 extends Component {
                       <FormControl 
                         id={labelValue}
                         className='checkname'
-                        name={addressValue}
-                        placeholder={labelValue} 
+                        name={addressValue} 
                         defaultValue={stateValue} 
                         onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
                         <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
@@ -252,8 +247,7 @@ class eKlik2 extends Component {
                       <FormControl 
                         id={labelValue}
                         className='checkname'
-                        name={addressValue}
-                        placeholder={labelValue} 
+                        name={addressValue} 
                         defaultValue={stateValue} 
                         onChange={(e) => {this.handleInputChange(e)}}
                         onInput={(e) => this.handleSave(e)} />
@@ -309,8 +303,7 @@ class eKlik2 extends Component {
                                         <NumberFormat 
                                           format="##########" 
                                           mask="#" type="text" 
-                                          className='form-control' name='eKlik_Bank_Routing_Number' 
-                                          placeholder="Bank Routing Number" 
+                                          className='form-control' name='eKlik_Bank_Routing_Number'  
                                           value={this.state.eKlik_Bank_Routing_Number} 
                                           onChange={this.handleInputChange} 
                                           onBlur={this.handleSave} /> 
@@ -321,8 +314,7 @@ class eKlik2 extends Component {
                                           format="##########" 
                                           mask="#" type="text" 
                                           className='form-control' 
-                                          name='eKlik_Bank_Account_Number' 
-                                          placeholder="Bank Account Number" 
+                                          name='eKlik_Bank_Account_Number'  
                                           value={this.state.eKlik_Bank_Account_Number} 
                                           onChange={this.handleInputChange} 
                                           onBlur={this.handleSave} />  
@@ -351,8 +343,7 @@ class eKlik2 extends Component {
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Other</ControlLabel>
                                         <FormControl 
-                                          name='Other_Online_Payment_Processor'
-                                          placeholder="Other" 
+                                          name='Other_Online_Payment_Processor' 
                                           value={this.state.Other_Online_Payment_Processor} 
                                           onChange={this.handleInputChange} 
                                           onBlur={this.handleSave} />
@@ -365,8 +356,7 @@ class eKlik2 extends Component {
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Name 1</ControlLabel>
                                         <FormControl 
-                                          name='Check_Payment_Name_1'
-                                          placeholder="Name 1" 
+                                          name='Check_Payment_Name_1' 
                                           value={this.state.Check_Payment_Name_1} 
                                           onChange={this.handleInputChange} 
                                           onBlur={this.handleSave} />
@@ -389,8 +379,7 @@ class eKlik2 extends Component {
                                     <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Address 1</ControlLabel>
                                         <FormControl 
-                                          name='Remittance_Address_1'
-                                          placeholder="Address 1" 
+                                          name='Remittance_Address_1' 
                                           value={this.state.Remittance_Address_1} 
                                           onChange={this.handleInputChange} 
                                           onInput={this.handleSave} />

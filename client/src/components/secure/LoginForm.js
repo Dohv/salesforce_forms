@@ -7,9 +7,9 @@ import logo from '../../assets/checkalt_login@3x.png';
 const timeBasedGreeting = () => {
     let greeting = "";
     let time = new Date().getHours();
-    if (time < 10) {
+    if (time < 12) {
         greeting = "Good Morning!";
-    } else if (time < 20) {
+    } else if (time < 17) {
         greeting = "Good Afternoon!";
     } else {
         greeting = "Good Evening!";
@@ -31,7 +31,6 @@ const LoginForm = (props) => {
                     <InputGroup>
                     <InputGroup.Addon className='login-addon'><i className="far fa-user"></i></InputGroup.Addon>
                     <FormControl 
-                        autoFocus
                         id="email" 
                         type="email" 
                         placeholder='Email'
@@ -39,9 +38,7 @@ const LoginForm = (props) => {
                         name="email"
                         onChange={props.handleEmailChange}/>
                     </InputGroup>
-                </FormGroup>  
-                
-                <FormGroup>
+               
                     <InputGroup>
                     <InputGroup.Addon className='login-addon'><i className="far fa-lock"></i></InputGroup.Addon>
                     <FormControl id="password" 

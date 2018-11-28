@@ -16,7 +16,6 @@ class EKlik extends Component {
             currentFormPage: 1,
             enterOffset: 100,
             leaveOffset: -100,
-            formWidth: '',
         }
 
         this.handleNextFormPage = this.handleNextFormPage.bind(this);

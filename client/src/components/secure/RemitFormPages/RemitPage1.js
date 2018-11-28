@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import NumberFormat from 'react-number-format';
 import ReactTooltip from 'react-tooltip';
+import $ from 'jquery';
 
 
 class Remit1 extends Component {
@@ -96,6 +97,9 @@ class Remit1 extends Component {
     // }
 
     render() {
+        $('.setup').width($('.form').css('width'));
+       $('.setup').css('top', $('.header').css('height'));
+
         let savingStatus = this.state.isSaving ? 
         <div className="saving-anime">
             <div className="lds-ripple"><div></div><div></div></div>

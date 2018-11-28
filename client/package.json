@@ -16,6 +16,7 @@
     "react-dom": "^16.4.1",
     "react-materialize": "^2.4.2",
     "react-number-format": "^4.0.3",
+    "react-resize-detector": "^3.2.1",
     "react-router-dom": "^4.3.1",
     "react-router-transition": "^1.2.1",
     "react-select-us-states": "^0.1.2",

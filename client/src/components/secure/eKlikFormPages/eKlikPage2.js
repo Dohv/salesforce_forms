@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, ButtonToolbar, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
+import $ from 'jquery';
 
 class eKlik2 extends Component {
     constructor(props) {
@@ -265,6 +266,7 @@ class eKlik2 extends Component {
     
 
     render() { 
+
       if(this._lastInputNameCreated >= 10) {
         document.getElementById('addNameButton').classList.add('name');
       }
@@ -294,7 +296,7 @@ class eKlik2 extends Component {
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>
-                  <Form className='form'>
+                  <Form className='form' id='eklikform2'>
                         <h4 className='eklik-page-title'>Basic Setup Information</h4>
                         <FormGroup>
                                <Row>
@@ -395,34 +397,9 @@ class eKlik2 extends Component {
                                 Add
                               </Button>
                             </ButtonToolbar>
-                            
-                            {/* 
-                            
-                              <Input s={6} name='Remittance_Address_1' label="Address 1" value={this.state.Remittance_Address_1} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Remittance_Address_2' label="Address 2" value={this.state.Remittance_Address_2} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Remittance_Address_3' label="Address 3" value={this.state.Remittance_Address_3} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Remittance_Address_4' label="Address 4" value={this.state.Remittance_Address_4} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Remittance_Address_5' label="Address 5" value={this.state.Remittance_Address_5} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Remittance_Address_6' label="Address 6" value={this.state.Remittance_Address_6} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Remittance_Address_7' label="Address 7" value={this.state.Remittance_Address_7} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Remittance_Address_8' label="Address 8" value={this.state.Remittance_Address_8} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            </Row>
-                            <Row>
-                              <Input s={6} name='Remittance_Address_9' label="Address 9" value={this.state.Remittance_Address_9} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                              <Input s={6} name='Remittance_Address_10' label="Address 10" value={this.state.Remittance_Address_10} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                            
-                            </Row> */}
                             {nextButton}
                         </Form>
-                    
                 </div>
-
             </div>
             </React.Fragment>
     )};

@@ -78,6 +78,13 @@ class EKlik extends Component {
       }
 
     render () {
+        if($('.form')) {
+            $(window).resize(function() {
+                $('.setup').width($('.form').css('width'));
+                $('.setup').css('top', $('.header').css('height'));
+            })
+        }
+
         let location = parseInt(window.location.pathname[window.location.pathname.length - 1]);
          if(location !== this.state.currentFormPage) {
             this.updateClass(location);

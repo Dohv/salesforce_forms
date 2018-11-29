@@ -264,6 +264,8 @@
   .hamburgerContainer, .dropdown {
     display: none;
   }
+
+
 }
 
 .mobile-home, .mobile-logout {
@@ -428,13 +430,14 @@ body {
 @media(max-width: 700px) {
   .login-form {
     width: 75vw;
-    height: 65vh
+    height: 65vh;
+    min-height: 334px;
   }
 
   .center-form {
     display: block;
     width: 220px;
-    margin: 40px auto;
+    margin: auto;
   }
 
   .greeting {
@@ -444,7 +447,7 @@ body {
 
   .checkalt_login_logo {
     margin: 15px 0px 10px 0px;
-    max-width: 75%;
+    max-width: 42%;
   }
 
 
@@ -476,9 +479,14 @@ body {
   }
 }
 
-@media(max-width: 420px) {
+@media(max-width: 450px) {
+  .checkalt_login_logo {
+    max-width: 70%;
+  }
+  
   .center-form {
     margin: 0 auto;
+    min-height: 244px !important;
   }
 }
 
@@ -486,7 +494,6 @@ body {
 @media(max-width: 350px) {
   .login-form {
     width: 75vw;
-    height: 72vh;
   }
   
   .center-form {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, Button, ButtonToolbar } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
 import $ from 'jquery';
 
@@ -16,21 +16,13 @@ class eKlik3 extends Component {
             Mask_3: '',
             Mask_4: '',
             Mask_5: '',
-            Contains_Alpha_1: '',
-            Contains_Alpha_2: '',
-            Contains_Alpha_3: '',
-            Contains_Alpha_4: '',
-            Contains_Alpha_5: '',
-            Contains_Numeric_1: '',
-            Contains_Numeric_2: '',
-            Contains_Numeric_3: '',
-            Contains_Numeric_4: '',
-            Contains_Numeric_5: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.addOne = this.addOne.bind(this);
+        this.addMaskInputs = this.addMaskInputs.bind(this);
     }
 
     _isMounted = false;
@@ -65,16 +57,8 @@ class eKlik3 extends Component {
             Mask_3: localStorage.getItem("Mask_1"),
             Mask_4: localStorage.getItem("Mask_1"),
             Mask_5: localStorage.getItem("Mask_1"),
-            Contains_Alpha_1: JSON.parse(localStorage.getItem("Contains_Alpha_1")),
-            Contains_Alpha_2: JSON.parse(localStorage.getItem("Contains_Alpha_2")),
-            Contains_Alpha_3: JSON.parse(localStorage.getItem("Contains_Alpha_3")),
-            Contains_Alpha_4: JSON.parse(localStorage.getItem("Contains_Alpha_4")),
-            Contains_Alpha_5: JSON.parse(localStorage.getItem("Contains_Alpha_5")),
-            Contains_Numeric_1: JSON.parse(localStorage.getItem("Contains_Numeric_1")),
-            Contains_Numeric_2: JSON.parse(localStorage.getItem("Contains_Numeric_2")),
-            Contains_Numeric_3: JSON.parse(localStorage.getItem("Contains_Numeric_3")),
-            Contains_Numeric_4: JSON.parse(localStorage.getItem("Contains_Numeric_4")),
-            Contains_Numeric_5: JSON.parse(localStorage.getItem("Contains_Numeric_5")),
+            newMask: '',
+            maskInputs: [],
             });
         }
     }
@@ -89,19 +73,88 @@ class eKlik3 extends Component {
         });
     }
 
-    isSelected(e) {
-        if(this.state[e.target.name]) {
-            return this.state[e.target.name];
-        }
+    _lastInputMaskCreated = 1;
 
-        return '0';
+    addOne(e) {
+      e.preventDefault();
+      this._lastInputMaskCreated = this._lastInputMaskCreated + 1;
+
+      if(this._lastInputMaskCreated <= 10) {
+        let maskValue = `Mask_${this._lastInputMaskCreated.toString()}`;
+        let labelValue = `Accout Mask ${this._lastInputMaskCreated.toString()}`;
+        let stateValue = this.state[maskValue];
+        this.setState({
+          maskInputs: [...this.state.maskInputs, 
+            <FormGroup key={this.state.maskInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={maskValue}
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>   
+          ]
+        })
+      } 
+    }
+    
+    addMaskInputs() {
+      const ten = [2,3,4,5,6,7,8,9,10]
+      const result = []
+      ten.forEach((el, i) => {
+        let maskValue = `Mask_${el.toString()}`;
+        let labelValue = `Account Mask ${el.toString()}`;
+        let stateValue = this.state[maskValue];
+        if(stateValue !== '') {
+          this._lastInputMaskCreated = el;
+          result.push(
+            <FormGroup key={this.state.nameInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={maskValue}
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e)}}
+                        onInput={(e) => this.handleSave(e)} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>
+          )
+        }
+      })
+
+      return this.setState({nameInputs: result});
+    }
+
+    async removeInput(div) {
+      div.value = '';
+      div.parentNode.remove();
+      this.setState({isSaving: true});
+      await formDataServices.updateFormData(localStorage.getItem("Account_Name"), div.name, div.value, localStorage.getItem('selectedForm'));
+      this.setState({isSaving: false});
     }
 
     render() {
-        // $('.setup').width($('.form').css('width'));
-        // $('.setup').css('top', $('.header').css('height'));
 
-        
+        $('.setup').width($('.form').css('width'));
+        $('.setup').css('top', $('.header').css('height'));
+
+        if(this._lastInputMaskCreated >= 10) {
+            document.getElementById('addNameButton').classList.add('name');
+          }
+          let newMask = this.state.newMask;
+          let renderMaskInputs = this.state.maskInputs;
+
         let savingStatus = this.state.isSaving ? 
         <div className="saving-anime">
             <div className="lds-ripple"><div></div><div></div></div>
@@ -115,16 +168,11 @@ class eKlik3 extends Component {
             {savingStatus}
                 <div className='container'>
                         <Form className='form'>
-                          <h4 className='eklik-page-title'>Account Masking Information (optional but strongly suggested)</h4>
+                          <h4 className='eklik-page-title'>Account Masking (optional but strongly suggested)</h4>
                         
-                          <p className='form-comment'>Describe the Structure(s) of the Account Numbers Consumers Might See on Their Statements/Invoices, aka the "Account Mask", in the Chart Below</p>
-                          <br/> 
-                          <p className='form-comment'>Indicate All Acceptable Variations</p>
-                       
-                         
+                          <p className='eklik3-comment'>The Account Mask is the structure of the account numbers consumers might see on their statements or invoices. Please describe the structure using the definitions below. You can add as many account masks as neccesary.</p>
+                
                             <div className="instructions-container">
-                            
-                            <p className='instruction sample-account-mask-key'><b>Sample Account Mask Key:</b></p>
                             
                             <p className='instruction'>* = Uppercase Alpha</p>
                             
@@ -133,7 +181,31 @@ class eKlik3 extends Component {
                             <p className='instruction'>@ = Uppercase Alpha or Numeric</p>
                             
                             <p className='instruction'>! = Special Characters, Upper & Lowercase Alpha or Numeric</p>
+
+                            <p className='eklik3-comment'>For example: If your account number structure starts with "B3A" followed by an uppercase letter and ends with 8 digits then the account mask will be "B3A*########" </p>
                             </div>
+
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Account Mask 1</ControlLabel>
+                                        <FormControl 
+                                          name='Mask_1' 
+                                          value={this.state.Mask_1} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                          
+                                    </Col>
+                               </Row>
+                            </FormGroup> 
+                            {renderMaskInputs}
+                            {newMask}
+                            <ButtonToolbar>
+                              <Button id='addNameButton' bsSize="small" onClick={this.addOne}>
+                              <i className="far fa-plus"></i>
+                                Add
+                              </Button>
+                            </ButtonToolbar>
                             
                         </Form>
                     </div>

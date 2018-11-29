@@ -976,10 +976,23 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .instructions-container {
-  border: 5px solid #1B2F57;
+  border-top: 2px solid #d0d0d0;
+  border-bottom: 2px solid #d0d0d0;
   padding: 10px;
-  border-radius: 10px;
+  margin: 10px 0px 30px 0px;
 }
+
+.instruction {
+  font-family: 'Helvetica-Neue-Pro-Medium';
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.eklik3-comment {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
 .sample-account-mask-key {
   font-size: large;
   font-weight: bold;
@@ -1037,7 +1050,7 @@ thumbnail a>img, .thumbnail>img {
 .fa-times {
   color: #d90000;
   float: right;
-  margin-top: -22px;
+  margin-top: -32px;
   margin-right: 13px;
   cursor: pointer;
 }

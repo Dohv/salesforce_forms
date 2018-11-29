@@ -151,7 +151,8 @@ class eKlik1 extends Component {
 
     
     render() {
-
+        $('.setup').width($('.form').css('width'));
+        $('.setup').css('top', $('.header').css('height'));
         const isPrivateOrPublicSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';  
         const isExchangeSelected = this.state.Name_of_Exchange ? this.state.Name_of_Exchange : '0';   
         

@@ -47,6 +47,8 @@ class eKlik2 extends Component {
         this.handleSave = this.handleSave.bind(this);
         this.addNameInputs = this.addNameInputs.bind(this);
         this.addOne = this.addOne.bind(this);
+        this.addAddressInputs = this.addAddressInputs.bind(this);
+        this.addOneAddress = this.addOneAddress.bind(this);
         this.removeInput = this.removeInput.bind(this);
     }
 
@@ -210,7 +212,7 @@ class eKlik2 extends Component {
         let labelValue = `Address ${this._lastInputAddressCreated.toString()}`;
         let stateValue = this.state[addressValue];
         this.setState({
-          nameInputs: [...this.state.addressInputs, 
+          addressInputs: [...this.state.addressInputs, 
             <FormGroup key={this.state.addressInputs.length + 1}>
               <Row>
                   <Col xs={12} sm={6} md={6}>
@@ -267,11 +269,14 @@ class eKlik2 extends Component {
 
     render() { 
 
+      $('.setup').width($('.form').css('width'));
+      $('.setup').css('top', $('.header').css('height'));
+
       if(this._lastInputNameCreated >= 10) {
         document.getElementById('addNameButton').classList.add('name');
       }
 
-      if(this._lastInputNameCreated >= 10) {
+      if(this._lastInputAddressCreated >= 10) {
         document.getElementById('addNameButton').classList.add('name');
       }
       let newName = this.state.newName;

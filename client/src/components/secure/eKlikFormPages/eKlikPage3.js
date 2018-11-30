@@ -174,11 +174,11 @@ class eKlik3 extends Component {
                 
                             <div className="instructions-container">
                             
-                            <p className='instruction'>* = Uppercase Alpha</p>
+                            <p className='instruction'>* = Uppercase Letters</p>
                             
                             <p className='instruction'># = Numeric</p>
                             
-                            <p className='instruction'>@ = Uppercase Alpha or Numeric</p>
+                            <p className='instruction'>@ = Uppercase Letters or Numeric</p>
                             
                             <p className='instruction'>! = Special Characters, Upper & Lowercase Alpha or Numeric</p>
 

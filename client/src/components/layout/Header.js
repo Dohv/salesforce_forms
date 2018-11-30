@@ -75,9 +75,12 @@ class Header extends Component {
         
         return (
              <header className='header' id='navbar' ref={ node => this.node = node }>
+                 <div className='header-container'>
                  <div className='headerComp header-comp-left'>
-                    <Image className='whiteLogo' src={whiteLogo} responsive />
-                    <p className='app-title'>Onboarding Center</p>
+                     <Link to={'/forms'} className='whiteLogoLink'>
+                        <Image className='whiteLogo' src={whiteLogo} responsive />
+                     </Link>
+                        <p className='app-title'>Onboarding Center</p>
                  </div>
                  {/* <h3 className='account-text'>Account: {localStorage.getItem('sfAccountName')}</h3>  */}
                  <div className='headerComp header-comp-right'>
@@ -95,6 +98,7 @@ class Header extends Component {
                     </div>
                 </div>
                 {dropDown}
+                </div>
              </header>
          );
 

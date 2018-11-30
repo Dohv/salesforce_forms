@@ -131,14 +131,28 @@
 .header {
   font-family: 'Omnes-light';
   background-color: #233E76;
-  text-align: center;
   position: fixed;
   top: 0;
   z-index: 99;
+  width: 100%;
+}
+
+.header-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  padding: 0px 6%;
+}
+
+@media(max-width: 1199px) {
+  .header-container {
+    padding: 0px 8%;
+  }
+}
+
+@media(max-width: 700px) {
+  .header-container {
+    padding: 0px;
+  }
 }
 
 .checkaltGreen {
@@ -152,16 +166,13 @@
 .headerComp {
   display: flex;
   align-items: center;
-  margin: 20px 100px;
-}
-
-.header-comp-right {
-  width: 230px;
-  margin-right: 0px;
+  margin: 20px 0px;
 }
 
 .whiteLogo {
-  max-width: 33%;
+  width:245px;
+  height: auto;
+  cursor: pointer;
 }
 
 .app-title {
@@ -301,11 +312,6 @@
   color: white;
 }
 
-@media(max-width: 850px) {
-  .headerComp {
-    margin: 20px 60px;
-  }
-}
 
 html{
   height: 100vh;
@@ -450,10 +456,9 @@ body {
     max-width: 42%;
   }
 
-
   .headerComp {
     flex-direction: column;
-    margin: 10px 20px;
+    margin: 10px 0px;
   }
 
   .header-comp-left {
@@ -553,7 +558,7 @@ input:-webkit-autofill {
 }
 
 .formMenuGreeting {
-  border-bottom: 2px solid #D0D0D0;
+  border-bottom: 1px solid #D0D0D0;
   margin: 95px 100px 20px 100px;
   font-family: 'Omnes-regular';
   color: #233E76;
@@ -789,7 +794,7 @@ thumbnail a>img, .thumbnail>img {
 .setup {
   background: white;
   margin-left: 220.4px;
-  border-bottom: 2px solid #d0d0d0;
+  border-bottom: 1px solid #d0d0d0;
   margin-bottom: 10px;
   font-size: 32px;
   color: #233E76;
@@ -816,7 +821,7 @@ thumbnail a>img, .thumbnail>img {
   background-color: #F5F5F5;
   margin: 177px 0px 0px 220px;
   padding-bottom: 50px;
-  border: 2px solid #d0d0d0;
+  border: 1px solid #d0d0d0;
   color: #233E76;
   font-family: 'Helvetica-Neue-Pro-Light';
 }
@@ -948,7 +953,7 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .back {
-  border: 2px solid #d0d0d0;
+  border: 1px solid #d0d0d0;
   background: white;
   color: #1B2F57;
   text-decoration: none !important;
@@ -1072,7 +1077,7 @@ thumbnail a>img, .thumbnail>img {
 
 @media(max-width: 1199px) {
   .whiteLogo {
-    max-width: 45%;
+    width: 200px;
   }
   
   .setup {

@@ -176,11 +176,11 @@ class eKlik3 extends Component {
                             
                             <p className='instruction'>* = Uppercase Letters</p>
                             
-                            <p className='instruction'># = Numeric</p>
+                            <p className='instruction'># = Numbers</p>
                             
-                            <p className='instruction'>@ = Uppercase Letters or Numeric</p>
+                            <p className='instruction'>@ = Uppercase Letters or Numbers</p>
                             
-                            <p className='instruction'>! = Special Characters, Upper & Lowercase Alpha or Numeric</p>
+                            <p className='instruction'>! = Special Characters, Upper & Lowercase Letters or Numbers</p>
 
                             <p className='eklik3-comment'>For example: If your account number structure starts with "B3A" followed by an uppercase letter and ends with 8 digits then the account mask will be "B3A*########" </p>
                             </div>

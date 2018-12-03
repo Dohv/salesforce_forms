@@ -624,6 +624,7 @@ div.thumbnail {
   text-decoration: none !important;
   background: #f5f5f5;
   min-height: 315.8px;
+  max-height: 315.8px;
   margin: 15px;
 }
 
@@ -1154,6 +1155,10 @@ thumbnail a>img, .thumbnail>img {
 
   .longerFormInputLabels {
     font-size: 14px;
+  }
+
+  div.thumbnail {
+    max-height: none;
   }
 }
 

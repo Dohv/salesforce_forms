@@ -1,14 +1,14 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
-const EKlikList = () => {
+const KlikNPayList = ({handleCurrentFormPage, updateClass}) => {
   return (
-      <ul className='sidebar-content'>
-        <li className="active"><Link to={'/forms/eKlik/1'}>General Information</Link></li>
-        <li><Link to={'/forms/eKlik/2'}>Basic Setup</Link></li>
-        <li><Link to={'/forms/eKlik/3'}>Account Masking</Link></li>
-      </ul>
+      <div className='sidebar-content' id='sidebarId'>
+        <Link id={'k1'} className='stepLink' to={'/forms/KlikNPay/1'} onClick={() =>{handleCurrentFormPage(1); window.scrollTo(0, 0); updateClass(1)}}><div className='stepLinkTitle'>KNP1</div></Link>
+        <Link id={'k2'} className='stepLink' to={'/forms/KlikNPay/2'} onClick={() =>{handleCurrentFormPage(2); window.scrollTo(0, 0); updateClass(2)}}><div className='stepLinkTitle'>KNP2</div></Link>
+        <Link id={'k3'} className='stepLink' to={'/forms/KlikNPay/3'} onClick={() =>{handleCurrentFormPage(3); window.scrollTo(0, 0); updateClass(3)}}><div className='stepLinkTitle'>KNP3</div></Link>
+      </div>
   )
 }
 
-export default EKlikList;
+export default KlikNPayList;

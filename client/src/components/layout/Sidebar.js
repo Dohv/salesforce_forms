@@ -9,7 +9,7 @@ const Sidebar = ({currentFormPage, handleCurrentFormPage, updateClass, location}
   if(formType === "eKlik") {
     var list = <EKlikList currentFormPage={currentFormPage} handleCurrentFormPage={handleCurrentFormPage} updateClass={updateClass} location={location} />
   } else if(formType === "KlikNPay") {
-    list = <KlikNPayList />
+    list = <KlikNPayList handleCurrentFormPage={handleCurrentFormPage} updateClass={updateClass} />
   } else if(formType === "Remit") {
     list = <RemitList handleCurrentFormPage={handleCurrentFormPage} updateClass={updateClass} />
   } else {

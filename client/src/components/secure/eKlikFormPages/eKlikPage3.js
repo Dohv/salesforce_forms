@@ -53,10 +53,10 @@ class eKlik3 extends Component {
         if(this._isMounted) {
             this.setState({
             Mask_1: localStorage.getItem("Mask_1"),
-            Mask_2: localStorage.getItem("Mask_1"),
-            Mask_3: localStorage.getItem("Mask_1"),
-            Mask_4: localStorage.getItem("Mask_1"),
-            Mask_5: localStorage.getItem("Mask_1"),
+            Mask_2: localStorage.getItem("Mask_2"),
+            Mask_3: localStorage.getItem("Mask_3"),
+            Mask_4: localStorage.getItem("Mask_4"),
+            Mask_5: localStorage.getItem("Mask_5"),
             newMask: '',
             maskInputs: [],
             });
@@ -79,7 +79,7 @@ class eKlik3 extends Component {
       e.preventDefault();
       this._lastInputMaskCreated = this._lastInputMaskCreated + 1;
 
-      if(this._lastInputMaskCreated <= 10) {
+      if(this._lastInputMaskCreated <= 5) {
         let maskValue = `Mask_${this._lastInputMaskCreated.toString()}`;
         let labelValue = `Accout Mask ${this._lastInputMaskCreated.toString()}`;
         let stateValue = this.state[maskValue];
@@ -114,7 +114,7 @@ class eKlik3 extends Component {
         if(stateValue !== '') {
           this._lastInputMaskCreated = el;
           result.push(
-            <FormGroup key={this.state.nameInputs.length + 1}>
+            <FormGroup key={this.state.maskInputs.length + 1}>
               <Row>
                   <Col xs={12} sm={6} md={6}>
                       <ControlLabel>{labelValue}</ControlLabel>
@@ -149,7 +149,7 @@ class eKlik3 extends Component {
         $('.setup').width($('.form').css('width'));
         $('.setup').css('top', $('.header').css('height'));
 
-        if(this._lastInputMaskCreated >= 10) {
+        if(this._lastInputMaskCreated >= 5) {
             document.getElementById('addNameButton').classList.add('name');
           }
           let newMask = this.state.newMask;

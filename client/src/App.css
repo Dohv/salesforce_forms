@@ -798,7 +798,7 @@ thumbnail a>img, .thumbnail>img {
 
 .setup {
   background: white;
-  margin-left: 220.4px;
+  margin-left: 220.3px;
   border-bottom: 1px solid #d0d0d0;
   margin-bottom: 10px;
   font-size: 32px;
@@ -818,7 +818,10 @@ thumbnail a>img, .thumbnail>img {
   background-color:white;
   padding-top: 1px;
   padding-bottom: 50px;
-  width: 100vw;
+}
+
+.switch-wrapper > div {
+  width: 100%;
 }
 
 .form {

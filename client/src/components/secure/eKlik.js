@@ -27,9 +27,6 @@ class EKlik extends Component {
     }
     
     componentDidMount() {
-        const x = document.querySelector('.formButtonContainer'); 
-        const y = document.querySelector('.formMenuGreeting');
-        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
         this.updateClass(parseInt(window.location.pathname[window.location.pathname.length - 1]));
     }
 
@@ -78,6 +75,10 @@ class EKlik extends Component {
       }
 
     render () {
+        const x = document.querySelector('.formButtonContainer'); 
+        const y = document.querySelector('.formMenuGreeting');
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+
         if($('.form')) {
             $(window).resize(function() {
                 $('.setup').width($('.form').css('width'));

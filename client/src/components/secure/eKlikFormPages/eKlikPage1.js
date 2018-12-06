@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlock } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 import ReactResizeDetector from 'react-resize-detector';
@@ -13,25 +13,42 @@ class eKlik1 extends Component {
         this.state = {
             isLoggedIn: this.props.isLoggedIn,
             isSaving: false,
-            phone_number: '',
             eKlik_Company_Name: '',
+            eKlik_Company_Name_error: null,
             eKlik_Primary_Contact: '',
+            eKlik_Primary_Contact_error: null,
             eKlik_Primary_Contact_Phone: '',
+            eKlik_Primary_Contact_Phone_error: null,
             eKlik_Primary_Contact_Phone_Extension: '',
+            eKlik_Primary_Contact_Phone_Extension_error: null,
             eKlik_Primary_Contact_Email: '',
+            eKlik_Primary_Contact_Email_error: null,
             eKlik_Business_Owner_Name: '',
+            eKlik_Business_Owner_Name_error: null,
             eKlik_Business_Owner_Title: '',
+            eKlik_Business_Owner_Title_error: null,
             eKlik_Business_Owner_Phone: '',
+            eKlik_Business_Owner_Phone_error: null,
             eKlik_Business_Owner_Email: '',
+            eKlik_Business_Owner_Email_error: null,
             eKlik_Physical_Address: '',
+            eKlik_Physical_Address_error: null,
             eKlik_City: '',
+            eKlik_City_error: null,
             eKlik_State: '',
+            eKlik_State_error: null,
             eKlik_Zip_Code: '',
+            eKlik_Zip_Code_error: null,
             Company_Website: '',
+            Company_Website_error: null,
             eKlik_Privately_or_Publicly_Held: '',
+            eKlik_Privately_or_Publicly_Held_error: null,
             Primary_Reason_for_accepting_payments: '',
+            Primary_Reason_for_accepting_payments_error: null,
             Ticker_Symbol: '',
+            Ticker_Symbol_error: null,
             Name_of_Exchange: '',
+            Name_of_Exchange_error: null,
             is_Property_Management_Company: localStorage.getItem("is_Property_Management_Company") ?localStorage.getItem("is_Property_Management_Company") : false,
             Payday_Lenders: localStorage.getItem("Payday_Lenders") ? localStorage.getItem("Payday_Lenders") : false,
             Subprime_Loan_Originator: localStorage.getItem("Subprime_Loan_Originator") ? localStorage.getItem("Subprime_Loan_Originator") : false,
@@ -44,12 +61,14 @@ class eKlik1 extends Component {
             Mail_or_Telephone_Orders_Company: localStorage.getItem("Mail_or_Telephone_Orders_Company") ? localStorage.getItem("Mail_or_Telephone_Orders_Company") : false,
             Adult_Entertainment_Businesses: localStorage.getItem("Adult_Entertainment_Businesses") ? localStorage.getItem("Adult_Entertainment_Businesses") : false,
             Telemarketing_Company: localStorage.getItem("Telemarketing_Company") ? localStorage.getItem("Telemarketing_Company") : false,
-            formWidth: '', 
+            errorCounter: 1,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.validate = this.validate.bind(this);
+        this.validateFields = this.validateFields.bind(this);
     }
     // //memory leak fix https://www.youtube.com/watch?v=8BNdxFzMeVg 8 min in
     _isMounted = false;
@@ -93,6 +112,9 @@ class eKlik1 extends Component {
                 eKlik_Business_Owner_Phone: localStorage.getItem("eKlik_Business_Owner_Phone"),
                 eKlik_Business_Owner_Email: localStorage.getItem("eKlik_Business_Owner_Email"),
                 eKlik_Physical_Address: localStorage.getItem("eKlik_Physical_Address"),
+                eKlik_City: localStorage.getItem("eKlik_City"),
+                eKlik_State: localStorage.getItem("eKlik_State"),
+                eKlik_Zip_Code: localStorage.getItem("eKlik_Zip_Code"),
                 Company_Website: localStorage.getItem("Company_Website"),
                 eKlik_Privately_or_Publicly_Held: localStorage.getItem("eKlik_Privately_or_Publicly_Held"),
                 Ticker_Symbol: localStorage.getItem("Ticker_Symbol"),
@@ -145,16 +167,41 @@ class eKlik1 extends Component {
         });
     }
 
-    onResize = (width, height) => {
-        this.setState({formWidth: width});
+    validateFields() {
+        console.log('yay');
+        var counter = 0;
+        const fields = ['eKlik_Company_Name', 'eKlik_Primary_Contact', 'eKlik_Primary_Contact_Phone', 'eKlik_Primary_Contact_Email', 'eKlik_Business_Owner_Name', 'eKlik_Business_Owner_Title', 'eKlik_Business_Owner_Phone', 'eKlik_Business_Owner_Email', 'eKlik_Physical_Address', 'eKlik_City', 'eKlik_State', 'eKlik_Zip_Code', 'Company_Website', 'Primary_Reason_for_accepting_payments', 'eKlik_Privately_or_Publicly_Held', 'Ticker_Symbol', 'Name_of_Exchange'];
+        
+        fields.forEach(field => {
+            if(this.state[field] === '') {
+                counter++
+                this.setState({
+                   [`${field}_error`]: 'error',
+                })
+            }
+        });
+
+        this.setState({
+            errorCounter: counter,
+        })
     }
 
+    validate(e) {
+       if(e.target.value !== '' || e.target.value !== null) {
+            this.setState({
+                [`${e.target.name}_error`]: null,
+            }, () => {})
+        }
+    }
+
+
+    
     
     render() {
+        console.log(this.state.errorCounter);
         $('.setup').width($('.form').css('width'));
         $('.setup').css('top', $('.header').css('height'));
-        const isPrivateOrPublicSelected = this.state.eKlik_Privately_or_Publicly_Held ? this.state.eKlik_Privately_or_Publicly_Held : '0';  
-        const isExchangeSelected = this.state.Name_of_Exchange ? this.state.Name_of_Exchange : '0';   
+           
         
         
         let isPropertyManagementCompany = this.state.is_Property_Management_Company ? true : false;
@@ -191,131 +238,223 @@ class eKlik1 extends Component {
         let nextPage = (this.props.currentFormPage + 1).toString();
         let path = this.props.match.path;
         const currPath = path.slice(0, path.lastIndexOf('/'))
-        const nextButton = this.props.currentFormPage === 3 ? '' : <Link className='FFLink next ripple' onClick={() => { console.log({currPath, nextPage}); this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); window.scrollTo(0, 0); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
-
+        const validateOrNext = this.state.errorCounter > 0 ? <div className='FFLink next ripple' onClick={this.validateFields}>Next</div> : <Link className='FFLink next ripple disabled-link' onClick={() => {this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
+        const nextButton = this.props.currentFormPage === 3 ? '' : validateOrNext;
+        
         return (
             <React.Fragment>
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>
                         <Form className='form' id='eklikform1'>
-                            <h4 className='eklik-page-title'>General Information</h4>
-                            <FormGroup>
-                               <Row>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Company Name</ControlLabel>
-                                        <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Primary Contact</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact' value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={this.handleSave} />  
-                                    </Col>
-                               </Row>
-                            </FormGroup>
-                            <FormGroup>
-                                <Row>
-                                    <Col xs={8} sm={3} md={3}>
-                                        <ControlLabel>Primary Phone</ControlLabel>
-                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                    </Col>
-                                    <Col xs={4} sm={3} md={3}>
-                                        <ControlLabel>Ext.</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                    </Col>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Primary Email</ControlLabel>
-                                        <FormControl name='eKlik_Primary_Contact_Email' value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                    </Col>
-                                </Row>
-                            </FormGroup>
-                            <FormGroup>
-                                <Row>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Business Owner Name</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Name' value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                    </Col>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Business Owner Title</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Title' value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col> 
-                                </Row>
-                            </FormGroup>
-                            <FormGroup>
-                                <Row>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Business Owner Phone</ControlLabel>
-                                        <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={this.handleSave} /> 
-                                    </Col>
-                                    <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Business Owner Email</ControlLabel>
-                                        <FormControl name='eKlik_Business_Owner_Email' value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                </Row> 
-                            </FormGroup>
-                            
-                            <FormGroup>
-                                <Row>
-                                   <Col xs={12} sm={5} md={5}>
-                                        <ControlLabel>Address</ControlLabel>
-                                        <FormControl name='eKlik_Physical_Address' value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                   </Col>
-                                    <Col xs={4} sm={3} md={3}>
-                                        <ControlLabel>City</ControlLabel>
-                                        <FormControl name= 'eKlik_City' value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                    <Col xs={4} sm={2} md={2}>
-                                        <ControlLabel>State</ControlLabel>  
-                                        <FormControl componentClass="select" name='eKlik_State' value={this.state.eKlik_State} onChange={() => {this.handleInputChange(); this.handleSave()}}>
-                                        {this.usStates()}
-                                        </FormControl>
-                                    </Col>
-                                    <Col xs={4} sm={2} md={2}>
-                                    <ControlLabel>Zip Code</ControlLabel>
-                                        <FormControl name='eKlik_Zip_Code' value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                </Row>
-                            </FormGroup>
-                            <FormGroup>
-                                <Row>
-                                    <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Company Website</ControlLabel>
-                                        <FormControl value={this.state.Company_Website} name='Company_Website' onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                    <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Primary reason for accepting payments</ControlLabel>
-                                        <FormControl type='text' name='Primary_Reason_for_accepting_payments' />
-                                    </Col>
-                                </Row>
-                            </FormGroup>
-                            <FormGroup controlId="formControlsSelect">
-                                <Row>
-                                    <Col xs={12} sm={5} md={5}>
-                                        <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
-                                        <FormControl componentClass="select" name='eKlik_Privately_or_Publicly_Held' value={isPrivateOrPublicSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }}>
+                            <Col xs={12}>
+                                <h4 className='eklik-page-title'>General Information</h4>
+                            </Col>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Company_Name_error}>
+                                        <Col xs={12} sm={6} md={6} ref={'eKlik_Company_Name'}>
+                                            <ControlLabel>Company Name</ControlLabel>
+                                            <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_Primary_Contact_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Primary Contact</ControlLabel>
+                                            <FormControl name='eKlik_Primary_Contact' value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />  
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Primary_Contact_Phone_error}>
+                                        <Col xs={8} sm={3} md={3}>
+                                            <ControlLabel>Primary Phone</ControlLabel>
+                                            <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup>
+                                        <Col xs={4} sm={3} md={3}>
+                                            <ControlLabel>Ext.</ControlLabel>
+                                            <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_Primary_Contact_Email_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Primary Email</ControlLabel>
+                                            <FormControl name='eKlik_Primary_Contact_Email' value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Business_Owner_Name_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Business Owner Name</ControlLabel>
+                                            <FormControl name='eKlik_Business_Owner_Name' value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_Business_Owner_Title_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Business Owner Title</ControlLabel>
+                                            <FormControl name='eKlik_Business_Owner_Title' value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col> 
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Business_Owner_Phone_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Business Owner Phone</ControlLabel>
+                                            <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_Business_Owner_Email_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                            <ControlLabel>Business Owner Email</ControlLabel>
+                                            <FormControl name='eKlik_Business_Owner_Email' value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col> 
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Physical_Address_error}>
+                                       <Col xs={12} sm={5} md={5}>
+                                            <ControlLabel>Address</ControlLabel>
+                                            <FormControl name='eKlik_Physical_Address' value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                        <HelpBlock>Required Field</HelpBlock>
+                                       </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_City_error}>
+                                        <Col xs={4} sm={3} md={3}>
+                                            <ControlLabel>City</ControlLabel>
+                                            <FormControl name= 'eKlik_City' value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_State_error} controlId="formControlSelect">
+                                        <Col xs={4} sm={2} md={2}>
+                                            <ControlLabel>State</ControlLabel>  
+                                            <FormControl componentClass="select" name='eKlik_State' value={this.state.eKlik_State} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} onBlur={this.validate}>
+                                            <option value=''>State</option>
+                                            <option value="AL">AL</option>
+                                            <option value="AK">AK</option>
+                                            <option value="AR">AR</option>	
+                                            <option value="AZ">AZ</option>
+                                            <option value="CA">CA</option>
+                                            <option value="CO">CO</option>
+                                            <option value="CT">CT</option>
+                                            <option value="DC">DC</option>
+                                            <option value="DE">DE</option>
+                                            <option value="FL">FL</option>
+                                            <option value="GA">GA</option>
+                                            <option value="HI">HI</option>
+                                            <option value="IA">IA</option>	
+                                            <option value="ID">ID</option>
+                                            <option value="IL">IL</option>
+                                            <option value="IN">IN</option>
+                                            <option value="KS">KS</option>
+                                            <option value="KY">KY</option>
+                                            <option value="LA">LA</option>
+                                            <option value="MA">MA</option>
+                                            <option value="MD">MD</option>
+                                            <option value="ME">ME</option>
+                                            <option value="MI">MI</option>
+                                            <option value="MN">MN</option>
+                                            <option value="MO">MO</option>	
+                                            <option value="MS">MS</option>
+                                            <option value="MT">MT</option>
+                                            <option value="NC">NC</option>	
+                                            <option value="NE">NE</option>
+                                            <option value="NH">NH</option>
+                                            <option value="NJ">NJ</option>
+                                            <option value="NM">NM</option>			
+                                            <option value="NV">NV</option>
+                                            <option value="NY">NY</option>
+                                            <option value="ND">ND</option>
+                                            <option value="OH">OH</option>
+                                            <option value="OK">OK</option>
+                                            <option value="OR">OR</option>
+                                            <option value="PA">PA</option>
+                                            <option value="RI">RI</option>
+                                            <option value="SC">SC</option>
+                                            <option value="SD">SD</option>
+                                            <option value="TN">TN</option>
+                                            <option value="TX">TX</option>
+                                            <option value="UT">UT</option>
+                                            <option value="VT">VT</option>
+                                            <option value="VA">VA</option>
+                                            <option value="WA">WA</option>
+                                            <option value="WI">WI</option>	
+                                            <option value="WV">WV</option>
+                                            <option value="WY">WY</option>
+                                            </FormControl>
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.eKlik_Zip_Code_error}>
+                                        <Col xs={4} sm={2} md={2}>
+                                        <ControlLabel>Zip Code</ControlLabel>
+                                            <FormControl name='eKlik_Zip_Code' value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.Company_Website_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Company Website</ControlLabel>
+                                            <FormControl value={this.state.Company_Website} name='Company_Website' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.Primary_Reason_for_accepting_payments_error}>
+                                        <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Primary reason for accepting payments</ControlLabel>
+                                            <FormControl type='text' name='Primary_Reason_for_accepting_payments' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                            </Row>
+                            <Row>
+                                <FormGroup validationState={this.state.eKlik_Privately_or_Publicly_Held_error} controlId="formControlsSelect">
+                                        <Col xs={12} sm={5} md={5}>
+                                            <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
+                                            <FormControl componentClass="select" name='eKlik_Privately_or_Publicly_Held' value={this.state.eKlik_Privately_or_Publicly_Held} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }} onBlur={this.validate}>
+                                                <option value=''>Choose</option>
+                                                <option value='Publicly'>Publicly</option>
+                                                <option value='Privately'>Privately</option>
+                                            </FormControl>
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.Name_of_Exchange_error}>
+                                        <Col xs={6} sm={3} md={3} className='privPub'>
+                                            <ControlLabel>Name of Exchange</ControlLabel>
+                                            <FormControl componentClass="select" name='Name_of_Exchange' value={this.state.Name_of_Exchange} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} onBlur={this.validate}>
                                             <option value=''>Choose</option>
-                                            <option value='Publicly'>Publicly</option>
-                                            <option value='Privately'>Privately</option>
-                                        </FormControl>
-                                    </Col>
-                                    <Col xs={6} sm={3} md={3} className='privPub'>
-                                        <ControlLabel>Name of Exchange</ControlLabel>
-                                        <FormControl componentClass="select" name='Name_of_Exchange' value={isExchangeSelected} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
-                                        <option value='0' disabled>Choose</option>
-                                            <option value='NASDAQ'>NASDAQ</option>
-                                            <option value='NYSE'>NYSE</option>
-                                        </FormControl>
-                                    </Col>
-                                    <Col xs={6} sm={4} md={4} className='privPub'>
-                                        <ControlLabel>Ticker Symbol</ControlLabel>
-                                        <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' onChange={this.handleInputChange} onBlur={this.handleSave} />
-                                    </Col>
-                                    
-                                </Row>
-                            </FormGroup>
-    
+                                                <option value='NASDAQ'>NASDAQ</option>
+                                                <option value='NYSE'>NYSE</option>
+                                            </FormControl>
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                                <FormGroup validationState={this.state.Ticker_Symbol_error}>
+                                        <Col xs={6} sm={4} md={4} className='privPub'>
+                                            <ControlLabel>Ticker Symbol</ControlLabel>
+                                            <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <HelpBlock>Required Field</HelpBlock>
+                                        </Col>
+                                </FormGroup>
+                            </Row>
+                            <Col xs={12}>
+                                <p className='form-comment'>Does your business engage in any of the following:</p>
+                            </Col>
                             <FormGroup>
                                 <Row>
-                                    <p className='form-comment'>Does your business engage in any of the following:</p>
                                     <Col xs={12} sm={6} md={6}>
                                         <Checkbox className='checkbox' name='is_Property_Management_Company' checked={isPropertyManagementCompany} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
                                             Property Management Company
@@ -402,7 +541,6 @@ class eKlik1 extends Component {
                                     {nextButton}
                                 </Row>
                             </FormGroup>
-                            <ReactResizeDetector handleWidth handleHeight onResize={this.onResize} />
                         </Form>
                 </div>
             </div>

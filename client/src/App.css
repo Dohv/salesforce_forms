@@ -312,10 +312,7 @@
   color: white;
 }
 
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
+
 
 html{
   height: 100vh;
@@ -825,7 +822,7 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .form {
-  padding: 5px 75px;
+  padding: 5px 40px;
   background-color: #F5F5F5;
   margin: 177px 0px 0px 220px;
   padding-bottom: 50px;
@@ -840,6 +837,13 @@ thumbnail a>img, .thumbnail>img {
 
 .form-group {
   margin-bottom: 0px;
+}
+
+.help-block { 
+  display: none; 
+}
+.form-group.has-error .help-block { 
+  display: block; 
 }
 
 .form-control {
@@ -867,6 +871,10 @@ thumbnail a>img, .thumbnail>img {
   border-bottom: 1px solid #c2c2c2;
   margin-right: 20px;
   padding-bottom: 5px;
+}
+
+.disabled-link {
+  pointer-events: none;
 }
 
 

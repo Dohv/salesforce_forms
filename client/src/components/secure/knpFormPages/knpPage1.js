@@ -43,6 +43,9 @@ class knp1 extends Component {
     }
 
     componentDidMount() {
+        const x = document.querySelector('.formButtonContainer'); 
+        const y = document.querySelector('.formMenuGreeting');
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
         this.getFormData();
     }
 

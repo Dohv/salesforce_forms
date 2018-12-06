@@ -54,6 +54,7 @@ class EKlik extends Component {
       }
 
       handleNextRouteChangeAnimation() {
+        window.scrollTo(0, 0);
         this.setState({
           enterOffset: 100,
           leaveOffset: -100,

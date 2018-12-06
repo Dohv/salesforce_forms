@@ -19,7 +19,7 @@ const timeBasedGreeting = () => {
 
 const LoginForm = (props) => {
     const loading = props.isLoading ? <div className='loadingAnimation'><Loading /></div> : <div className='emptyLoadingSpace'></div>;
-    
+    console.log(props.passwordError);
     return (
         <div id='login-form' className='login-form'>
             <form   onSubmit={(e) => props.submitForm(e)}
@@ -27,7 +27,7 @@ const LoginForm = (props) => {
             <div className="greeting">{timeBasedGreeting()}</div>
             
                 
-                <FormGroup>
+                <FormGroup validationState={props.emailError}>
                     <InputGroup>
                     <InputGroup.Addon className='login-addon'><i className="far fa-user"></i></InputGroup.Addon>
                     <FormControl 
@@ -36,18 +36,25 @@ const LoginForm = (props) => {
                         placeholder='Email'
                         value={props.email}
                         name="email"
-                        onChange={props.handleEmailChange}/>
+                        onChange={props.handleEmailChange}
+                        onBlur={props.validate}
+                        onInput={props.validate}/>
                     </InputGroup>
-               
+                    <HelpBlock>Required Field</HelpBlock>
+               </FormGroup>
+               <FormGroup validationState={props.passwordError}>
                     <InputGroup>
                     <InputGroup.Addon className='login-addon'><i className="far fa-lock"></i></InputGroup.Addon>
                     <FormControl id="password" 
                             type="password" 
                             placeholder='Password'
                             value={props.password}
-                            name="email"
-                            onChange={props.handlePasswordChange}/>
+                            name="password"
+                            onChange={props.handlePasswordChange}
+                            onBlur={props.validate}
+                            onInput={props.validate}/>
                     </InputGroup>
+                    <HelpBlock>Required Field</HelpBlock>
                 </FormGroup> 
               
                     <div className='login-button-container'>

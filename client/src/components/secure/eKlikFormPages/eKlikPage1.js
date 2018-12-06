@@ -184,8 +184,6 @@ class eKlik1 extends Component {
         this.setState({
             errorCounter: counter,
         })
-
-        if (counter > 0) {window.scrollTo(0, 0)};
     }
 
     validate(e) {
@@ -253,93 +251,93 @@ class eKlik1 extends Component {
                                 <h4 className='eklik-page-title'>General Information</h4>
                             </Col>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Company_Name_error}>
-                                        <Col xs={12} sm={6} md={6} ref={'eKlik_Company_Name'}>
-                                            <ControlLabel>Company Name</ControlLabel>
-                                            <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                            <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_Primary_Contact_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Primary Contact</ControlLabel>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Company Name</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Company_Name_error}>
+                                        <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                        <HelpBlock>Required Field</HelpBlock>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Primary Contact</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_error}>
                                             <FormControl name='eKlik_Primary_Contact' value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />  
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col>
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Primary_Contact_Phone_error}>
-                                        <Col xs={8} sm={3} md={3}>
-                                            <ControlLabel>Primary Phone</ControlLabel>
+                                <Col xs={8} sm={3} md={3}>
+                                    <ControlLabel>Primary Phone</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_Phone_error}>
                                             <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup>
-                                        <Col xs={4} sm={3} md={3}>
-                                            <ControlLabel>Ext.</ControlLabel>
-                                            <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_Primary_Contact_Email_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Primary Email</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={4} sm={3} md={3}>
+                                    <ControlLabel>Ext.</ControlLabel>
+                                    <FormGroup>
+                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Primary Email</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_Email_error}>
                                             <FormControl name='eKlik_Primary_Contact_Email' value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col>
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Business_Owner_Name_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Business Owner Name</ControlLabel>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Business Owner Name</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Business_Owner_Name_error}>
                                             <FormControl name='eKlik_Business_Owner_Name' value={this.state.eKlik_Business_Owner_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_Business_Owner_Title_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Business Owner Title</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Business Owner Title</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Business_Owner_Title_error}>
                                             <FormControl name='eKlik_Business_Owner_Title' value={this.state.eKlik_Business_Owner_Title} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col> 
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col> 
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Business_Owner_Phone_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Business Owner Phone</ControlLabel>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Business Owner Phone</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Business_Owner_Phone_error}>
                                             <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Business_Owner_Phone' value={this.state.eKlik_Business_Owner_Phone} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_Business_Owner_Email_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                            <ControlLabel>Business Owner Email</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Business Owner Email</ControlLabel>
+                                        <FormGroup validationState={this.state.eKlik_Business_Owner_Email_error}>
                                             <FormControl name='eKlik_Business_Owner_Email' value={this.state.eKlik_Business_Owner_Email} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col> 
-                                </FormGroup>
+                                        </FormGroup>
+                                    </Col> 
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Physical_Address_error}>
-                                       <Col xs={12} sm={5} md={5}>
-                                            <ControlLabel>Address</ControlLabel>
+                                <Col xs={12} sm={5} md={5}>
+                                    <ControlLabel>Address</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Physical_Address_error}>
                                             <FormControl name='eKlik_Physical_Address' value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                         <HelpBlock>Required Field</HelpBlock>
-                                       </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_City_error}>
-                                        <Col xs={4} sm={3} md={3}>
-                                            <ControlLabel>City</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={4} sm={3} md={3}>
+                                    <ControlLabel>City</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_City_error}>
                                             <FormControl name= 'eKlik_City' value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_State_error} controlId="formControlSelect">
-                                        <Col xs={4} sm={2} md={2}>
-                                            <ControlLabel>State</ControlLabel>  
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={4} sm={2} md={2}>
+                                    <ControlLabel>State</ControlLabel>  
+                                    <FormGroup validationState={this.state.eKlik_State_error} controlId="formControlSelect">
                                             <FormControl componentClass="select" name='eKlik_State' value={this.state.eKlik_State} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} onBlur={this.validate}>
                                             <option value=''>State</option>
                                             <option value="AL">AL</option>
@@ -395,62 +393,62 @@ class eKlik1 extends Component {
                                             <option value="WY">WY</option>
                                             </FormControl>
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.eKlik_Zip_Code_error}>
-                                        <Col xs={4} sm={2} md={2}>
-                                        <ControlLabel>Zip Code</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={4} sm={2} md={2}>
+                                    <ControlLabel>Zip Code</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Zip_Code_error}>
                                             <FormControl name='eKlik_Zip_Code' value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col>
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.Company_Website_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Company Website</ControlLabel>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Company Website</ControlLabel>
+                                    <FormGroup validationState={this.state.Company_Website_error}>
                                             <FormControl value={this.state.Company_Website} name='Company_Website' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.Primary_Reason_for_accepting_payments_error}>
-                                        <Col xs={12} sm={6} md={6}>
-                                        <ControlLabel>Primary reason for accepting payments</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Primary reason for accepting payments</ControlLabel>
+                                    <FormGroup validationState={this.state.Primary_Reason_for_accepting_payments_error}>
                                             <FormControl type='text' name='Primary_Reason_for_accepting_payments' value={this.state.Primary_Reason_for_accepting_payments}onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col>
                             </Row>
                             <Row>
-                                <FormGroup validationState={this.state.eKlik_Privately_or_Publicly_Held_error} controlId="formControlsSelect">
-                                        <Col xs={12} sm={5} md={5}>
-                                            <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
+                                <Col xs={12} sm={5} md={5}>
+                                    <ControlLabel className='longerFormInputLabels'>Is your company Privately or Publicly Held</ControlLabel>
+                                    <FormGroup validationState={this.state.eKlik_Privately_or_Publicly_Held_error} controlId="formControlsSelect">
                                             <FormControl componentClass="select" name='eKlik_Privately_or_Publicly_Held' value={this.state.eKlik_Privately_or_Publicly_Held} onChange={(e) => {this.handleInputChange(e); this.handleSave(e) }} onBlur={this.validate}>
                                                 <option value=''>Choose</option>
                                                 <option value='Publicly'>Publicly</option>
                                                 <option value='Privately'>Privately</option>
                                             </FormControl>
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.Name_of_Exchange_error}>
-                                        <Col xs={6} sm={3} md={3} className='privPub'>
-                                            <ControlLabel>Name of Exchange</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={6} sm={3} md={3} className='privPub'>
+                                    <ControlLabel>Name of Exchange</ControlLabel>
+                                    <FormGroup validationState={this.state.Name_of_Exchange_error}>
                                             <FormControl componentClass="select" name='Name_of_Exchange' value={this.state.Name_of_Exchange} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} onBlur={this.validate}>
                                             <option value=''>Choose</option>
                                                 <option value='NASDAQ'>NASDAQ</option>
                                                 <option value='NYSE'>NYSE</option>
                                             </FormControl>
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
-                                <FormGroup validationState={this.state.Ticker_Symbol_error}>
-                                        <Col xs={6} sm={4} md={4} className='privPub'>
-                                            <ControlLabel>Ticker Symbol</ControlLabel>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={6} sm={4} md={4} className='privPub'>
+                                    <ControlLabel>Ticker Symbol</ControlLabel>
+                                    <FormGroup validationState={this.state.Ticker_Symbol_error}>
                                             <FormControl s={6} value={this.state.Ticker_Symbol} name='Ticker_Symbol' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
-                                        </Col>
-                                </FormGroup>
+                                    </FormGroup>
+                                </Col>
                             </Row>
                             <Col xs={12}>
                                 <p className='form-comment'>Does your business engage in any of the following:</p>

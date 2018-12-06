@@ -8,12 +8,15 @@ class Login extends Component {
         super(props);
         this.state = {
             email: '',
+            email_error: null,
             password: '',
+            password_error: null,
             valid: false,
         }
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
+        this.validate = this.validate.bind(this);
     }
 
     submitForm(e) {
@@ -41,6 +44,18 @@ class Login extends Component {
             password
         });
     }
+
+    validate(e) {
+       if(e.target.value === '' || e.target.value === null) {
+            this.setState({
+                [`${e.target.name}_error`]: 'error',
+            }, () => {})
+        } else {
+            this.setState({
+                [`${e.target.name}_error`]: null,
+            }, () => {})
+        }
+    }
     
     render() {
         
@@ -51,7 +66,7 @@ class Login extends Component {
         }
         return (
                 <div className='loginPage'>
-                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} 
+                    <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} validate={this.validate} emailError={this.state.email_error} passwordError={this.state.password_error}
                     />
                 </div>
         );

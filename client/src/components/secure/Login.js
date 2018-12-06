@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import * as EmailValidator from 'email-validator';
 import LoginForm from './LoginForm';   
+import {Alert} from 'react-bootstrap';
 
 class Login extends Component {
     constructor(props) {
@@ -53,7 +53,6 @@ class Login extends Component {
                 <div className='loginPage'>
                     <LoginForm email={this.state.email} password={this.state.password} handleEmailChange={this.handleEmailChange} handlePasswordChange={this.handlePasswordChange} submitForm={this.submitForm} isLoading={this.props.isLoading} 
                     />
-
                 </div>
         );
     }

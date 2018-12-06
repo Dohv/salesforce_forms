@@ -184,6 +184,8 @@ class eKlik1 extends Component {
         this.setState({
             errorCounter: counter,
         })
+
+        if (counter > 0) {window.scrollTo(0, 0)};
     }
 
     validate(e) {
@@ -238,7 +240,7 @@ class eKlik1 extends Component {
         let nextPage = (this.props.currentFormPage + 1).toString();
         let path = this.props.match.path;
         const currPath = path.slice(0, path.lastIndexOf('/'))
-        const validateOrNext = this.state.errorCounter > 0 ? <div className='FFLink next ripple' onClick={this.validateFields}>Next</div> : <Link className='FFLink next ripple disabled-link' onClick={() => {this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
+        const validateOrNext = this.state.errorCounter > 0 ? <div className='FFLink next ripple' onMouseEnter={this.validateFields}>Next</div> : <Link className='FFLink next ripple disabled-link' onMouseEnter={this.validateFields} onClick={() => {this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
         const nextButton = this.props.currentFormPage === 3 ? '' : validateOrNext;
         
         return (
@@ -414,7 +416,7 @@ class eKlik1 extends Component {
                                 <FormGroup validationState={this.state.Primary_Reason_for_accepting_payments_error}>
                                         <Col xs={12} sm={6} md={6}>
                                         <ControlLabel>Primary reason for accepting payments</ControlLabel>
-                                            <FormControl type='text' name='Primary_Reason_for_accepting_payments' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
+                                            <FormControl type='text' name='Primary_Reason_for_accepting_payments' value={this.state.Primary_Reason_for_accepting_payments}onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
                                             <HelpBlock>Required Field</HelpBlock>
                                         </Col>
                                 </FormGroup>

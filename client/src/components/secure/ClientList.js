@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import {Input, Table} from 'react-materialize';
 import $ from "jquery";
 
 const handleClientChange = (accountName, accountId, clientProducts) => {
@@ -43,9 +42,9 @@ const ClientList = ({clients, search}) => {
     <div>
       
     <h2 className='form-title'>Client List</h2>
-    <Input id='myInput' placeholder='Search...' onChange={search}/>
+    <input id='myInput' placeholder='Search...' onChange={search}/>
       <div id='myContainer' className='clientContainer'>
-      <Table>
+      <table>
     <thead>
         <tr>
           <th data-field='account_name'>Account Name</th>
@@ -56,7 +55,7 @@ const ClientList = ({clients, search}) => {
       <tbody>
           {renderList}
       </tbody>
-    </Table>
+    </table>
       </div>
     </div>
   );

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlock } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
-import ReactResizeDetector from 'react-resize-detector';
 import $ from 'jquery';
 
 
@@ -184,6 +183,20 @@ class eKlik1 extends Component {
         this.setState({
             errorCounter: counter,
         })
+
+        let nextPage = (this.props.currentFormPage + 1).toString();
+        let path = this.props.match.path;
+        const currPath = path.slice(0, path.lastIndexOf('/'))
+
+        if(counter > 0) {
+            window.alert('You still have incomplete fields')
+        } else {    
+            this.props.handleNextFormPage(); 
+            this.props.handleNextRouteChangeAnimation(); 
+            this.props.updateClass(this.props.currentFormPage + 1);
+            this.props.history.push(`${currPath}/${nextPage}`);
+        }
+        
     }
 
     validate(e) {
@@ -238,7 +251,7 @@ class eKlik1 extends Component {
         let nextPage = (this.props.currentFormPage + 1).toString();
         let path = this.props.match.path;
         const currPath = path.slice(0, path.lastIndexOf('/'))
-        const validateOrNext = this.state.errorCounter > 0 ? <div className='FFLink next ripple' onMouseEnter={this.validateFields}>Next</div> : <Link className='FFLink next ripple disabled-link' onMouseEnter={this.validateFields} onClick={() => {this.props.handleNextFormPage(); this.props.handleNextRouteChangeAnimation(); this.props.updateClass(this.props.currentFormPage + 1) }} to={`${currPath}/${nextPage}`}>Next<i className="fas fa-caret-right"></i></Link>;
+        const validateOrNext = <div className='FFLink next ripple disabled-link' onClick={this.validateFields}>Next<i className="fas fa-caret-right"></i></div>;
         const nextButton = this.props.currentFormPage === 3 ? '' : validateOrNext;
         
         return (

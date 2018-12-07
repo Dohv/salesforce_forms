@@ -954,6 +954,7 @@ thumbnail a>img, .thumbnail>img {
 }
 
 .next {
+  cursor: pointer;
   color: white;
   background: #3F6AB3;
   margin-right: 15px;

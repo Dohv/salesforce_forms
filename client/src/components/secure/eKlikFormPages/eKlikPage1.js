@@ -167,7 +167,6 @@ class eKlik1 extends Component {
     }
 
     validateFields() {
-        console.log('yay');
         var counter = 0;
         const fields = ['eKlik_Company_Name', 'eKlik_Primary_Contact', 'eKlik_Primary_Contact_Phone', 'eKlik_Primary_Contact_Email', 'eKlik_Business_Owner_Name', 'eKlik_Business_Owner_Title', 'eKlik_Business_Owner_Phone', 'eKlik_Business_Owner_Email', 'eKlik_Physical_Address', 'eKlik_City', 'eKlik_State', 'eKlik_Zip_Code', 'Company_Website', 'Primary_Reason_for_accepting_payments', 'eKlik_Privately_or_Publicly_Held', 'Ticker_Symbol', 'Name_of_Exchange'];
         
@@ -211,7 +210,6 @@ class eKlik1 extends Component {
     
     
     render() {
-        console.log(this.state.errorCounter);
         $('.setup').width($('.form').css('width'));
         $('.setup').css('top', $('.header').css('height'));
            
@@ -248,9 +246,6 @@ class eKlik1 extends Component {
             <p>saving</p> 
         </div> : '';
 
-        let nextPage = (this.props.currentFormPage + 1).toString();
-        let path = this.props.match.path;
-        const currPath = path.slice(0, path.lastIndexOf('/'))
         const validateOrNext = <div className='FFLink next ripple disabled-link' onClick={this.validateFields}>Next<i className="fas fa-caret-right"></i></div>;
         const nextButton = this.props.currentFormPage === 3 ? '' : validateOrNext;
         

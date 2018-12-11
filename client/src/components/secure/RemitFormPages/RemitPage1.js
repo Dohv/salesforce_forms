@@ -29,6 +29,12 @@ class Remit1 extends Component {
             Remit_Company_Contact_Email: '',	
             Remit_Company_Contact_Name: '',		
             Remit_Company_Contact_Phone: '',
+            Number_of_Lockboxes_Needed: '',
+            Lockbox_Processing: '',
+            Accounts_Receivable_Software_Application: '',
+            Accounts_Receivable_Software_Version: '',
+            Post_Office_Requested: '',
+            Additional_Products: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);

@@ -76,6 +76,8 @@ class eKlik1 extends Component {
         const x = document.querySelector('.formButtonContainer'); 
         const y = document.querySelector('.formMenuGreeting');
         if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+        $('.setup').width($('.form').css('width'));
+        $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
         this.getFormData();
     }
@@ -158,14 +160,6 @@ class eKlik1 extends Component {
         }
     }
 
-    usStates() {
-        let states = ["AK","AL","AR","AS","AZ","CA","CO","CT","DC","DE","FL","GA","GU",                      "HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO",                 "MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA",                 "PR","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"];
-                  
-        return states.map(state => {
-                return(<option key={state} value={state}>{state}</option>)
-        });
-    }
-
     validateFields() {
         var counter = 0;
         const fields = ['eKlik_Company_Name', 'eKlik_Primary_Contact', 'eKlik_Primary_Contact_Phone', 'eKlik_Primary_Contact_Email', 'eKlik_Business_Owner_Name', 'eKlik_Business_Owner_Title', 'eKlik_Business_Owner_Phone', 'eKlik_Business_Owner_Email', 'eKlik_Physical_Address', 'eKlik_City', 'eKlik_State', 'eKlik_Zip_Code', 'Company_Website', 'Primary_Reason_for_accepting_payments', 'eKlik_Privately_or_Publicly_Held', 'Ticker_Symbol', 'Name_of_Exchange'];
@@ -210,8 +204,7 @@ class eKlik1 extends Component {
     
     
     render() {
-        $('.setup').width($('.form').css('width'));
-        $('.setup').css('top', $('.header').css('height'));
+        
            
         
         

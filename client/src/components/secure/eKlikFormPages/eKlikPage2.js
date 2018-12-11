@@ -59,6 +59,8 @@ class eKlik2 extends Component {
       const x = document.querySelector('.formButtonContainer'); 
         const y = document.querySelector('.formMenuGreeting');
         if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+        $('.setup').width($('.form').css('width'));
+      $('.setup').css('top', $('.header').css('height'));
       this._isMounted = true;
       this.getFormData();
       
@@ -268,9 +270,6 @@ class eKlik2 extends Component {
     
 
     render() { 
-
-      $('.setup').width($('.form').css('width'));
-      $('.setup').css('top', $('.header').css('height'));
 
       if(this._lastInputNameCreated >= 10) {
         document.getElementById('addNameButton').classList.add('name');

@@ -51,9 +51,6 @@ controller.signIn = async (req, res, next) => {
   var update = { last_login_date: Date.now() };
   var options = { new: true };
 
-  // const foundUser = await User.findByIdAndUpdate();
-  // console.log(foundUser);
-
   await User.findByIdAndUpdate(query, {$set: update}, options, (err, doc) => {
     if (err) {
       console.log(err, doc)

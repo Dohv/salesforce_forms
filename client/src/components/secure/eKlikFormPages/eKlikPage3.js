@@ -30,7 +30,9 @@ class eKlik3 extends Component {
     componentDidMount() {
         const x = document.querySelector('.formButtonContainer'); 
         const y = document.querySelector('.formMenuGreeting');
-        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')} 
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')} ;
+        $('.setup').width($('.form').css('width'));
+        $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
         this.getFormData();
     }

@@ -1,6 +1,10 @@
 const Joi = require('joi');
 const request = require('request');
 const { fields } = require('../helpers/sfFormFields');
+var jsforce = require('jsforce');
+var conn = new jsforce.Connection({
+  loginUrl : 'https://test.salesforce.com'
+});
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 

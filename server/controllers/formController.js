@@ -31,7 +31,7 @@ module.exports = {
   },
 
   getFormDataFromSF: async (req, res, next) => {
-    //console.log('in getFormDataFromSF');
+    console.log('in getFormDataFromSF');
     let { accountId, formType } = req.body;
     switch(formType) {
       case 'KlikNPay':

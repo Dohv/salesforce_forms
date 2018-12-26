@@ -1,7 +1,7 @@
 const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-var CognitoStrategy = require('passport-cognito');
+//var CognitoStrategy = require('passport-cognito');
 const config = require('./config');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/userModel');

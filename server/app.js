@@ -98,15 +98,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
-app.get('/', (req, res, next) => {
-  res.status(200).send('Try: curl -isS -X GET http://127.0.0.1:3001/api');
-  next();
-});
+// app.get('/', (req, res, next) => {
+//   res.status(200).send('Try: curl -isS -X GET http://127.0.0.1:3001/api');
+//   next();
+// });
 
-app.get('/test', passport.authenticate('oauth-bearer', { session: false }), (req, res, next) => {
-  res.json({ message: 'response from API endpoint' });
-  next();
-});
+// app.get('/test', passport.authenticate('oauth-bearer', { session: false }), (req, res, next) => {
+//   res.json({ message: 'response from API endpoint' });
+//   next();
+// });
 
 
 app.use('/api', formRouter);
@@ -114,8 +114,8 @@ app.use('/users', userRouter);
 
 
 
-// app.get('*', function (req, res) {
-//   res.status(404).send({message: 'Oops! Something went wrong!'})
-// });
+app.get('*', function (req, res) {
+  res.status(404).send({message: 'Oops! Something went wrong!'})
+});
 
 

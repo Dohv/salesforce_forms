@@ -9,7 +9,7 @@ const authServices = {
   },
 
   logIn: async (email, password) => {
-    console.log({email, password});
+    //console.log({email, password});
     try {
       let login = await axios.post('/users/signin', {
          email,
@@ -36,6 +36,7 @@ const authServices = {
   },
 
   logOut: async (id) => {
+    console.log({id});
     try {
       await axios.post('/users/logout',{ id });
       localStorage.removeItem('token');

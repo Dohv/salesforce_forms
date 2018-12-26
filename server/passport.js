@@ -1,7 +1,6 @@
 const passport = require('passport');
 const JWTStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-//var CognitoStrategy = require('passport-cognito');
 const config = require('./config');
 const { ExtractJwt } = require('passport-jwt');
 const User = require('./models/userModel');
@@ -58,16 +57,5 @@ passport.use(new LocalStrategy({
 
 // AWS Cognito Strategy
 
-// passport.use(new CognitoStrategy({
-//   userPoolId: process.env.AWS_POOL_ID,
-//   clientId: process.env.AWS_CLIENT_ID,
-//   region: process.env.AWS_REGION
-// },
-// function(accessToken, idToken, refreshToken, user, cb) {
-//   process.nextTick(function() {
-//     console.log(user);
-//     cb(null, user);
-//   });
-// }
-// ));
+
 

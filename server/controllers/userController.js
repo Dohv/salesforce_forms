@@ -5,19 +5,19 @@ const crypto = require('crypto');
 var async = require("async");
 const nodemailer = require('nodemailer');
 global.fetch = require('node-fetch');
-const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
-const AWS = require('aws-sdk');
-const jwkToPem = require('jwk-to-pem');
+// const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+// const CognitoUserPool = AmazonCognitoIdentity.CognitoUserPool;
+// const AWS = require('aws-sdk');
+// const jwkToPem = require('jwk-to-pem');
 
-const poolData = {    
-  UserPoolId : process.env.AWS_POOL_ID, // Your user pool id here    
-  ClientId : process.env.AWS_CLIENT_ID // Your client id here
-  }; 
-const pool_region = 'us-east-1';
+// const poolData = {    
+//   UserPoolId : process.env.AWS_POOL_ID, // Your user pool id here    
+//   ClientId : process.env.AWS_CLIENT_ID // Your client id here
+//   }; 
+// const pool_region = 'us-east-1';
 
 
-const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+// const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 const controller = {};
 

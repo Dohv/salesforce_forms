@@ -15,7 +15,11 @@ userRouter.post('/signin',
                 passport.authenticate('local', {session: false}), 
                 validateEmailInSF,
                 controller.signIn
+                //controller.awsLogin
               );
+// userRouter.post('/changePassword',
+//                 controller.changePassword
+//                 );
 userRouter.post('/logout', 
                 controller.logout
               );

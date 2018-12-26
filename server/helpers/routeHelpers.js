@@ -64,8 +64,9 @@ module.exports = {
   },
 
   validateEmailInSF: async (req, res, next) => {
+    console.log('in validateEmailInSF function');
      const { email } = req.body;
-
+      //console.log(email);
       await request(getSFTokenAPI, (error, response, body) => {
         if(error) {
           console.log('sf token error', error);
@@ -73,7 +74,7 @@ module.exports = {
           const result = JSON.parse(body);
           const url = result.instance_url;
           const sfToken = result.access_token;
-          //console.log(result);
+          console.log('got SF token');
            request({
             url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
@@ -86,7 +87,8 @@ module.exports = {
               } else {
                 const vresult = JSON.parse(vbody);
                 if(vresult.totalSize === 0) {
-                  return res.json({message: 'There is no email for that account.'});
+                  //return res.json({message: 'There is no email for that account.'});
+                  return res.json({message: 'There is no account with that email'})
                 } else {
                     //console.log(vresult.records[0]);
                    res.locals.contactName = vresult.records[0].Name

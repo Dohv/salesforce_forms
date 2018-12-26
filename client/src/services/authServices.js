@@ -9,6 +9,7 @@ const authServices = {
   },
 
   logIn: async (email, password) => {
+    console.log({email, password});
     try {
       let login = await axios.post('/users/signin', {
          email,

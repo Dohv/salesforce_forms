@@ -19,7 +19,7 @@ const timeBasedGreeting = () => {
 
 const LoginForm = (props) => {
     const loading = props.isLoading ? <div className='loadingAnimation'><Loading /></div> : <div className='emptyLoadingSpace'></div>;
-    console.log(props.passwordError);
+    //console.log(props.passwordError);
     return (
         <div id='login-form' className='login-form'>
             <form   onSubmit={(e) => props.submitForm(e)}

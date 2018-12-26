@@ -4,6 +4,8 @@ import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlo
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 import $ from 'jquery';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class eKlik1 extends Component {
@@ -182,7 +184,7 @@ class eKlik1 extends Component {
         const currPath = path.slice(0, path.lastIndexOf('/'))
 
         if(counter > 0) {
-            window.alert('You still have incomplete fields')
+           this.notify();
         } else {    
             this.props.handleNextFormPage(); 
             this.props.handleNextRouteChangeAnimation(); 
@@ -191,6 +193,11 @@ class eKlik1 extends Component {
         }
         
     }
+
+    notify = () => toast.error('You still have incomplete fields', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        className: 'toast', 
+    });
 
     validate(e) {
        if(e.target.value !== '' || e.target.value !== null) {
@@ -543,6 +550,7 @@ class eKlik1 extends Component {
                                 </Row>
                             </FormGroup>
                         </Form>
+                        <ToastContainer />
                 </div>
             </div>
             </React.Fragment>

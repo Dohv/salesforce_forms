@@ -4,7 +4,6 @@ import MobileHeaderMenu from './MobileHeaderMenu';
 import {Image} from 'react-bootstrap';
 import home from '../../assets/home_icon@3x.png';
 import whiteLogo from '../../assets/checkalt_white@3x.png';
-import hamburger from '../../assets/hamburger_icon@3x.png';
 import $ from 'jquery';
 
 
@@ -45,7 +44,7 @@ class Header extends Component {
 
     toggleClass() {
             $('.hamburgerContainer').toggleClass('xActive');
-        
+        //toggle state in React!!
             this.setState(prevState => ({
                 isMenuClicked: !prevState.isMenuClicked,
               }));
@@ -82,7 +81,8 @@ class Header extends Component {
                      </Link>
                         <p className='app-title'>Onboarding Center</p>
                  </div>
-                 {/* <h3 className='account-text'>Account: {localStorage.getItem('sfAccountName')}</h3>  */}
+                 <div className='account-text'>Account: {localStorage.getItem('sfAccountName')}</div>
+                 <Link className='account-text' to={'/clients'}>Clients</Link>
                  <div className='headerComp header-comp-right'>
                     {/* <div className='headerEmail'>{this.props.currentUserEmail}</div> */}
                     <Link className='header-button' to={'/forms'} onClick={() => {this.handleAccountChange()}}><Image className='home' src={home} responsive /></Link>
@@ -91,8 +91,6 @@ class Header extends Component {
                         to={'/logout'} 
                         > Log out
                     </Link>
-                    {/* <Image className='hamburger' src={hamburger} responsive />
-                    {this.state.clientList} */}
                     <div className='hamburgerContainer' onClick={this.toggleClass}>
                         <div className="hamburger"></div>
                     </div>

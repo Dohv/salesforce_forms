@@ -4,16 +4,16 @@ self.__precacheManifest = [
     "url": "/static/media/remitstation@3x.93d00076.png"
   },
   {
-    "revision": "1431456e60fa38e7357e",
-    "url": "/static/css/main.dad9431e.chunk.css"
+    "revision": "c668086cca2eec5516a2",
+    "url": "/static/css/main.83a65e00.chunk.css"
   },
   {
     "revision": "fd5a50970e50a2fadb09e21bbdf1a647",
     "url": "/static/media/login_background.fd5a5097.png"
   },
   {
-    "revision": "fbd95b7ebc26aabe82de",
-    "url": "/static/js/1.fbd95b7e.chunk.js"
+    "revision": "c5e9abd52a0e8439062c",
+    "url": "/static/js/1.c5e9abd5.chunk.js"
   },
   {
     "revision": "229c360febb4351a89df",
@@ -40,8 +40,8 @@ self.__precacheManifest = [
     "url": "/static/media/knp@3x.d4e73e9c.png"
   },
   {
-    "revision": "1431456e60fa38e7357e",
-    "url": "/static/js/main.1431456e.chunk.js"
+    "revision": "c668086cca2eec5516a2",
+    "url": "/static/js/main.c668086c.chunk.js"
   },
   {
     "revision": "39320288ef6e12c430663a64c9610272",
@@ -64,19 +64,19 @@ self.__precacheManifest = [
     "url": "/static/media/Omnes-Regular.f2af66f6.otf"
   },
   {
-    "revision": "b9bcd8a3179a2056399feacf35baa2d4",
-    "url": "/static/media/Omnes-Medium.b9bcd8a3.otf"
-  },
-  {
     "revision": "cc8b85227dfc3af2293b0a8e1d8bb68a",
     "url": "/static/media/Omnes-Light.cc8b8522.otf"
   },
   {
-    "revision": "fbd95b7ebc26aabe82de",
-    "url": "/static/css/1.657c113f.chunk.css"
+    "revision": "b9bcd8a3179a2056399feacf35baa2d4",
+    "url": "/static/media/Omnes-Medium.b9bcd8a3.otf"
   },
   {
-    "revision": "31d7a2efa661c8ebe7dc468789c77aa3",
+    "revision": "c5e9abd52a0e8439062c",
+    "url": "/static/css/1.c5d275b5.chunk.css"
+  },
+  {
+    "revision": "2a04c636f8a5e47fc59b826de7fc7408",
     "url": "/index.html"
   }
 ];

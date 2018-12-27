@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { Table, FormControl } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
 import $ from "jquery";
 
 const handleClientChange = (accountName, accountId, clientProducts) => {
@@ -9,6 +11,11 @@ const handleClientChange = (accountName, accountId, clientProducts) => {
   localStorage.setItem("sfAccountProducts", JSON.stringify(clientProducts));
 }
 
+const notify = () => toast.info('Click  to return to your account', {
+  position: toast.POSITION.BOTTOM_RIGHT,
+  className: 'toast', 
+});
+
 
 const ClientList = ({clients, search}) => {
   const renderList = clients.map((client, i) => {
@@ -16,13 +23,13 @@ const ClientList = ({clients, search}) => {
     return (
       <tr key={i} className='clientInfo'>
           <td>
-            <Link className='clientButton' onClick={() => {handleClientChange(client.Name, client.Id, client.Products__c.split(';'))}} to={'/forms'}>{client.Name}</Link>
+            <Link className='clientButton' onClick={() => {handleClientChange(client.Name, client.Id, client.Products__c.split(';')); notify()}} to={'/forms'}>{client.Name}</Link>
           </td>
           <td>
-            <Link className='clientButton' to={'/forms'}>{client.Id}</Link>
+            <Link className='clientButton' onClick={() => {handleClientChange(client.Name, client.Id, client.Products__c.split(';')); notify()}} to={'/forms'}>{client.Id}</Link>
           </td>
           <td>
-            <Link className='clientButton' to={'/forms'} >{client.Products__c}</Link>
+            <Link className='clientButton' onClick={() => {handleClientChange(client.Name, client.Id, client.Products__c.split(';')); notify()}} to={'/forms'} >{client.Products__c}</Link>
           </td>
         </tr>
         )
@@ -42,9 +49,9 @@ const ClientList = ({clients, search}) => {
     <div>
       
     <h2 className='form-title'>Client List</h2>
-    <input id='myInput' placeholder='Search...' onChange={search}/>
+    <FormControl id='myInput' placeholder='Search...' onChange={search}/>
       <div id='myContainer' className='clientContainer'>
-      <table>
+      <Table>
     <thead>
         <tr>
           <th data-field='account_name'>Account Name</th>
@@ -55,8 +62,9 @@ const ClientList = ({clients, search}) => {
       <tbody>
           {renderList}
       </tbody>
-    </table>
+    </Table>
       </div>
+      <ToastContainer />
     </div>
   );
 }

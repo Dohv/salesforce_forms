@@ -207,13 +207,7 @@ class eKlik1 extends Component {
         }
     }
 
-
-    
-    
     render() {
-        
-           
-        
         
         let isPropertyManagementCompany = this.state.is_Property_Management_Company ? true : false;
         let isPaydayLenders = this.state.Payday_Lenders ? true : false;

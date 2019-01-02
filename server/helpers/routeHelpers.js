@@ -1,10 +1,10 @@
 const Joi = require('joi');
 const request = require('request');
 const { fields } = require('../helpers/sfFormFields');
-var jsforce = require('jsforce');
-var conn = new jsforce.Connection({
-  loginUrl : 'https://test.salesforce.com'
-});
+// var jsforce = require('jsforce');
+// var conn = new jsforce.Connection({
+//   loginUrl : 'https://test.salesforce.com'
+// });
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -13,8 +13,8 @@ const getSFTokenAPI = {
         grant_type: process.env.GRANT_TYPE,
         client_id: process.env.CLIENT_ID,
         client_secret: process.env.CLIENT_SECRET,
-        username: process.env.USERNAME,
-        password: process.env.PASSWORD
+        username: process.env.SF_USERNAME,
+        password: process.env.SF_PASSWORD
       }
 }
 

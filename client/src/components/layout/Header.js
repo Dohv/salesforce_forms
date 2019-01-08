@@ -81,9 +81,9 @@ class Header extends Component {
                      </Link>
                         <p className='app-title'>Onboarding Center</p>
                  </div>
-                 <div className='account-text'>Account: {localStorage.getItem('sfAccountName')}</div>
-                 <Link className='account-text' to={'/clients'}>Clients</Link>
+                 
                  <div className='headerComp header-comp-right'>
+                 <Link className='account-text' to={'/clients'}>Account: {localStorage.getItem('sfAccountName')}</Link>
                     {/* <div className='headerEmail'>{this.props.currentUserEmail}</div> */}
                     <Link className='header-button' to={'/forms'} onClick={() => {this.handleAccountChange()}}><Image className='home' src={home} responsive /></Link>
                     <Link  

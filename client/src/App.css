@@ -163,6 +163,7 @@
   color: #f5f5f5;
   font-family: 'Helvetica-Neue-Pro-Light';
   padding-top: 10px;
+  margin-right: 20px;
 }
 
 .headerComp {
@@ -288,7 +289,7 @@
   text-align: left;
 }
 
-.mobile-home:visited, .mobile-logout:visited {
+.mobile-home:visited:active, .mobile-logout:visited:active, .mobile-account:visited:active {
   color: white;
   text-decoration: none !important;
 }
@@ -298,6 +299,13 @@
   margin: 0 25px;
   padding-bottom: 13px;
   width: 138px;
+}
+
+.mobile-account {
+  color: white;
+  border-bottom: 1px solid #D0D0D0;
+  margin: 0 25px;
+  padding-bottom: 13px;
 }
 
 
@@ -484,6 +492,10 @@ body {
 
   .header-comp-right {
     margin-right: 0px;
+  }
+
+  .account-text {
+    display: none;
   }
 }
 

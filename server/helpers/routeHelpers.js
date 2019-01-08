@@ -75,6 +75,8 @@ module.exports = {
           const url = result.instance_url;
           const sfToken = result.access_token;
           console.log('got SF token');
+          console.log({url});
+          
            request({
             url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',

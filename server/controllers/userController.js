@@ -158,6 +158,7 @@ controller.signIn = async (req, res, next) => {
   const sfAccountId = res.locals.accountId;
   const sfAccountType = res.locals.accountType;
   const sfAccountProducts = res.locals.accountProducts;
+  const lockboxes = res.locals.lockboxes;
 
   var query = { _id: id };
   var update = { last_login_date: Date.now() };
@@ -170,7 +171,7 @@ controller.signIn = async (req, res, next) => {
     //console.log({id, doc});
   })
 
-  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts, sfContactName });
+  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts, sfContactName, lockboxes });
 }
 
 controller.secret = async (req, res, next) => {

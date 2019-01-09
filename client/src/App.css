@@ -140,6 +140,9 @@
   padding: 0px 6%;
 }
 
+
+
+
 @media(max-width: 1199px) {
   .header-container {
     padding: 0px 8%;
@@ -156,6 +159,10 @@
   color: #55B748;
 }
 
+.fa-sort-down {
+  margin: 0px 0px 10px 10px;
+}
+
 .account-text {
   display: flex;
   align-items: center;
@@ -164,6 +171,11 @@
   font-family: 'Helvetica-Neue-Pro-Light';
   padding-top: 10px;
   margin-right: 20px;
+}
+
+.account-text:hover, .account-text:link, .account-text:active, .account-text:visited {
+  color: #f5f5f5;
+  text-decoration: none;
 }
 
 .headerComp {
@@ -639,7 +651,7 @@ div.thumbnail {
   text-decoration: none !important;
   background: #f5f5f5;
   min-height: 315.8px;
-  max-height: 325.8px;
+  max-height: 355.8px;
   margin: 15px;
 }
 

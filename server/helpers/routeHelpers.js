@@ -31,6 +31,30 @@ module.exports = {
     }
   },
 
+  getLockboxesFromAccount: async (req, res, next) => {
+    await request({
+      url: `${res.locals.url}/services/data/v43.0/query?q=select+id, name,Lockbox_Name__c,Product_Type__c+FROM+New_Implementation__c+WHERE+Account__c+='${res.locals.accountId}'`,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + res.locals.sfToken
+      }
+    }, (error, response, body) => {
+        if(error) {
+          console.log('sf email error', error);
+        } else {
+          const result = JSON.parse(body);
+          if(result.totalSize === 0) {
+            //return res.json({message: 'There is no email for that account.'});
+            return res.json({message: 'There is no account with that email'})
+          } else {
+              //console.log(vresult.records[0]);
+            res.locals.lockboxes = result.records;
+             next();
+          }
+        }
+    });
+  },
+
   getFormDataSFQuery: (url, accountId, token, recordType) => {
     //console.log(recordType);
     return {
@@ -64,7 +88,7 @@ module.exports = {
   },
 
   validateEmailInSF: async (req, res, next) => {
-    console.log('in validateEmailInSF function');
+    //console.log('in validateEmailInSF function');
      const { email } = req.body;
       //console.log(email);
       await request(getSFTokenAPI, (error, response, body) => {
@@ -74,8 +98,9 @@ module.exports = {
           const result = JSON.parse(body);
           const url = result.instance_url;
           const sfToken = result.access_token;
-          console.log('got SF token');
-          console.log({url});
+          res.locals.sfToken = sfToken;
+          res.locals.url = url;
+          // console.log('got SF token');
           
            request({
             url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,

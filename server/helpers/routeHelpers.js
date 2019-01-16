@@ -1,10 +1,6 @@
 const Joi = require('joi');
 const request = require('request');
 const { fields } = require('../helpers/sfFormFields');
-// var jsforce = require('jsforce');
-// var conn = new jsforce.Connection({
-//   loginUrl : 'https://test.salesforce.com'
-// });
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -40,7 +36,7 @@ module.exports = {
       }
     }, (error, response, body) => {
         if(error) {
-          console.log('sf email error', error);
+          console.log('sf lockbox data error', error);
         } else {
           const result = JSON.parse(body);
           if(result.totalSize === 0) {
@@ -55,10 +51,10 @@ module.exports = {
     });
   },
 
-  getFormDataSFQuery: (url, accountId, token, recordType) => {
-    //console.log(recordType);
+  getFormDataSFQuery: (url, accountId, token, recordType, newImplementationId) => {
+    console.log({newImplementationId});
     return {
-      url: `${url}/services/data/v43.0/query?q=select+${fields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
+      url: `${url}/services/data/v43.0/query?q=select+${fields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'+AND+New_Implementation_Lockbox__c+='${newImplementationId}'`,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token

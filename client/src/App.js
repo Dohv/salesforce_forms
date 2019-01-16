@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Reset.css';
 import './App.css';
 import authServices from './services/authServices';
 import formDataServices from './services/formDataServices';
@@ -8,6 +9,7 @@ import Header from "./components/layout/Header";
 import Login from './components/secure/Login';
 import PrivateRoute from './components/secure/PrivateRoute';
 import FormMenu from './components/secure/FormMenu';
+import LBMenu from './components/secure/LBMenu';
 import Logout from './components/secure/Logout';
 import ClientList from './components/secure/ClientList';
 import NoMatch from './components/NoMatch';
@@ -24,6 +26,8 @@ class App extends Component {
       sfAccountName: localStorage.getItem('sfAccountName') ? localStorage.getItem('sfAccountName') : '',
       sfAccountId: localStorage.getItem('sfAccountId') ? localStorage.getItem('sfAccountId') : '',
       sfAccountType: localStorage.getItem('sfAccountType') ? localStorage.getItem('sfAccountType') : '',
+      sfAccountProducts: JSON.parse(localStorage.getItem("userAccountProducts")) ? JSON.parse(localStorage.getItem("userAccountProducts")) : [],
+      lockboxes: JSON.parse(localStorage.getItem('lockboxes')) ? JSON.parse(localStorage.getItem('lockboxes')) : [],
       clients: JSON.parse(localStorage.getItem('clients')) ? JSON.parse(localStorage.getItem('clients')) : [],
       isFormChosen: false,
       currentFormPage: 1,
@@ -38,6 +42,7 @@ class App extends Component {
     this.handleMessageReset = this.handleMessageReset.bind(this);
     this.handleFormChoice = this.handleFormChoice.bind(this);
     this.handleMobileMenuClick = this.handleMobileMenuClick.bind(this);
+    this.removeFormChoice = this.removeFormChoice.bind(this);
   }
   
 
@@ -53,7 +58,9 @@ class App extends Component {
       sfAccountName: localStorage.getItem('sfAccountName'),
       sfAccountId: localStorage.getItem('sfAccountId'),
       sfAccountType: localStorage.getItem('sfAccountType'),
-    });
+      sfAccountProducts: JSON.parse(localStorage.getItem('userAccountProducts')),
+      lockboxes: JSON.parse(localStorage.getItem('lockboxes')),
+    })
     await formDataServices.getClientsAPI(this.state.sfAccountId);
     this.setState({
       clients: JSON.parse(localStorage.getItem('clients')),
@@ -93,6 +100,12 @@ class App extends Component {
     })
   }
 
+  removeFormChoice() {
+    this.setState({
+      isFormChosen: false,
+    });
+  }
+
   timeBasedGreeting = () => {
     let greeting = "";
     let time = new Date().getHours();
@@ -114,7 +127,8 @@ handleMobileMenuClick() {
 
 
   render() {
-    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
+    //console.log(this.state.sfAccountProducts)
+    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} removeFormChoice={this.removeFormChoice} /> : '';
     return (
       <BrowserRouter>
         <div>
@@ -127,17 +141,28 @@ handleMobileMenuClick() {
                                                 messageAlert={this.state.messageAlert}
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
-                                              />} /> 
+                                                />} /> 
               <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
+                                                sfAccountProducts={this.state.sfAccountProducts}
                                                 sfAccountType={this.state.sfAccountType} 
                                                 handleFormChoice={this.handleFormChoice} 
                                                 isFormChosen={this.state.isFormChosen} 
                                                 timeBasedGreeting={this.timeBasedGreeting}
                                                 isMobileMenuClicked={this.isMobileMenuClicked}
+                                                lockboxes={this.state.lockboxes}
                                               />} />;
+              <PrivateRoute path={'/lockboxes'} component={props => <LBMenu {...props} 
+                                                sfAccountProducts={this.state.sfAccountProducts}
+                                                sfAccountType={this.state.sfAccountType} 
+                                                handleFormChoice={this.handleFormChoice} 
+                                                isFormChosen={this.state.isFormChosen} 
+                                                timeBasedGreeting={this.timeBasedGreeting}
+                                                isMobileMenuClicked={this.isMobileMenuClicked}
+                                                lockboxes={this.state.lockboxes}
+                                              />} />;                               
               <Route exact path="/" render={() => (
                 this.state.loggedIn ? (
-                  <Redirect to="/forms"/>
+                  <Redirect to="/lockboxes"/>
                 ) : (
                   <Redirect to="/login"/>
                 )

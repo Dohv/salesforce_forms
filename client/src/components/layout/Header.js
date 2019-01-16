@@ -85,7 +85,7 @@ class Header extends Component {
                  <div className='headerComp header-comp-right'>
                  <Link className='account-text' to={'/clients'}>Account: {localStorage.getItem('sfAccountName')}<i className="fas fa-sort-down"></i></Link>
                     {/* <div className='headerEmail'>{this.props.currentUserEmail}</div> */}
-                    <Link className='header-button' to={'/forms'} onClick={() => {this.handleAccountChange()}}><Image className='home' src={home} responsive /></Link>
+                    <Link className='header-button' to={'/lockboxes'} onClick={() => {this.handleAccountChange(); this.props.removeFormChoice();}}><Image className='home' src={home} responsive /></Link>
                     <Link  
                         className='header-signout  header-button'
                         to={'/logout'} 

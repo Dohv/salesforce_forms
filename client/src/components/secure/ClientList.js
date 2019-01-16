@@ -51,7 +51,7 @@ const ClientList = ({clients, search}) => {
     <h2 className='form-title'>Client List</h2>
     <FormControl id='myInput' placeholder='Search...' onChange={search}/>
       <div id='myContainer' className='clientContainer'>
-      <Table>
+      <Table stripes bordered condensed hover>
     <thead>
         <tr>
           <th data-field='account_name'>Account Name</th>

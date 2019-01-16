@@ -13,8 +13,10 @@ import KlikNPay from './KlikNPay';
 
 
 
-const FormMenu = ({match, handleFormChoice, timeBasedGreeting}) => {
+const FormMenu = ({match, handleFormChoice, timeBasedGreeting, sfAccountProducts, lockboxes}) => {
 
+   // console.log({lockboxes});
+    
 
     const formSelect = (product) => {
         //console.log(e.target.innerHTML);
@@ -22,17 +24,15 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting}) => {
         document.querySelector('.formMenu').classList.add('displayNone');
         
     };
-
-    let products = (localStorage.getItem('sfAccountProducts').split(';'));
-    products = JSON.parse(products);
+    let products = sfAccountProducts;
     const formButtonContainer = document.querySelector('.formButtonContainer');
     const greeting = document.querySelector('.formMenuGreeting');
-    if(match.path === '/forms' &&  formButtonContainer) {
+    // if(match.path === '/forms' &&  formButtonContainer) {
         
-        greeting.classList.remove('displayNone');
-        formButtonContainer.classList.remove('displayNone');
+    //     greeting.classList.remove('displayNone');
+    //     formButtonContainer.classList.remove('displayNone');
         
-    }
+    // }
    
     return (
         <div className='formMenu'>

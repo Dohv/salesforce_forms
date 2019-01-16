@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';   
-import {Alert} from 'react-bootstrap';
+
 
 class Login extends Component {
     constructor(props) {
@@ -59,7 +59,7 @@ class Login extends Component {
     
     render() {
         
-        const {target} = this.props.location.state || {target: {pathname: '/forms'}}
+        const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
 
         if(this.props.isLoggedIn) {
             return <Redirect to={target} />

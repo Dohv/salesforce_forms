@@ -2,18 +2,18 @@ import axios from 'axios';
 
 
 const formDataServices = {
-  getFormDataFromServer: async (accountId, formType) => {
-    //console.log({formType, accountId, token: localStorage.getItem('token')});
+  getFormDataFromServer: async (accountId, formType, newImplementationId) => {
+    console.log({newImplementationId});
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")
     }
     try {
-      let formData = await axios.post('/api/form', { accountId, formType }, {"headers": headers});
+      let formData = await axios.post('/api/form', { accountId, formType, newImplementationId }, {"headers": headers});
       if(formData.data.data === 0) {
        try {
-          await axios.post('/api/new', { accountId, formType }, {"headers": headers});
-          formData = await axios.post('/api/form', { accountId, formType }, {"headers": headers});
+          await axios.post('/api/new', { accountId, formType, newImplementationId }, {"headers": headers});
+          formData = await axios.post('/api/form', { accountId, formType, newImplementationId }, {"headers": headers});
         } catch (error) {
           console.log('create new knp form error' ,error);
         }
@@ -39,7 +39,7 @@ const formDataServices = {
     }
   },
 
-  updateFormData: async (accountId, sfFieldName, fieldValue, formType) => {
+  updateFormData: async (accountId, sfFieldName, fieldValue, formType, newImplementationId) => {
     //console.log({accountId, sfFieldName, fieldValue, formType})
     sfFieldName = sfFieldName + '__c';
     const headers = {
@@ -47,7 +47,7 @@ const formDataServices = {
       'Authorization': localStorage.getItem("token")
     }
 
-    await axios.post('/api/update', { accountId, sfFieldName, fieldValue, formType }, {"headers": headers});
+    await axios.post('/api/update', { accountId, sfFieldName, fieldValue, formType, newImplementationId }, {"headers": headers});
   },
 
   getClientsAPI: async (accountId) => {

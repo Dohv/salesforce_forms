@@ -159,8 +159,13 @@
   color: #55B748;
 }
 
+.strong {
+  font-family: 'Helvetica-Neue-Pro-Medium';
+  font-size: 14px;
+}
+
 .fa-sort-down {
-  margin: 0px 0px 10px 10px;
+  margin: 0px 0px 10px 5px;
 }
 
 .account-text {
@@ -171,11 +176,18 @@
   font-family: 'Helvetica-Neue-Pro-Light';
   padding-top: 10px;
   margin-right: 20px;
+  border-bottom: 1px solid #233E76;
 }
 
-.account-text:hover, .account-text:link, .account-text:active, .account-text:visited {
+.account-text:link, .account-text:active, .account-text:visited {
   color: #f5f5f5;
   text-decoration: none;
+}
+
+.account-text:hover {
+  color: #f5f5f5;
+  text-decoration: none;
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .headerComp {
@@ -385,6 +397,7 @@ body {
 
 #email, #password {
   padding-top: 10px;
+  box-shadow: inset 0px 0px 0px 0px;
   -webkit-box-shadow: inset 0px 0px 0px 0px;
   font-family: 'Helvetica-Neue-Pro-Light';
   font-size: 16px;
@@ -572,7 +585,7 @@ label.login-label {
   font-size: large;
 }
 
-  @-webkit-keyframes autofill {
+  @keyframes autofill {
     to {
         color: rgb(100, 100, 100);
         background: transparent;
@@ -580,7 +593,9 @@ label.login-label {
 }
 
 input:-webkit-autofill {
+  animation-name: autofill;
   -webkit-animation-name: autofill;
+  animation-fill-mode: both; 
   -webkit-animation-fill-mode: both;
 }
 
@@ -592,12 +607,106 @@ input:-webkit-autofill {
   font-size: 32px;
 }
 
+.lockbox-products {
+  display: flex;
+  margin: 0px 100px;
+  justify-content: flex-end;
+  color: #233E76;
+  margin-bottom: 10px;
+}
+
+.fa-question-circle {
+  margin-left: 5px;
+}
+
+.lockbox-product {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+}
+
+.lockbox-container {
+  margin: 0px 100px;
+  color: #233E76;
+}
+
+.lockboxDetailsContainer {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.formStatus {
+  margin: 10px 0px;
+  font-size: 14px;
+  color: #777c77;
+  font-family: 'Helvetica-Neue-Pro-Medium';
+}
+
+.lockbox-details {
+  display: flex;
+  border: 1px solid #d0d0d0;
+  margin-bottom: 20px;
+  padding: 15px 7px;
+  background-color: #F5F5F5;
+}
+
+.lbProductButton-Container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 20%;
+  padding: 0px 30px;
+}
+
+.lbProductButton {
+  margin: 10px 0px;
+  border: 1px solid #d0d0d0;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #233E76;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  font-family: 'Omnes-medium';
+  width: 110px;
+  height: 30px;
+}
+
+.lbProductButton:hover {
+  border-color: #233E76;
+  cursor: pointer;
+}
+
 .formButtonContainer {
   display: flex;
   justify-content: center;
   text-decoration: none;
   margin: 20px 80px;
-  
+}
+
+.lockboxName, .lockboxNumber, .lockboxStatus {
+  display: inline;
+}
+
+.lockboxName {
+  color: #3F6AB3;
+  font-size: 18px;
+  font-family: 'Omnes-regular';
+}
+
+.lockboxName:hover {
+  cursor: pointer;
+}
+
+.fa-pen {
+  margin-left: 10px;
+}
+
+.lockboxNumber {
+  margin: 5px 0px;
 }
 
 @media(max-width: 1070px) {
@@ -623,6 +732,11 @@ input:-webkit-autofill {
   .formMenuGreeting {
     margin: 80px 28px 20px 28px;
   }
+
+  .lockbox-container, .lockbox-products {
+    margin: 0px 28px;
+  }
+
 }
 
 @media(max-width: 350px) {

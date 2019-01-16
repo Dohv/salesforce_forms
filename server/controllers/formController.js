@@ -32,7 +32,8 @@ module.exports = {
 
   getFormDataFromSF: async (req, res, next) => {
     console.log('in getFormDataFromSF');
-    let { accountId, formType } = req.body;
+    let { accountId, formType, newImplementationId } = req.body;
+    //console.log({newImplementationId})
     switch(formType) {
       case 'KlikNPay':
         formType = process.env.KLIKNPAY_RECORD_TYPE;
@@ -59,7 +60,7 @@ module.exports = {
         const result = JSON.parse(body);
         const url = result.instance_url;
         const sfToken = result.access_token;
-        request(getFormDataSFQuery(url, accountId, sfToken, formType), (werror, wresponse, wbody) => {
+        request(getFormDataSFQuery(url, accountId, sfToken, formType, newImplementationId), (werror, wresponse, wbody) => {
           if(werror) {
             console.log('sf form data error', werror);
           } else {
@@ -79,7 +80,7 @@ module.exports = {
   },
 
   postNewForm: async (req, res, next) => {
-    let { accountId, formType } = req.body;
+    let { accountId, formType, newImplementationId } = req.body;
     let recordType;
     switch(formType) {
       case 'KlikNPay':
@@ -119,7 +120,8 @@ module.exports = {
                     "attributes": {"type": "on_boarding_forms__c", "referenceId": "ref1"},
                     "Name": formType,
                     "RecordTypeId": recordType,
-                    "Account_Name__c": accountId
+                    "Account_Name__c": accountId,
+                    "New_Implementation_Lockbox__c": newImplementationId
                   }]
                 })     
             }, (werror, wresponse, wbody) => {
@@ -136,7 +138,7 @@ module.exports = {
   },
 
   updateFormData: async (req, res, next) => {
-    let { accountId, sfFieldName, fieldValue, formType } = req.body;
+    let { accountId, sfFieldName, fieldValue, formType, newImplementationId } = req.body;
     let recordType;
     switch(formType) {
       case 'KlikNPay':
@@ -166,7 +168,7 @@ module.exports = {
         const sfToken = result.access_token;
         //console.log(recordType);
         request({
-          url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'`,
+          url: `${url}/services/data/v43.0/query?q=select+id+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'+AND+New_Implementation_Lockbox__c+='${newImplementationId}'`,
           method: 'GET',
           headers: {
             'Authorization': 'Bearer ' + sfToken,
@@ -193,6 +195,7 @@ module.exports = {
                         "Name": formType,
                         "RecordTypeId": recordType,
                         "Account_Name__c": accountId,
+                        "New_Implementation_Lockbox__c": newImplementationId,
                         [sfFieldName]: fieldValue
                       }]   
               })

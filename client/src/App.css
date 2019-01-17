@@ -611,7 +611,7 @@ input:-webkit-autofill {
   display: flex;
   margin: 0px 100px;
   justify-content: flex-end;
-  color: #233E76;
+  color: red;
   margin-bottom: 10px;
 }
 

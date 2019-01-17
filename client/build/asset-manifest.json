@@ -1,7 +1,7 @@
 {
-  "main.css": "/static/css/main.1db8c4a8.chunk.css",
-  "main.js": "/static/js/main.1d7f2ef8.chunk.js",
-  "main.js.map": "/static/js/main.1d7f2ef8.chunk.js.map",
+  "main.css": "/static/css/main.232accc3.chunk.css",
+  "main.js": "/static/js/main.72b3f4d1.chunk.js",
+  "main.js.map": "/static/js/main.72b3f4d1.chunk.js.map",
   "static/css/1.e48c2e04.chunk.css": "/static/css/1.e48c2e04.chunk.css",
   "static/js/1.ac4ca76b.chunk.js": "/static/js/1.ac4ca76b.chunk.js",
   "static/js/1.ac4ca76b.chunk.js.map": "/static/js/1.ac4ca76b.chunk.js.map",
@@ -14,9 +14,9 @@
   "static/media/knp@3x.png": "/static/media/knp@3x.d4e73e9c.png",
   "static/media/remitstation@3x.png": "/static/media/remitstation@3x.93d00076.png",
   "static/media/App.css": "/static/media/login_background.fd5a5097.png",
-  "static/css/main.1db8c4a8.chunk.css.map": "/static/css/main.1db8c4a8.chunk.css.map",
+  "static/css/main.232accc3.chunk.css.map": "/static/css/main.232accc3.chunk.css.map",
   "static/css/1.e48c2e04.chunk.css.map": "/static/css/1.e48c2e04.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.c6ace5ab31bdb8029db7f9a165ce0423.js": "/precache-manifest.c6ace5ab31bdb8029db7f9a165ce0423.js",
+  "precache-manifest.2fdd9f5ce7509c7eb75aa66681b30a07.js": "/precache-manifest.2fdd9f5ce7509c7eb75aa66681b30a07.js",
   "service-worker.js": "/service-worker.js"
 }

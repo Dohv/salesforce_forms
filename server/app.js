@@ -32,6 +32,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Headers", "Origin,Content-Type, Authorization, x-id, Content-Length, X-Requested-With");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.writeHead(200, {"Cache-Control": "no-store, no-cache"});
   next();
 });
 
@@ -90,7 +91,6 @@ if (process.env.NODE_ENV === 'production') {
   //to let react-router handle routing in prod.
   app.get('*', (req, res) => {
       // console.log("about to resolve path");
-      res.writeHead(200, {"Cache-Control": "no-store, no-cache"});
       const index = path.resolve(__dirname, '../client/build', 'index.html');
       // console.log(index);
       // console.log('resolved path');

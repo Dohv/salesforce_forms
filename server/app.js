@@ -90,6 +90,7 @@ if (process.env.NODE_ENV === 'production') {
   //to let react-router handle routing in prod.
   app.get('*', (req, res) => {
       // console.log("about to resolve path");
+      res.writeHead(200, {"Cache-Control": "no-store, no-cache"});
       const index = path.resolve(__dirname, '../client/build', 'index.html');
       // console.log(index);
       // console.log('resolved path');

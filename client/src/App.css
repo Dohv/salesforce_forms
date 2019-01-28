@@ -202,6 +202,17 @@
   cursor: pointer;
 }
 
+.fa-home {
+  color: white;
+  font-size: 32px;
+}
+
+.header-account-button .fa-user {
+  color: white;
+  margin-left: 15px;
+  font-size:28px;
+}
+
 .app-title {
   color: #f5f5ff;
   margin: 20px 0px 0px 10px;
@@ -346,13 +357,25 @@
   color: white;
 }
 
-
-
 html{
   height: 100vh;
 }
 body {
   font-family: 'Omnes-light';
+}
+
+.accountPage {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.accountForm {
+  margin-top: 180px !important;
+  padding-top: 50px !important;
+}
+
+.account-title, .accountForm {
+  margin-left: 0px !important;
 }
 
 .loginPage {

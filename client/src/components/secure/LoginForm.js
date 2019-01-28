@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from '../Loading';
-import { Image, Button, FormControl, FormGroup, InputGroup, HelpBlock, Col } from 'react-bootstrap';
+import { Image, Button, FormControl, FormGroup, InputGroup, HelpBlock } from 'react-bootstrap';
 
 import logo from '../../assets/checkalt_login@3x.png';
 

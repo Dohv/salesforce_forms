@@ -159,6 +159,15 @@ controller.signIn = async (req, res, next) => {
   const sfAccountType = res.locals.accountType;
   const sfAccountProducts = res.locals.accountProducts;
   const lockboxes = res.locals.lockboxes;
+  const Name = res.locals.accountName;
+  const CurrentBank = res.locals.CurrentBank; 
+  const Phone = res.locals.Phone; 
+  const Website = res.locals.Website;
+  const Company_Address_City =  res.locals.Company_Address_City;
+  const Company_Address_State = res.locals.Company_Address_State;
+  const Company_Address_Street = res.locals.Company_Address_Street;
+  const Company_Address_Zip =  res.locals.Company_Address_Zip;
+  const EIN_TIN = res.locals.EIN_TIN;
 
   var query = { _id: id };
   var update = { last_login_date: Date.now() };
@@ -171,7 +180,7 @@ controller.signIn = async (req, res, next) => {
     //console.log({id, doc});
   })
 
-  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts, sfContactName, lockboxes });
+  res.status(200).json({ token, email, id, message, sfAccountName, sfAccountId, sfAccountType, sfAccountProducts, sfContactName, lockboxes, Name, CurrentBank, Company_Address_City, Company_Address_State, Company_Address_Street, Company_Address_Zip, Phone, EIN_TIN, Website });
 }
 
 controller.secret = async (req, res, next) => {

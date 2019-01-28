@@ -2,7 +2,7 @@ const express = require('express');
 const formRouter = require('express-promise-router')();
 const passport = require('passport');
 const passportConfig = require('../passport');
-const { getFormDataFromSF, postNewForm, updateFormData, getClients } = require('../controllers/formController');
+const { getFormDataFromSF, postNewForm, updateFormData, getClients, uploadFile } = require('../controllers/formController');
 
 formRouter.post('/form',
                 passport.authenticate('jwt', {session: false}),
@@ -20,6 +20,10 @@ formRouter.post('/update',
               passport.authenticate('jwt', {session: false}),
               updateFormData
             );
+formRouter.post('/upload',
+            passport.authenticate('jwt', {session: false}),
+            uploadFile
+          );
 
 
 

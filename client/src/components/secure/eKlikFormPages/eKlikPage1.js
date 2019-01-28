@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom';
 import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlock } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
@@ -207,9 +206,18 @@ class eKlik1 extends Component {
             }, () => {})
         }
     }
+    // onChange(e) {
+    //     let files = e.target.files;
+    //     console.log({name: files[0].name}); 
+    //     let reader = new FileReader();
+        
+    //     reader.readAsDataURL(files[0]);
+    //     reader.onload = (e) => {
+    //        // console.log(e.target.result);
+    //     }
+    // }
 
     render() {
-        
         let isPropertyManagementCompany = this.state.is_Property_Management_Company ? true : false;
         let isPaydayLenders = this.state.Payday_Lenders ? true : false;
         let isSubprimeLoanOriginator = this.state.Subprime_Loan_Originator ? true : false;
@@ -250,6 +258,9 @@ class eKlik1 extends Component {
             {savingStatus}
                 <div className='container'>
                         <Form className='form' id='eklikform1'>
+                        <div>
+                            <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
+                        </div>
                             <Col xs={12}>
                                 <h4 className='eklik-page-title'>General Information</h4>
                             </Col>

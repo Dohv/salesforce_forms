@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, ButtonToolbar, Button } from 'react-bootstrap';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import NumberFormat from 'react-number-format';
-import ReactTooltip from 'react-tooltip';
 import $ from 'jquery';
 
 
@@ -87,20 +84,16 @@ class Remit1 extends Component {
         });
     }
 
-    // onChange(e) {
-    //     let files = e.target.files;
-    //     console.log(files); 
-    //     let reader = new FileReader();
+    onChange(e) {
+        let files = e.target.files;
+        console.log(files); 
+        let reader = new FileReader();
         
-    //     reader.readAsDataURL(files[0]);
-    //     reader.onload = (e) => {
-    //         console.log(e.target.result);
-    //     }
-
-    //     <div onSubmit={this.onFormSubmit}>
-    //                             <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
-    //                         </div>
-    // }
+        reader.readAsDataURL(files[0]);
+        reader.onload = (e) => {
+            console.log(e.target.result);
+        }
+    }
 
     render() {
         $('.setup').width($('.form').css('width'));
@@ -113,6 +106,9 @@ class Remit1 extends Component {
         </div> : '';
         return (
             <React.Fragment>
+                <div onSubmit={this.onFormSubmit}>
+                    <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
+                </div>
             <div className='behindForm'>
             {savingStatus}
                 <div className='container'>

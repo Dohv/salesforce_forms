@@ -29,6 +29,8 @@ const formDataServices = {
           if(field.indexOf('__c') !== -1) {
             const format = field.slice(0, field.indexOf('__c'));
             localStorage.setItem(format, data[field]);
+          } else if(field === 'Id') {
+            localStorage.setItem('onBoardingFormId', data[field]);
           } else {
             localStorage.setItem(field, data[field]);
           }
@@ -65,12 +67,17 @@ const formDataServices = {
       console.log('getClientsAPI error', error);
     }
   },
-
-  searchClients: async (accountName) => {
-
+  uploadFile: async (newImplementationId, fileName, file) => {
+    try {
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': localStorage.getItem("token")
+      }
+      await axios.post('/api/fileUpload', {newImplementationId, fileName, file}, { "headers": headers });   
+    } catch (error) {
+      console.log('uploadFile error', error);
+    }
   }
-
-
 }
 
-export default formDataServices
+export default formDataServices;

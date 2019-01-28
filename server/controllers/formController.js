@@ -23,7 +23,7 @@ module.exports = {
             console.log('sf get clients error', verror);
           } else {
             const result = JSON.parse(vbody);
-            res.json({result: result.records})
+            res.json({result: result.records});
           }
         })
       }
@@ -69,7 +69,7 @@ module.exports = {
               res.json({ data: wresult.totalSize });
               next();
             } else {
-              //console.log(wresult);
+              // console.log(wresult);
               res.json({ data: wresult.records[0] });
               next();
             }
@@ -201,17 +201,56 @@ module.exports = {
               })
             }, (terror, tresponse, tbody) => {
               if(terror) {
-                console.log('sf form data error', werror);
+                console.log('sf update form data error', terror);
               } else {
-                const result = JSON.parse(tbody);
+                const tresult = JSON.parse(tbody);
                 // console.log({tresponse});
                 console.log({success: 'updated form' });
-                res.json({ result });
+                res.json({ tresult });
               }
             })
            }
          })
       }
     })    
+  },
+
+  uploadFile: async (req, res, next) => {
+    let { newImplementationId, fileName, file } = req.body;
+    await request(getSFTokenAPI, (error, response, body) => {
+      if(error) {
+        console.log('sf token error', error);
+      } else {
+        const result = JSON.parse(body);
+        const url = result.instance_url;
+        const sfToken = result.access_token;
+        //console.log(recordType);
+        request({
+          url: 'https://cs77.salesforce.com/services/data/v43.0/composite/tree/Attachment',
+              method: 'POST',
+              headers: {
+                      'Authorization': 'Bearer ' + sfToken,
+                      'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                      "records": [{
+                        "attributes": {"type": "Attachment", "referenceId": fileName},
+                        "parentId": newImplementationId,
+                        "Name": fileName,
+                        "Body": file
+                      }]   
+              })
+        }, (terror, tresponse, tbody) => {
+          if(terror) {
+            console.log('upload file error', werror);
+          } else {
+            const result = JSON.parse(tbody);
+            // console.log({tresponse});
+            console.log({success: 'uploaded file' });
+            res.json({ result });
+          }
+        })
+      }
+    }) 
   }
 }

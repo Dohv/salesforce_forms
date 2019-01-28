@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const request = require('request');
 const { fields } = require('../helpers/sfFormFields');
+const { accountFields } = require('../helpers/sfAccountFields');
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -62,6 +63,16 @@ module.exports = {
     }
   },
 
+  getAccountDataSFQuery: (url, accountId, token) => {
+    return {
+      url: `${url}/services/data/v43.0/query?q=select+${accountFields}+FROM+Account+WHERE+id+='${accountId}'`,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+  },
+
   validateBody: (schema) => {
     return (req, res, next) => {
       const result = Joi.validate(req.body, schema);
@@ -99,7 +110,7 @@ module.exports = {
           // console.log('got SF token');
           
            request({
-            url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c+FROM+Contact+WHERE+email+='${email}'`,
+            url: `${url}/services/data/v43.0/query?q=select+name,id,account.name,account.id,account.type,account.products__c,account.CurrentBank__c, account.Phone, account.Company_Address_City__c, account.Company_Address_State__c, account.Company_Address_Street__c, account.Company_Address_Zip__c, account.Website, account.EIN_TIN__c+FROM+Contact+WHERE+email+='${email}'`,
             method: 'GET',
             headers: {
               'Authorization': 'Bearer ' + sfToken
@@ -113,12 +124,20 @@ module.exports = {
                   //return res.json({message: 'There is no email for that account.'});
                   return res.json({message: 'There is no account with that email'})
                 } else {
-                    //console.log(vresult.records[0]);
+                   // console.log(vresult.records[0]);
                    res.locals.contactName = vresult.records[0].Name
                    res.locals.accountName = vresult.records[0].Account.Name; 
                    res.locals.accountId = vresult.records[0].Account.Id;
                    res.locals.accountType = vresult.records[0].Account.Type;
                    res.locals.accountProducts = vresult.records[0].Account.Products__c.split(';');
+                   res.locals.CurrentBank = vresult.records[0].Account.CurrentBank__c;
+                   res.locals.Phone = vresult.records[0].Account.Phone;
+                   res.locals.Website = vresult.records[0].Account.Website;
+                   res.locals.Company_Address_City = vresult.records[0].Account.Company_Address_City__c;
+                   res.locals.Company_Address_State = vresult.records[0].Account.Company_Address_State__c;
+                   res.locals.Company_Address_Street = vresult.records[0].Account.Company_Address_Street__c;
+                   res.locals.Company_Address_Zip = vresult.records[0].Account.Company_Address_Zip__c;
+                   res.locals.EIN_TIN = vresult.records[0].Account.EIN_TIN__c
                    next();
                 }
               }

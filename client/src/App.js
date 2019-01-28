@@ -8,6 +8,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Header from "./components/layout/Header";
 import Login from './components/secure/Login';
 import PrivateRoute from './components/secure/PrivateRoute';
+import Account from './components/secure/Account';
 import FormMenu from './components/secure/FormMenu';
 import LBMenu from './components/secure/LBMenu';
 import Logout from './components/secure/Logout';
@@ -26,7 +27,7 @@ class App extends Component {
       sfAccountName: localStorage.getItem('sfAccountName') ? localStorage.getItem('sfAccountName') : '',
       sfAccountId: localStorage.getItem('sfAccountId') ? localStorage.getItem('sfAccountId') : '',
       sfAccountType: localStorage.getItem('sfAccountType') ? localStorage.getItem('sfAccountType') : '',
-      sfAccountProducts: JSON.parse(localStorage.getItem("userAccountProducts")) ? JSON.parse(localStorage.getItem("userAccountProducts")) : [],
+      sfAccountProducts: JSON.parse(localStorage.getItem("sfAccountProducts")) ? JSON.parse(localStorage.getItem("sfAccountProducts")) : [],
       lockboxes: JSON.parse(localStorage.getItem('lockboxes')) ? JSON.parse(localStorage.getItem('lockboxes')) : [],
       clients: JSON.parse(localStorage.getItem('clients')) ? JSON.parse(localStorage.getItem('clients')) : [],
       isFormChosen: false,
@@ -34,6 +35,7 @@ class App extends Component {
       enterOffset: 100,
       leaveOffset: -100,
       isMenuClicked: false,
+      areRequiredAccountFields: false,
     };
 
     // Bind functions:
@@ -43,6 +45,7 @@ class App extends Component {
     this.handleFormChoice = this.handleFormChoice.bind(this);
     this.handleMobileMenuClick = this.handleMobileMenuClick.bind(this);
     this.removeFormChoice = this.removeFormChoice.bind(this);
+    this.handleRequiredAccountFields = this.handleRequiredAccountFields.bind(this);
   }
   
 
@@ -58,7 +61,7 @@ class App extends Component {
       sfAccountName: localStorage.getItem('sfAccountName'),
       sfAccountId: localStorage.getItem('sfAccountId'),
       sfAccountType: localStorage.getItem('sfAccountType'),
-      sfAccountProducts: JSON.parse(localStorage.getItem('userAccountProducts')),
+      sfAccountProducts: JSON.parse(localStorage.getItem('sfAccountProducts')),
       lockboxes: JSON.parse(localStorage.getItem('lockboxes')),
     })
     await formDataServices.getClientsAPI(this.state.sfAccountId);
@@ -76,6 +79,7 @@ class App extends Component {
         sfAccountId: '',
         sfAccountType: '',
         clients: [],
+        areRequiredAccountFields: false,
        });
   }
 
@@ -109,9 +113,9 @@ class App extends Component {
   timeBasedGreeting = () => {
     let greeting = "";
     let time = new Date().getHours();
-    if (time < 10) {
+    if (time < 12) {
         greeting = "Good Morning, ";
-    } else if (time < 20) {
+    } else if (time > 12 && time < 20) {
         greeting = "Good Afternoon, ";
     } else {
         greeting = "Good Evening, ";
@@ -125,10 +129,16 @@ handleMobileMenuClick() {
   })
 }
 
+handleRequiredAccountFields() {
+  this.setState({
+    areRequiredAccountFields: true,
+  }, () => {})
+}
+
 
   render() {
-    //console.log(this.state.sfAccountProducts)
-    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} removeFormChoice={this.removeFormChoice} /> : '';
+    const accountOrLandingPage = this.state.areRequiredAccountFields ? "/lockboxes" : "/account";
+    const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>
         <div>
@@ -141,6 +151,7 @@ handleMobileMenuClick() {
                                                 messageAlert={this.state.messageAlert}
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
+                                                accountOrLandingPage={accountOrLandingPage}
                                                 />} /> 
               <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
                                                 sfAccountProducts={this.state.sfAccountProducts}
@@ -159,11 +170,13 @@ handleMobileMenuClick() {
                                                 timeBasedGreeting={this.timeBasedGreeting}
                                                 isMobileMenuClicked={this.isMobileMenuClicked}
                                                 lockboxes={this.state.lockboxes}
-                                              />} />;                               
+                                              />} />; 
+              <PrivateRoute path={'/account'} component={props => <Account {...props}
+                                             handleRequiredAccountFields={this.handleRequiredAccountFields}
+                                             areRequiredAccountFields={this.state.areRequiredAccountFields}
+                                              />} />;                              
               <Route exact path="/" render={() => (
-                this.state.loggedIn ? (
-                  <Redirect to="/lockboxes"/>
-                ) : (
+                this.state.loggedIn ? accountOrLandingPage : (
                   <Redirect to="/login"/>
                 )
               )}/>                               
@@ -171,7 +184,6 @@ handleMobileMenuClick() {
               <Route path='/logout' component={props => <Logout {...props} handleLogOutSubmit={this.handleLogOutSubmit} />} />
               <PrivateRoute component={NoMatch} />
             </Switch>
-          
         </div>
       </BrowserRouter>
     );

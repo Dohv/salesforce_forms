@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, Button, ButtonToolbar } from 'react-bootstrap';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Button, ButtonToolbar } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
 import $ from 'jquery';
 

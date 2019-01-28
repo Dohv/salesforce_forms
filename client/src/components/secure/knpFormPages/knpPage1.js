@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox } from 'react-bootstrap';
+import { Form, Col, Row, FormControl, ControlLabel } from 'react-bootstrap';
 import formDataServices from '../../../services/formDataServices';
 import NumberFormat from 'react-number-format';
 import $ from 'jquery';

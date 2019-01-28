@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Remit from "./Remit";
 import eKlik from "./eKlik";
 import KlikNPay from './KlikNPay';
@@ -23,7 +23,7 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
         
     }
         const lbs = lockboxes.map((lockbox) => {
-        console.log(lockbox)
+        //console.log(lockbox)
             const singleLBProducts = lockbox.Product_Type__c.split(';').map((product) => {
                 return product.toLowerCase();
             }).sort();

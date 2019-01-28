@@ -59,7 +59,7 @@ class Login extends Component {
     
     render() {
         
-        const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
+        const {target} = this.props.location.state || {target: {pathname: this.props.accountOrLandingPage}}
 
         if(this.props.isLoggedIn) {
             return <Redirect to={target} />

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { isArray } from 'util';
 
 const authServices = {
 
@@ -16,20 +17,28 @@ const authServices = {
          password
        })
        if (login) {
-        localStorage.setItem("flashMessage", login.data.message)
-        localStorage.setItem("token", login.data.token);
-        localStorage.setItem("email", login.data.email);
-        localStorage.setItem("id", login.data.id);
-        localStorage.setItem('userAccountId', login.data.sfAccountId);
-        localStorage.setItem('userAccountName', login.data.sfAccountName);
-        localStorage.setItem("userAccountProducts", JSON.stringify(login.data.sfAccountProducts));
-        localStorage.setItem("sfAccountName", login.data.sfAccountName);
-        localStorage.setItem("sfAccountId", login.data.sfAccountId);
-        localStorage.setItem("sfAccountType", login.data.sfAccountType);
-        localStorage.setItem("sfContactName", login.data.sfContactName);
-        localStorage.setItem("lockboxes", JSON.stringify(login.data.lockboxes));
+        //console.log(login.data)
+        const data = login.data;
+        const fields = Object.keys(login.data);
+        fields.map((field) => {
+          if(data[field] === null) {
+            data[field] = '';
+          }
+
+          if(field.indexOf('__c') !== -1) {
+            const format = field.slice(0, field.indexOf('__c'));
+            localStorage.setItem(format, data[field]);
+          } else if(isArray(data[field])) {
+            localStorage.setItem(field, JSON.stringify(data[field]));
+          } else {
+            localStorage.setItem(field, data[field]);
+          }
+        })
+        //need to store the User's account name for the use case that the user is a Channel partner 
+         localStorage.setItem('userAccountName', login.data.sfAccountName);
+         localStorage.setItem('userAccountId', login.data.sfAccountId);
+         localStorage.setItem('userAccountProducts', JSON.stringify(login.data.sfAccountProducts));
        }
-        
     } catch(error) {
       console.log("this is login error:", error);
     }
@@ -38,10 +47,6 @@ const authServices = {
   logOut: async (id) => {
     try {
       await axios.post('/users/logout',{ id });
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
-      localStorage.removeItem('id');
-      localStorage.removeItem("sfAccountId");
       localStorage.clear();
     } 
     catch (error) {

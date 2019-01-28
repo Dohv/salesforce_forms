@@ -61,6 +61,7 @@ app.use((req, res, next) => {
 
 
 
+const accountRouter = require('./routes/accountRouter');
 const formRouter = require('./routes/formRouter');
 const userRouter = require('./routes/userRouter');
 
@@ -78,8 +79,8 @@ app.set('view engine', 'ejs');
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 app.use(morgan('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({extended: false, limit: '5mb'}));
 app.use(methodOverride('_method'));
 
 app.options('*', cors());
@@ -109,6 +110,7 @@ if (process.env.NODE_ENV === 'production') {
 // });
 
 
+app.use('/account', accountRouter);
 app.use('/api', formRouter);
 app.use('/users', userRouter);
 

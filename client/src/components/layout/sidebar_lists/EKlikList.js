@@ -1,12 +1,12 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 
 class EKlikList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
-
+  
   render() {
     return (
       <div className='sidebar-content' id='sidebarId'>

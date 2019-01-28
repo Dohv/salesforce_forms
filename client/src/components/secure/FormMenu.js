@@ -1,12 +1,11 @@
 import React from 'react';
 import {Link, Route } from "react-router-dom";
-import {Row, Col, Thumbnail, Button} from 'react-bootstrap'
+import { Col, Thumbnail, Button} from 'react-bootstrap'
 import thumbnaildiv from '../../assets/thumbnaildiv.png'
 import eklikThumbnail from '../../assets/eklik@3x.png';
 import remitThumbnail from '../../assets/remit@3x.png';
 import knpThumbnail from '../../assets/knp@3x.png';
 import remitStationThumbnail from '../../assets/remitstation@3x.png';
-import ProtectedChildHome from "./ProtectedChildHome";
 import Remit from "./Remit";
 import eKlik from "./eKlik";
 import KlikNPay from './KlikNPay';
@@ -25,8 +24,8 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting, sfAccountProducts
         
     };
     let products = sfAccountProducts;
-    const formButtonContainer = document.querySelector('.formButtonContainer');
-    const greeting = document.querySelector('.formMenuGreeting');
+    // const formButtonContainer = document.querySelector('.formButtonContainer');
+    // const greeting = document.querySelector('.formMenuGreeting');
     // if(match.path === '/forms' &&  formButtonContainer) {
         
     //     greeting.classList.remove('displayNone');

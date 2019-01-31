@@ -145,6 +145,7 @@ handleRequiredAccountFields() {
 
 
   render() {
+    window.addEventListener("click", (event) => {console.log(event)})
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>

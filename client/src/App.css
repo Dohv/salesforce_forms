@@ -618,7 +618,7 @@ input:-webkit-autofill {
   cursor: pointer;
 }
 
-.continue > p, .continue > div {
+.continue_0 > p, .continue_0 > div, .continue_1 > p, .continue_1 > div, .continue_2 > p, .continue_2 > div, .continue_3 > p, .continue_3 > div {
   display: none;
 }
 

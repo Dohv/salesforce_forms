@@ -76,22 +76,22 @@ class Header extends Component {
              <header className='header' id='navbar' ref={ node => this.node = node }>
                  <div className='header-container'>
                  <div className='headerComp header-comp-left'>
-                     <Link to={'/forms'} className='whiteLogoLink'>
+                     <Link to={'/lockboxes'} className='whiteLogoLink'>
                         <Image className='whiteLogo' src={whiteLogo} responsive />
                      </Link>
                         <p className='app-title'>Onboarding Center</p>
                  </div>
                  
                  <div className='headerComp header-comp-right'>
-                 <Link className='account-text' to={'/clients'}>Account: {localStorage.getItem('sfAccountName')}<i className="fas fa-sort-down"></i></Link>
+                 <Link className='account-text' to={'/clients'}>Account: {localStorage.getItem('sfAccountName')}</Link>
                     {/* <div className='headerEmail'>{this.props.currentUserEmail}</div> */}
                     <Link className='header-button' to={'/lockboxes'} onClick={() => {this.handleAccountChange(); this.props.removeFormChoice();}}><i className="fal fa-home"></i></Link>
+                    <Link className='header-account-button' to={'/account'}><i className="fal fa-user"></i></Link>
                     <Link  
                         className='header-signout  header-button'
                         to={'/logout'} 
                         > Log out
                     </Link>
-                    <Link className='header-account-button' to={'/account'}><i className="fal fa-user"></i></Link>
                     <div className='hamburgerContainer' onClick={this.toggleClass}>
                         <div className="hamburger"></div>
                     </div>

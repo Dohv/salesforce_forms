@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const formDataServices = {
   getFormDataFromServer: async (accountId, formType, newImplementationId) => {
-    console.log({newImplementationId});
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': localStorage.getItem("token")

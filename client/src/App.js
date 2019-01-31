@@ -53,6 +53,7 @@ class App extends Component {
     this.setState({ isLoading: true })
     await authServices.logIn(email, password);
     this.setState({ 
+      isLoggedIn: authServices.isAuthenticated(),
       currentUserId: localStorage.getItem('id'),
       currentUserEmail: localStorage.getItem('email'),
       isLoggedIn: authServices.isAuthenticated(),
@@ -63,6 +64,13 @@ class App extends Component {
       sfAccountType: localStorage.getItem('sfAccountType'),
       sfAccountProducts: JSON.parse(localStorage.getItem('sfAccountProducts')),
       lockboxes: JSON.parse(localStorage.getItem('lockboxes')),
+      Phone: localStorage.getItem('Phone'),
+      Website: localStorage.getItem('Website'),
+      EIN_TIN: localStorage.getItem('EIN_TIN'),
+      Company_Address_Street: localStorage.getItem('Company_Address_Street'),
+      Company_Address_City: localStorage.getItem('Company_Address_City'),
+      Company_Address_State: localStorage.getItem('Company_Address_State'),
+      Company_Address_Zip: localStorage.getItem('Company_Address_Zip'),
     })
     await formDataServices.getClientsAPI(this.state.sfAccountId);
     this.setState({
@@ -72,15 +80,15 @@ class App extends Component {
 
   async handleLogOutSubmit() {
     await authServices.logOut(localStorage.getItem('id'));
-      this.setState({ 
-        isLoggedIn: authServices.isAuthenticated(),
-        currentUserId: '',
-        currentUserEmail: '',
-        sfAccountId: '',
-        sfAccountType: '',
-        clients: [],
-        areRequiredAccountFields: false,
-       });
+    this.setState({ 
+      isLoggedIn: authServices.isAuthenticated(),
+      currentUserId: '',
+      currentUserEmail: '',
+      sfAccountId: '',
+      sfAccountType: '',
+      clients: [],
+      areRequiredAccountFields: false,
+      }, () => {});
   }
 
   handleMessageReset() {
@@ -137,7 +145,6 @@ handleRequiredAccountFields() {
 
 
   render() {
-    const accountOrLandingPage = this.state.areRequiredAccountFields ? "/lockboxes" : "/account";
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>
@@ -146,22 +153,13 @@ handleRequiredAccountFields() {
             <Switch>
 
               <Route exact path="/login" component={props => <Login {...props}
-                                                handleSignInSubmit={this.handleSignInSubmit} isLoggedIn={this.state.isLoggedIn}
+                                                handleSignInSubmit={this.handleSignInSubmit} 
+                                                isLoggedIn={this.state.isLoggedIn}
                                                 isLoading={this.state.isLoading}
                                                 messageAlert={this.state.messageAlert}
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
-                                                accountOrLandingPage={accountOrLandingPage}
                                                 />} /> 
-              <PrivateRoute path={'/forms'} component={props => <FormMenu {...props} 
-                                                sfAccountProducts={this.state.sfAccountProducts}
-                                                sfAccountType={this.state.sfAccountType} 
-                                                handleFormChoice={this.handleFormChoice} 
-                                                isFormChosen={this.state.isFormChosen} 
-                                                timeBasedGreeting={this.timeBasedGreeting}
-                                                isMobileMenuClicked={this.isMobileMenuClicked}
-                                                lockboxes={this.state.lockboxes}
-                                              />} />;
               <PrivateRoute path={'/lockboxes'} component={props => <LBMenu {...props} 
                                                 sfAccountProducts={this.state.sfAccountProducts}
                                                 sfAccountType={this.state.sfAccountType} 
@@ -172,11 +170,10 @@ handleRequiredAccountFields() {
                                                 lockboxes={this.state.lockboxes}
                                               />} />; 
               <PrivateRoute path={'/account'} component={props => <Account {...props}
-                                             handleRequiredAccountFields={this.handleRequiredAccountFields}
-                                             areRequiredAccountFields={this.state.areRequiredAccountFields}
+
                                               />} />;                              
               <Route exact path="/" render={() => (
-                this.state.loggedIn ? accountOrLandingPage : (
+                this.state.loggedIn ? (<Redirect to='/lockbox' />) : (
                   <Redirect to="/login"/>
                 )
               )}/>                               

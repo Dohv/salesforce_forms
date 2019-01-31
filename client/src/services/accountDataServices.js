@@ -30,7 +30,6 @@ const accountDataServices = {
     },
 
     updateAccountData: async (accountId, sfFieldName, fieldValue) => {
-        console.log({sfFieldName})
         if(sfFieldName === 'Name' || sfFieldName === 'Website' || sfFieldName === 'Phone') {
             sfFieldName = sfFieldName
         } else {

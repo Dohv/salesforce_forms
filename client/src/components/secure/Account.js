@@ -40,7 +40,7 @@ class Account extends Component {
         $('.setup').width($('.accountForm').css('width'));
         $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
-        this.getAccountData();
+        this.getAccountData()
     }
 
     componentWillUnmount() {
@@ -51,7 +51,7 @@ class Account extends Component {
 
     async getAccountData() {
         await accountDataServices.getAccountDataFromServer(localStorage.getItem('sfAccountId'))
-        if(this._isMounted) {
+        if(this._isMounted && localStorage.getItem('token')) {
             this.setState({
                 Name: localStorage.getItem('Name'),
                 Phone: localStorage.getItem('Phone'),
@@ -139,8 +139,7 @@ class Account extends Component {
                                     <FormControl 
                                         name='Name' 
                                         value={this.state.Name} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
+                                        readOnly
                                     />
                                     <HelpBlock>Required Field</HelpBlock>
                                 </FormGroup>

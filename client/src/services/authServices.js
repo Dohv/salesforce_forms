@@ -1,12 +1,15 @@
 import axios from 'axios';
-import { isArray } from 'util';
+import {isArray} from 'util';
 
 const authServices = {
 
   isAuthenticated: () => {
     const result = localStorage.getItem('token');
-
-   return result !== null && result !== 'undefined';
+    if(result) {
+      return true;
+    } else {
+      return false;
+    }
   },
 
   logIn: async (email, password) => {
@@ -17,7 +20,6 @@ const authServices = {
          password
        })
        if (login) {
-        //console.log(login.data)
         const data = login.data;
         const fields = Object.keys(login.data);
         fields.map((field) => {

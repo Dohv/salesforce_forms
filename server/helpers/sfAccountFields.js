@@ -1,3 +1,3 @@
 module.exports = {
-    accountFields: 'Name, Phone, Website, EIN_TIN__c, Company_Address_Street__c, Company_Address_City__c, Company_Address_State__c, Company_Address_Zip__c'
+    accountFields: 'Name, Phone, Website, EIN_TIN__c, Company_Address_Street__c, Company_Address_City__c, Company_Address_State__c, Company_Address_Zip__c, FI_Name__c, FI_Contact_Title__c, FI_Contact_Phone__c,FI_Contact_Name__c, FI_Contact_Email__c, Primary_Contact__c, Primary_Email__c, Primary_Phone_Ext__c, AccountNumber, Deposit_Account_Number__c, Account_Receivables_Software_Name__c, Software_Version__c, Volume__c, Average_Day__c, Peak_Day__c, Web_Access__c, Web_Access_Admin_Name_1__c, Web_Access_Admin_Name_2__c, Web_Access_Admin_Name_3__c'
 }

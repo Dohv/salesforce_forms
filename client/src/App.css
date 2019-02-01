@@ -137,6 +137,7 @@
 .header-container {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   padding: 0px 4%;
 }
 
@@ -165,7 +166,6 @@
   font-size: 16px;
   color: #f5f5f5;
   font-family: 'Helvetica-Neue-Pro-Light';
-  padding-top: 10px;
   margin-right: 20px;
   border-bottom: 1px solid #233E76;
 }

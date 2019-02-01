@@ -123,7 +123,7 @@ class App extends Component {
     let time = new Date().getHours();
     if (time < 12) {
         greeting = "Good Morning, ";
-    } else if (time > 12 && time < 20) {
+    } else if (time >= 12 && time < 20) {
         greeting = "Good Afternoon, ";
     } else {
         greeting = "Good Evening, ";

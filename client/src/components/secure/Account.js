@@ -40,7 +40,7 @@ class Account extends Component {
         $('.setup').width($('.accountForm').css('width'));
         $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
-        this.getAccountData()
+        this.getAccountData();
     }
 
     componentWillUnmount() {
@@ -51,7 +51,7 @@ class Account extends Component {
 
     async getAccountData() {
         await accountDataServices.getAccountDataFromServer(localStorage.getItem('sfAccountId'))
-        if(this._isMounted && localStorage.getItem('token')) {
+        if(this._isMounted) {
             this.setState({
                 Name: localStorage.getItem('Name'),
                 Phone: localStorage.getItem('Phone'),

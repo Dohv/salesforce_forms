@@ -84,6 +84,7 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
                     //console.log({element, id: lockbox.Id})
                 return (
                     <div className={`lbProductButton-Container ${element}`} key={element}>
+                        <div className='mobile-product-title'>{element}<i className="fal fa-question-circle"></i></div>
                         <div className='lbProductButton' lockbox={lockbox.Id} product={element} onClick={e => handleFormSelect(e, element, lockbox.Id)}>Start <i className="fas fa-caret-right"></i></div>
                     </div>
                 )
@@ -95,7 +96,9 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
                         <p className='lockboxName'>{lockbox.Lockbox_Name__c}</p><br/>
                         <p className='lockboxNumber'>Lockbox Number: <strong className='strong'>00000000</strong></p><br/>
                     </div>
-                    {singleLBProducts_div}
+                    <div className='lbProducts_div-container'>
+                        {singleLBProducts_div}
+                    </div>
                 </div>
         )
         });

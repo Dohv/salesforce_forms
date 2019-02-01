@@ -46,12 +46,10 @@ const ClientList = ({clients, search}) => {
 
 
    return (
-    <div>
-      
-    <h2 className='form-title'>Client List</h2>
+    <div className='container'>
     <FormControl id='myInput' placeholder='Search...' onChange={search}/>
       <div id='myContainer' className='clientContainer'>
-      <Table stripes bordered condensed hover>
+      <Table stripes="true" bordered condensed hover>
     <thead>
         <tr>
           <th data-field='account_name'>Account Name</th>

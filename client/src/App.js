@@ -80,15 +80,15 @@ class App extends Component {
 
   async handleLogOutSubmit() {
     await authServices.logOut(localStorage.getItem('id'));
-    this.setState({ 
-      isLoggedIn: authServices.isAuthenticated(),
-      currentUserId: '',
-      currentUserEmail: '',
-      sfAccountId: '',
-      sfAccountType: '',
-      clients: [],
-      areRequiredAccountFields: false,
-      }, () => {});
+      this.setState({ 
+        isLoggedIn: authServices.isAuthenticated(),
+        currentUserId: '',
+        currentUserEmail: '',
+        sfAccountId: '',
+        sfAccountType: '',
+        clients: [],
+        areRequiredAccountFields: false,
+        }, () => {});
   }
 
   handleMessageReset() {
@@ -145,7 +145,7 @@ handleRequiredAccountFields() {
 
 
   render() {
-    window.addEventListener("click", (event) => {console.log(event)})
+    //document.addEventListener("click", (event) => {console.log(event)})
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>
@@ -171,7 +171,7 @@ handleRequiredAccountFields() {
                                                 lockboxes={this.state.lockboxes}
                                               />} />; 
               <PrivateRoute path={'/account'} component={props => <Account {...props}
-
+                                                isLoggedIn={this.state.isLoggedIn}
                                               />} />;                              
               <Route exact path="/" render={() => (
                 this.state.loggedIn ? (<Redirect to='/lockbox' />) : (

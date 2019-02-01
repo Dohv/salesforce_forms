@@ -60,7 +60,6 @@ class Login extends Component {
     render() {
         //  console.log(this.props.location.state)
         // const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
-        console.log(this.props.isLoggedIn)
         if(this.props.isLoggedIn) {
             if(localStorage.getItem('Phone') && localStorage.getItem('Website') && localStorage.getItem('EIN_TIN') && localStorage.getItem('Company_Address_Street') && localStorage.getItem('Company_Address_State') && localStorage.getItem('Company_Address_City') && localStorage.getItem('Company_Address_Zip')) {
               } else {

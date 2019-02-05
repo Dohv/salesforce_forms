@@ -172,6 +172,7 @@ handleRequiredAccountFields() {
                                               />} />; 
               <PrivateRoute path={'/account'} component={props => <Account {...props}
                                                 isLoggedIn={this.state.isLoggedIn}
+                                                handleRequiredAccountFields={this.handleRequiredAccountFields}
                                               />} />;                              
               <Route exact path="/" render={() => (
                 this.state.loggedIn ? (<Redirect to='/lockbox' />) : (

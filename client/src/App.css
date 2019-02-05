@@ -160,6 +160,20 @@
   margin: 0px 0px 10px 5px;
 }
 
+.checkbox-text {
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.checkbox-label {
+  margin-bottom: 20px;
+}
+
+.btn-toolbar {
+  display: flex;
+  align-items: baseline;
+}
+
 .account-text {
   display: flex;
   align-items: center;
@@ -240,8 +254,8 @@
 
 .hamburgerContainer {
   position: absolute;
-  left: 75%;
-  top: -12px;
+  left: 86%;
+  top: -6px;
   cursor: pointer;
   height: 80px;
   width: 80px;
@@ -294,10 +308,11 @@
   flex-direction: column;
   justify-content: space-around;
   position: absolute;
+  padding: 10px 0px;
   background: #233E76;
   border: 1px solid white;
   color: white;
-  height: 100px;
+  height: 170px;
   width: 190px;
   top: 55px;
   left: 45%;
@@ -321,7 +336,7 @@
   text-align: left;
 }
 
-.mobile-home:visited, .mobile-home:active, .mobile-logout:visited, .mobile-logout:active, .mobile-account:visited, .mobile-account:active {
+.mobile-home:visited, .mobile-home:active, .mobile-logout:visited, .mobile-logout:active, .mobile-account:visited, .mobile-account:active, .mobile-accountSetup:visited, .mobile-accountSetup:active{
   color: white;
   text-decoration: none !important;
 }
@@ -333,7 +348,7 @@
   width: 138px;
 }
 
-.mobile-account {
+.mobile-account, .mobile-accountSetup {
   color: white;
   border-bottom: 1px solid #D0D0D0;
   margin: 0 25px;
@@ -374,6 +389,15 @@ body {
 
 .account-title, .accountForm {
   margin-left: 0px !important;
+}
+
+.account-FIrep-section-title, .account-section-title {
+  font-family: 'Helvetica-Neue-Pro-Medium';
+  margin-bottom: 20px;
+}
+
+.account-section-title {
+  margin-top: 30px;
 }
 
 .loginPage {
@@ -526,6 +550,10 @@ label.login-label {
     }
 }
 
+label.control-label {
+  font-size: 14px;
+}
+
 input.form-control {
   background-color: #ffffff;
 }
@@ -543,6 +571,7 @@ input:-webkit-autofill {
   font-family: 'Omnes-regular';
   color: #233E76;
   font-size: 32px;
+  padding-bottom: 10px;
 }
 
 .lockbox-products {
@@ -672,7 +701,7 @@ input:-webkit-autofill {
   }
 
   .lockbox-container, .lockbox-products {
-    margin: 0px 28px;
+    margin: 0px 28px 10px 28px;
   }
 
 }
@@ -1173,12 +1202,17 @@ thumbnail a>img, .thumbnail>img {
   cursor: pointer;
 }
 
-#addNameButton {
+#addNameButton, #addWebAdminButton {
   font-family: 'Omnes-medium';
   font-size: 14px;
   color: #233E76;
   background: #ffffff;
   border: 1px solid #d0d0d0;
+  width: 100px;
+}
+
+#addWebAdminButton {
+  margin-right: 10px;
 }
 
 .fa-plus {
@@ -1240,10 +1274,6 @@ thumbnail a>img, .thumbnail>img {
     display: none;
   }
 
-  .hamburgerContainer {
-    display: show; 
-  }
-
   .header-comp-right {
     margin-right: 0px;
     align-items: flex-end !important;
@@ -1291,6 +1321,46 @@ thumbnail a>img, .thumbnail>img {
   .lbProductButton {
     width: 110px;
   }
+
+  .dropdown {
+    left: 70%;
+  }
+}
+
+@media(max-width: 650px) {
+  .dropdown {
+    left: 68%;
+  }
+}
+
+@media(max-width: 600px) {
+  .hamburgerContainer {
+    top: -12px; 
+  }
+
+  .dropdown {
+    left: 65%;
+  }
+}
+
+@media(max-width: 550px) {
+  .hamburgerContainer {
+    left: 84%;
+  }
+
+  .dropdown {
+    left: 62%;
+  }
+}
+
+@media(max-width: 500px) {
+  .hamburgerContainer {
+    left: 82%;
+  }
+
+  .dropdown {
+    left: 59%;
+  }
 }
 
 @media(max-width: 450px) {
@@ -1301,6 +1371,24 @@ thumbnail a>img, .thumbnail>img {
   .center-form {
     margin: 0 auto;
     min-height: 244px !important;
+  }
+
+  .hamburgerContainer {
+    left: 81%;
+  }
+
+  .dropdown {
+    left: 50%;
+  }
+}
+
+@media(max-width: 400px) {
+  .hamburgerContainer {
+    left: 78%;
+  }
+
+  .dropdown {
+    left: 45%;
   }
 }
 
@@ -1321,6 +1409,20 @@ thumbnail a>img, .thumbnail>img {
 
   .checkalt_login_logo {
     margin: 0px 0px 10px 0px;
+  }
+
+  .hamburgerContainer {
+    left: 75%;
+  }
+
+  .dropdown {
+    left: 42%;
+  }
+}
+
+@media(max-width: 320px) {
+  .dropdown {
+    left: 40%;
   }
 }
 

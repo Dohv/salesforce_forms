@@ -134,7 +134,7 @@ class eKlik3 extends Component {
         }
       })
 
-      return this.setState({nameInputs: result});
+      return this.setState({maskInputs: result});
     }
 
     async removeInput(div) {

@@ -69,7 +69,6 @@ class Header extends Component {
 
     
     render() {
-
         const dropDown = this.state.isMenuClicked ? <MobileHeaderMenu handleAccountChange={this.handleAccountChange} /> : '';
         
         return (

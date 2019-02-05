@@ -68,23 +68,34 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
             }
             
             const singleLBProducts_div = array.map((element, i, array) => {
-                    if(element === 'eklik') {
-                        element = 'eKlik';
+                let description = '';
+                    if(element === 'eKlik') {
+                        description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';
                     } 
-                    if(element.indexOf('station') !== -1) {
-                        element = 'RemitStation';
+                    if(element === 'RemitStation') {
+                        description = 'Conveniently scan and capture payments from any location.'
                     } 
-                    if(element.indexOf('whole') !== -1) {
-                        element = 'Remit Lockbox';
+                    if(element === 'Remit Lockbox') {
+                        description = 'Streamline retail and wholesale lockbox processing for financial institutions and businesses.';
                     }
-                    if(element.indexOf('knp') !== -1) {
-                        element = 'KlikNPay';
+                    if(element === 'KlikNPay') {
+                        description = 'Quickly and easily present online invoices and allow customers to make payments electronically.';
                     }
             
-                    //console.log({element, id: lockbox.Id})
                 return (
                     <div className={`lbProductButton-Container ${element}`} key={element}>
-                        <div className='mobile-product-title'>{element}<i className="fal fa-question-circle"></i></div>
+
+                        <div className='mobile-product-title'>
+                            {element}
+                            <OverlayTrigger
+                                placement={'top'}
+                                overlay={
+                                <Tooltip className={'tooltip'} id={`tooltip_${element}`}>
+                                    {description}
+                                </Tooltip>}>
+                                <i className="fal fa-question-circle"></i>
+                            </OverlayTrigger>
+                        </div>
                         <div className='lbProductButton' lockbox={lockbox.Id} product={element} onClick={e => handleFormSelect(e, element, lockbox.Id)}>Start <i className="fas fa-caret-right"></i></div>
                     </div>
                 )
@@ -111,7 +122,7 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
         let description = '';
         if(element === 'eklik') {
             element = 'eKlik';
-            description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';;
+            description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';
         } 
         if(element === 'remit station') {
             element = 'RemitStation';

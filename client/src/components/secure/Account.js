@@ -7,6 +7,7 @@ import NumberFormat from 'react-number-format';
 import accountDataServices from '../../services/accountDataServices';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { bool } from 'prop-types';
 
 class Account extends Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class Account extends Component {
             Average_Day: '',
             Peak_Day: '',
             Peak_Day_error: null,
-            Web_Access: localStorage.getItem("Web_Access") ? localStorage.getItem("Web_Access") : false,
+            Web_Access: JSON.parse(localStorage.getItem('Web_Access')),
             Web_Access_Admin_Name_1: '',
             Web_Access_Admin_Name_1_error: null,
             Web_Access_Admin_Name_2: '',
@@ -77,7 +78,6 @@ class Account extends Component {
         this.getAccountData = this.getAccountData.bind(this);
         this.validateFields = this.validateFields.bind(this);
         this.addOne = this.addOne.bind(this);
-        this.addWebAccessInputs = this.addWebAccessInputs.bind(this);
     }
 
     componentDidMount() {
@@ -85,14 +85,28 @@ class Account extends Component {
         $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
         this.getAccountData();
-    }
 
+        // had to rewrite checkWebAdmins() because on rerender the boolean was the opposite needed
+        if(this.state.Web_Access) {
+            $('.web-admin-button-toolbar').show();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).show()
+            }) 
+        } else  {
+            console.log('about to hide')
+            $('.web-admin-button-toolbar').hide();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).hide()
+            }) 
+        }
+    }
+    
     componentWillUnmount() {
         this._isMounted = false;
     }
-
+    
     _isMounted = false;
-
+    
     async getAccountData() {
         await accountDataServices.getAccountDataFromServer(localStorage.getItem('sfAccountId'))
         if(this._isMounted) {
@@ -196,7 +210,6 @@ class Account extends Component {
     _lastWebAccessAdminCreated = 1;
 
     addOne(e) {
-        console.log('in addOne()')
       e.preventDefault();
       this._lastWebAccessAdminCreated = this._lastWebAccessAdminCreated + 1;
 
@@ -216,137 +229,84 @@ class Account extends Component {
         this.setState({
             webAccessInputs: [...this.state.webAccessInputs, 
             <FormGroup key={this.state.webAccessInputs.length + 1}>
+            <div className='web-access-admin remove-web-admin'>
               <Row>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>{nameLabel}</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={name} 
-                                        value={stateNameValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}}
-                                    />
-                                </FormGroup>
-                            </Col>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>{emailLabel}</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={email} 
-                                        value={stateEmailValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}}
-                                    />
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={8} sm={4} md={4}>
-                                <ControlLabel>{phoneLabel}</ControlLabel>
-                                <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
-                                        <NumberFormat 
-                                            format="(###) ###-####" 
-                                            mask="_" className='form-control' 
-                                            name={phone} 
-                                            value={statePhoneValue} 
-                                            onChange={this.handleInputChange} 
-                                            onBlur={(e) => {this.handleSave(e);}} /> 
-                                </FormGroup>
-                            </Col>
-                            <Col xs={4} sm={2} md={2}>
-                            <ControlLabel>Ext.</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={extLabel} 
-                                        value={stateExtValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}} 
-                                    />
-                                </FormGroup>
-                            </Col>
-                        </Row>
+                <Col xs={12} sm={6} md={6}>
+                    <ControlLabel>{nameLabel}</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={name} 
+                            value={stateNameValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}}
+                        />
+                    </FormGroup>
+                </Col>
+                <Col xs={12} sm={6} md={6}>
+                    <ControlLabel>{emailLabel}</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={email} 
+                            value={stateEmailValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}}
+                        />
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={8} sm={4} md={4}>
+                    <ControlLabel>{phoneLabel}</ControlLabel>
+                    <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
+                            <NumberFormat 
+                                format="(###) ###-####" 
+                                mask="_" className='form-control' 
+                                name={phone} 
+                                value={statePhoneValue} 
+                                onChange={this.handleInputChange} 
+                                onBlur={(e) => {this.handleSave(e);}} /> 
+                    </FormGroup>
+                </Col>
+                <Col xs={4} sm={2} md={2}>
+                <ControlLabel>Ext.</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={extLabel} 
+                            value={stateExtValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}} 
+                        />
+                    </FormGroup>
+                </Col>
+            </Row>
+            </div>
           </FormGroup>   
           ]
         })
       } 
     }
-    
-    addWebAccessInputs() {
-      const three = [2,3]
-      const result = []
-      three.forEach((el, i) => {
-        let name = `Web_Access_Admin_Name_${this._lastWebAccessAdminCreated.toString()}`;
-        let email = `Web_Access_Admin_Email_${this._lastWebAccessAdminCreated.toString()}`;
-        let phone = `Web_Access_Admin_Phone_${this._lastWebAccessAdminCreated.toString()}`;
-        let ext = `Web_Access_Admin_Phone_Ext_${this._lastWebAccessAdminCreated.toString()}`;
-        let nameLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Name`;
-        let emailLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Email`;
-        let phoneLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Phone`;
-        let extLabel = 'Ext.';
-        let stateNameValue = this.state[name];
-        let stateEmailValue = this.state[email];
-        let statePhoneValue = this.state[phone];
-        let stateExtValue = this.state[ext];
-        if(stateNameValue !== '' && stateEmailValue !== '' && statePhoneValue !== '' && stateExtValue !== '') {
-          this._lastWebAccessAdminCreated = el;
-          result.push(
-            <FormGroup key={this.state.webAccessInputs.length + 1}>
-              <Row>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>{nameLabel}</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={name} 
-                                        value={stateNameValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}}
-                                    />
-                                </FormGroup>
-                            </Col>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>{emailLabel}</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={email} 
-                                        value={stateEmailValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}}
-                                    />
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={8} sm={4} md={4}>
-                                <ControlLabel>{phoneLabel}</ControlLabel>
-                                <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
-                                        <NumberFormat 
-                                            format="(###) ###-####" 
-                                            mask="_" className='form-control' 
-                                            name={phone} 
-                                            value={statePhoneValue} 
-                                            onChange={this.handleInputChange} 
-                                            onBlur={(e) => {this.handleSave(e);}} /> 
-                                </FormGroup>
-                            </Col>
-                            <Col xs={4} sm={2} md={2}>
-                            <ControlLabel>Ext.</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name={extLabel} 
-                                        value={stateExtValue} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e);}} 
-                                    />
-                                </FormGroup>
-                            </Col>
-                        </Row>
-          </FormGroup> 
-          )
-        }
-      })
 
-      return this.setState({nameInputs: result});
+    checkWebAdmins() {
+        if(this.state.Web_Access) {
+            $('.web-admin-button-toolbar').hide();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).hide()
+            }) 
+        } else {
+            $('.web-admin-button-toolbar').show();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).show();
+            })
+        }
     }
+
+    // async removeWebAdmin(div) {
+    //     div.value = '';
+    //     div.parentNode.remove();
+    //     this.setState({isSaving: true});
+    //     await formDataServices.updateFormData(localStorage.getItem("Account_Name"), div.name, div.value, localStorage.getItem('selectedForm'));
+    //     this.setState({isSaving: false});
+    //   }
 
 
     render() {
@@ -358,8 +318,20 @@ class Account extends Component {
             })
         }
 
+        $('#file-upload').bind('change', function() {
+             var fileName = ''; 
+             fileName = $(this).val(); $('#file-selected').html(fileName); 
+            }) 
+        
+
         let newWebAdmin = this.state.newWebAccessAdmin;
         let renderWebAdminInputs = this.state.webAccessInputs;
+
+        if(this._lastWebAccessAdminCreated === 3) {
+            $('#addWebAdminButton').prop('disabled', true);
+        } else {
+            $('#addWebAdminButton').prop('disabled', false);
+        }
         return (
             <React.Fragment>
                 <div className='container'>
@@ -600,6 +572,18 @@ class Account extends Component {
                             </Col>
                         </Row>
                         <Row>
+                            <Col xs={12} sm={12} md={12}>
+                                <div className='master-entity-list'>
+                                    <p>Master Entity List - For multiple DDA processing please upload an excel spreadsheet here</p>
+                                    <label htmlFor="file-upload" className="custom-file-upload">
+                                        Browse
+                                    </label>
+                                    <span id="file-selected"></span>
+                                    <input id="file-upload" type="file"/>
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
                         <Col xs={12} sm={6} md={6}>
                             <ControlLabel>Account Receivables Software Application</ControlLabel>
                                 <FormGroup validationState={this.state.Account_Receivables_Software_Name_error}>
@@ -698,7 +682,7 @@ class Account extends Component {
                                     name="Web_Access"
                                     type="checkbox"
                                     checked={isWeb_Access}
-                                    onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}
+                                    onChange={(e) => {this.handleInputChange(e); this.handleSave(e); this.checkWebAdmins()}}
                                     />
                                     <span className='checkbox-text'>
                                         Yes, I'd like to gain access to the Remit Members Hub
@@ -708,64 +692,66 @@ class Account extends Component {
                                 </Checkbox> */}
                             </Col>
                         </Row>
-                        <Row>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>Web Admin 1 Name</ControlLabel>
-                                <FormGroup validationState={this.state.Web_Access_Admin_Name_1_error}>
-                                    <FormControl 
-                                        name='Web_Access_Admin_Name_1' 
-                                        value={this.state.Web_Access_Admin_Name_1} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
-                                    />
-                                    <HelpBlock>Required Field</HelpBlock>
-                                </FormGroup>
-                            </Col>
-                            <Col xs={12} sm={6} md={6}>
-                                <ControlLabel>Web Admin 1 Email</ControlLabel>
-                                <FormGroup validationState={this.state.Web_Access_Admin_Email_1_error}>
-                                    <FormControl 
-                                        name='Web_Access_Admin_Name_2' 
-                                        value={this.state.Web_Access_Admin_Email_1} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
-                                    />
-                                    <HelpBlock>Required Field</HelpBlock>
-                                </FormGroup>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col xs={8} sm={4} md={4}>
-                                <ControlLabel>Web Admin 1 Phone</ControlLabel>
-                                <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
-                                        <NumberFormat 
-                                            format="(###) ###-####" 
-                                            mask="_" className='form-control' 
-                                            name='Web_Access_Admin_Phone_1' 
-                                            value={this.state.Web_Access_Admin_Phone_1} 
-                                            onChange={this.handleInputChange} 
-                                            onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                        <div className='web-access-admin'>
+                            <Row>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Web Admin 1 Name</ControlLabel>
+                                    <FormGroup validationState={this.state.Web_Access_Admin_Name_1_error}>
+                                        <FormControl 
+                                            name='Web_Access_Admin_Name_1' 
+                                            value={this.state.Web_Access_Admin_Name_1} 
+                                            onChange={(e) => {this.handleInputChange(e)}} 
+                                            onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
+                                        />
                                         <HelpBlock>Required Field</HelpBlock>
-                                </FormGroup>
-                            </Col>
-                            <Col xs={4} sm={2} md={2}>
-                            <ControlLabel>Ext.</ControlLabel>
-                                <FormGroup>
-                                    <FormControl 
-                                        name='Web_Access_Admin_Phone_Ext_1' 
-                                        value={this.state.Web_Access_Admin_Phone_Ext_1} 
-                                        onChange={(e) => {this.handleInputChange(e)}} 
-                                        onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
-                                    />
-                                    <HelpBlock>Required Field</HelpBlock>
-                                </FormGroup>
-                            </Col>
-                        </Row>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={12} sm={6} md={6}>
+                                    <ControlLabel>Web Admin 1 Email</ControlLabel>
+                                    <FormGroup validationState={this.state.Web_Access_Admin_Email_1_error}>
+                                        <FormControl 
+                                            name='Web_Access_Admin_Name_2' 
+                                            value={this.state.Web_Access_Admin_Email_1} 
+                                            onChange={(e) => {this.handleInputChange(e)}} 
+                                            onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
+                                        />
+                                        <HelpBlock>Required Field</HelpBlock>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs={8} sm={4} md={4}>
+                                    <ControlLabel>Web Admin 1 Phone</ControlLabel>
+                                    <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
+                                            <NumberFormat 
+                                                format="(###) ###-####" 
+                                                mask="_" className='form-control' 
+                                                name='Web_Access_Admin_Phone_1' 
+                                                value={this.state.Web_Access_Admin_Phone_1} 
+                                                onChange={this.handleInputChange} 
+                                                onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
+                                            <HelpBlock>Required Field</HelpBlock>
+                                    </FormGroup>
+                                </Col>
+                                <Col xs={4} sm={2} md={2}>
+                                <ControlLabel>Ext.</ControlLabel>
+                                    <FormGroup>
+                                        <FormControl 
+                                            name='Web_Access_Admin_Phone_Ext_1' 
+                                            value={this.state.Web_Access_Admin_Phone_Ext_1} 
+                                            onChange={(e) => {this.handleInputChange(e)}} 
+                                            onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
+                                        />
+                                        <HelpBlock>Required Field</HelpBlock>
+                                    </FormGroup>
+                                </Col>
+                            </Row>
+                        </div>
                         {newWebAdmin}
                         {renderWebAdminInputs}
                         <Row>
                             <Col xs={12} sm={12} md={12}>
-                                <ButtonToolbar>
+                                <ButtonToolbar className='web-admin-button-toolbar'>
                                 <Button id='addWebAdminButton' bsSize="small" onClick={this.addOne}>
                                 <i className="far fa-plus"></i>
                                     Add

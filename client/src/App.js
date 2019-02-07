@@ -145,14 +145,17 @@ handleRequiredAccountFields() {
 
 
   render() {
-    //document.addEventListener("click", (event) => {console.log(event)})
+    //this will clear the browser data and cause user to log back in 
+    // window.onbeforeunload = function() {
+    //   localStorage.clear();
+    //   return '';
+    // };
     const headerhandler = this.state.isLoggedIn ? <Header currentUserEmail={this.state.currentUserEmail} handleLogOutSubmit={this.handleLogOutSubmit} isLoggedIn={this.state.isLoggedIn} sfAccountType={this.state.sfAccountType} removeFormChoice={this.removeFormChoice} isMenuClicked={this.state.isMenuClicked} handleMobileMenuClick={this.isMobileMenuClicked} /> : '';
     return (
       <BrowserRouter>
         <div>
             {headerhandler}
             <Switch>
-
               <Route exact path="/login" component={props => <Login {...props}
                                                 handleSignInSubmit={this.handleSignInSubmit} 
                                                 isLoggedIn={this.state.isLoggedIn}
@@ -160,6 +163,7 @@ handleRequiredAccountFields() {
                                                 messageAlert={this.state.messageAlert}
                                                 handleMessageReset={this.handleMessageReset}
                                                 sfAccountType={this.state.sfAccountType}
+                                                areRequiredAccountFields={this.state.areRequiredAccountFields}
                                                 />} /> 
               <PrivateRoute path={'/lockboxes'} component={props => <LBMenu {...props} 
                                                 sfAccountProducts={this.state.sfAccountProducts}

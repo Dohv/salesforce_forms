@@ -188,10 +188,7 @@ div.master-entity-list {
   margin: 30px 0px;
   font-size: 14px;
   display: flex;
-}
-
-div.master-entity-list > p {
- margin-right: 10px;
+  align-items: center;
 }
 
 input[type="file"] {
@@ -209,6 +206,11 @@ input[type="file"] {
   border-radius: 4px;
   font-family: 'Omnes-medium';
   font-size: 14px;
+  margin: 0px 10px;
+}
+
+.custom-file-upload:hover {
+  border-color: #1B2F57;
 }
 
 .account-text:link, .account-text:active, .account-text:visited {

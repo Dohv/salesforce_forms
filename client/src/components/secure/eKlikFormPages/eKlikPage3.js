@@ -45,12 +45,12 @@ class eKlik3 extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         this.setState({isSaving: true});
-        await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'));
+        await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'), localStorage.getItem('NewImplementationID'));
         this.setState({isSaving: false});
     }
 
     async getFormData() {
-        await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
+        await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'), localStorage.getItem('NewImplementationID'));
         if(this._isMounted) {
             this.setState({
             Mask_1: localStorage.getItem("Mask_1"),
@@ -61,6 +61,7 @@ class eKlik3 extends Component {
             newMask: '',
             maskInputs: [],
             });
+            this.addMaskInputs();
         }
     }
 
@@ -106,7 +107,7 @@ class eKlik3 extends Component {
     }
     
     addMaskInputs() {
-      const ten = [2,3,4,5,6,7,8,9,10]
+      const ten = [2,3,4,5]
       const result = []
       ten.forEach((el, i) => {
         let maskValue = `Mask_${el.toString()}`;

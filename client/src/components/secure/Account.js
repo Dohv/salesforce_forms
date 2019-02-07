@@ -58,7 +58,6 @@ class Account extends Component {
             Web_Access_Admin_Name_1: '',
             Web_Access_Admin_Name_1_error: null,
             Web_Access_Admin_Name_2: '',
-            Web_Access_Admin_Name_2: '',
             Web_Access_Admin_Email_1: '',
             Web_Access_Admin_Email_1_error: null,
             Web_Access_Admin_Email_2: '',
@@ -78,6 +77,7 @@ class Account extends Component {
         this.getAccountData = this.getAccountData.bind(this);
         this.validateFields = this.validateFields.bind(this);
         this.addOne = this.addOne.bind(this);
+        this.addWebAdminInputs = this.addWebAdminInputs.bind(this);
     }
 
     componentDidMount() {
@@ -85,20 +85,6 @@ class Account extends Component {
         $('.setup').css('top', $('.header').css('height'));
         this._isMounted = true;
         this.getAccountData();
-
-        // had to rewrite checkWebAdmins() because on rerender the boolean was the opposite needed
-        if(this.state.Web_Access) {
-            $('.web-admin-button-toolbar').show();
-            $.each($('.web-access-admin'), (i, div) => {
-                $(div).show()
-            }) 
-        } else  {
-            console.log('about to hide')
-            $('.web-admin-button-toolbar').hide();
-            $.each($('.web-access-admin'), (i, div) => {
-                $(div).hide()
-            }) 
-        }
     }
     
     componentWillUnmount() {
@@ -113,6 +99,7 @@ class Account extends Component {
             this.setState({
                 FI_Name: localStorage.getItem('FI_Name'),
                 FI_Contact_Name: localStorage.getItem('FI_Contact_Name'),
+                FI_Contact_Title: localStorage.getItem('FI_Contact_Title'),
                 FI_Contact_Email: localStorage.getItem('FI_Contact_Email'),
                 FI_Contact_Phone: localStorage.getItem('FI_Contact_Phone'),
                 FI_Contact_Phone_Ext: localStorage.getItem('FI_Contact_Phone_Ext'),
@@ -151,6 +138,7 @@ class Account extends Component {
                 webAccessInputs: [],
             });
         }
+         this.addWebAdminInputs();
     }
 
     handleInputChange(event) {
@@ -236,7 +224,7 @@ class Account extends Component {
                     <FormGroup>
                         <FormControl 
                             name={name} 
-                            value={stateNameValue} 
+                            defaultValue={stateNameValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
                             onBlur={(e) => {this.handleSave(e);}}
                         />
@@ -247,7 +235,7 @@ class Account extends Component {
                     <FormGroup>
                         <FormControl 
                             name={email} 
-                            value={stateEmailValue} 
+                            defaultValue={stateEmailValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
                             onBlur={(e) => {this.handleSave(e);}}
                         />
@@ -257,12 +245,12 @@ class Account extends Component {
             <Row>
                 <Col xs={8} sm={4} md={4}>
                     <ControlLabel>{phoneLabel}</ControlLabel>
-                    <FormGroup validationState={this.state.Web_Access_Admin_Phone_1_error}>
+                    <FormGroup>
                             <NumberFormat 
                                 format="(###) ###-####" 
                                 mask="_" className='form-control' 
                                 name={phone} 
-                                value={statePhoneValue} 
+                                defaultValue={statePhoneValue} 
                                 onChange={this.handleInputChange} 
                                 onBlur={(e) => {this.handleSave(e);}} /> 
                     </FormGroup>
@@ -272,7 +260,7 @@ class Account extends Component {
                     <FormGroup>
                         <FormControl 
                             name={extLabel} 
-                            value={stateExtValue} 
+                            defaultValue={stateExtValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
                             onBlur={(e) => {this.handleSave(e);}} 
                         />
@@ -285,6 +273,86 @@ class Account extends Component {
         })
       } 
     }
+
+    addWebAdminInputs() {
+        const three = [2,3]
+        const result = []
+        three.forEach((el, i) => {
+            let name = `Web_Access_Admin_Name_${el.toString()}`;
+            let email = `Web_Access_Admin_Email_${el.toString()}`;
+            let phone = `Web_Access_Admin_Phone_${el.toString()}`;
+            let ext = `Web_Access_Admin_Phone_Ext_${el.toString()}`;
+            let nameLabel = `Web Admin ${el.toString()} Name`;
+            let emailLabel = `Web Admin ${el.toString()} Email`;
+            let phoneLabel = `Web Admin ${el.toString()} Phone`;
+            let extLabel = 'Ext.';
+            let stateNameValue = this.state[name];
+            let stateEmailValue = this.state[email];
+            let statePhoneValue = this.state[phone];
+            let stateExtValue = this.state[ext];
+          if(stateNameValue !== '') {
+              console.log({el, name, email, phone, ext})
+            this._lastWebAccessAdminCreated = el;
+            result.push(
+              <FormGroup key={name}>
+                <div className='web-access-admin remove-web-admin'>
+              <Row>
+                <Col xs={12} sm={6} md={6}>
+                    <ControlLabel>{nameLabel}</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={name} 
+                            defaultValue={stateNameValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}}
+                        />
+                    </FormGroup>
+                </Col>
+                <Col xs={12} sm={6} md={6}>
+                    <ControlLabel>{emailLabel}</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={email} 
+                            defaultValue={stateEmailValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}}
+                        />
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={8} sm={4} md={4}>
+                    <ControlLabel>{phoneLabel}</ControlLabel>
+                    <FormGroup>
+                            <NumberFormat 
+                                format="(###) ###-####" 
+                                mask="_" className='form-control' 
+                                name={phone} 
+                                defaultValue={statePhoneValue} 
+                                onChange={this.handleInputChange} 
+                                onBlur={(e) => {this.handleSave(e);}} /> 
+                    </FormGroup>
+                </Col>
+                <Col xs={4} sm={2} md={2}>
+                <ControlLabel>Ext.</ControlLabel>
+                    <FormGroup>
+                        <FormControl 
+                            name={extLabel} 
+                            defaultValue={stateExtValue} 
+                            onChange={(e) => {this.handleInputChange(e)}} 
+                            onBlur={(e) => {this.handleSave(e);}} 
+                        />
+                    </FormGroup>
+                </Col>
+            </Row>
+            </div>
+          </FormGroup> 
+            )
+          }
+        })
+  
+        return this.setState({webAccessInputs: result});
+      }
 
     checkWebAdmins() {
         if(this.state.Web_Access) {
@@ -331,6 +399,19 @@ class Account extends Component {
             $('#addWebAdminButton').prop('disabled', true);
         } else {
             $('#addWebAdminButton').prop('disabled', false);
+        }
+
+        // had to rewrite checkWebAdmins() because on rerender the boolean was the opposite needed
+        if(this.state.Web_Access) {
+            $('.web-admin-button-toolbar').show();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).show()
+            }) 
+        } else  {
+            $('.web-admin-button-toolbar').hide();
+            $.each($('.web-access-admin'), (i, div) => {
+                $(div).hide()
+            }) 
         }
         return (
             <React.Fragment>
@@ -431,7 +512,7 @@ class Account extends Component {
                             <ControlLabel>Contact Name</ControlLabel>
                                 <FormGroup validationState={this.state.Primary_Contact_error}>
                                     <FormControl 
-                                        name='Primary Contact' 
+                                        name='Primary_Contact' 
                                         value={this.state.Primary_Contact} 
                                         onChange={(e) => {this.handleInputChange(e)}} 
                                         onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
@@ -579,7 +660,7 @@ class Account extends Component {
                                         Browse
                                     </label>
                                     <span id="file-selected"></span>
-                                    <input id="file-upload" type="file"/>
+                                    <input id="file-upload" type="file" multiple/>
                                 </div>
                             </Col>
                         </Row>
@@ -600,7 +681,7 @@ class Account extends Component {
                             <ControlLabel>Software Version</ControlLabel>
                                 <FormGroup>
                                     <FormControl 
-                                        name='Software Version' 
+                                        name='Software_Version' 
                                         value={this.state.Software_Version} 
                                         onChange={(e) => {this.handleInputChange(e)}} 
                                         onBlur={(e) => {this.handleSave(e); this.validate(e)}} 
@@ -710,7 +791,7 @@ class Account extends Component {
                                     <ControlLabel>Web Admin 1 Email</ControlLabel>
                                     <FormGroup validationState={this.state.Web_Access_Admin_Email_1_error}>
                                         <FormControl 
-                                            name='Web_Access_Admin_Name_2' 
+                                            name='Web_Access_Admin_Email_1' 
                                             value={this.state.Web_Access_Admin_Email_1} 
                                             onChange={(e) => {this.handleInputChange(e)}} 
                                             onBlur={(e) => {this.handleSave(e); this.validate(e)}} 

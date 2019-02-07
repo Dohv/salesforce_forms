@@ -76,12 +76,12 @@ class eKlik2 extends Component {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         this.setState({isSaving: true});
-        await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'));
+        await formDataServices.updateFormData(localStorage.getItem("Account_Name"), name, value, localStorage.getItem('selectedForm'), localStorage.getItem('NewImplementationID'));
         this.setState({isSaving: false});
     }
 
     async getFormData() {
-        await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'));
+        await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'), localStorage.getItem('NewImplementationID'));
        if(this._isMounted) {
           this.setState({
             eKlik_Bank_Routing_Number: localStorage.getItem("eKlik_Bank_Routing_Number"),

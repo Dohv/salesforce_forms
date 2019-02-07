@@ -19,6 +19,10 @@ class Login extends Component {
         this.validate = this.validate.bind(this);
     }
 
+    componentDidMount() {
+        console.log('componentDidMount' , 'isLoggedIn' , this.props.isLoggedIn);
+    }
+
     submitForm(e) {
         e.preventDefault();
         if (this.state.email === '' || this.state.password === '') {
@@ -58,10 +62,10 @@ class Login extends Component {
     }
     
     render() {
-        //  console.log(this.props.location.state)
+        console.log('render' , 'isloggedIn', this.props.isLoggedIn)
         // const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
         if(this.props.isLoggedIn) {
-            if(localStorage.getItem('Phone') && localStorage.getItem('Website') && localStorage.getItem('EIN_TIN') && localStorage.getItem('Company_Address_Street') && localStorage.getItem('Company_Address_State') && localStorage.getItem('Company_Address_City') && localStorage.getItem('Company_Address_Zip')) {
+            if(this.props.areRequiredAccountFields) {
               } else {
                   return <Redirect to={'/account'} />
               }

@@ -1235,6 +1235,27 @@ thumbnail a>img, .thumbnail>img {
   cursor: pointer;
 }
 
+.web-admin-remove-x  {
+  margin: 3px 0px 0px 10px;
+  color: white;
+}
+
+.removeWebAdminButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #d00000;
+  border: 1px solid white;
+  font-family: 'Omnes-medium';
+}
+
+.removeWebAdminButton:hover {
+  border: 1px solid #1B2F57;
+  color: white;
+  background-color: #d90000;
+}
+
 #addNameButton, #addWebAdminButton {
   font-family: 'Omnes-medium';
   font-size: 14px;

@@ -69,6 +69,7 @@ class Account extends Component {
             Web_Access_Admin_Phone_Ext_1: '',
             Web_Access_Admin_Phone_Ext_2: '',
             Web_Access_Admin_Phone_Ext_3: '',
+            lastWebAccessAdminCreated: 2,
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -78,6 +79,7 @@ class Account extends Component {
         this.validateFields = this.validateFields.bind(this);
         this.addOne = this.addOne.bind(this);
         this.addWebAdminInputs = this.addWebAdminInputs.bind(this);
+        this.removeWebAdmin = this.removeWebAdmin.bind(this);
     }
 
     componentDidMount() {
@@ -199,16 +201,17 @@ class Account extends Component {
 
     addOne(e) {
       e.preventDefault();
-      this._lastWebAccessAdminCreated = this._lastWebAccessAdminCreated + 1;
+    //   this._lastWebAccessAdminCreated = this._lastWebAccessAdminCreated + 1;
+      this.setState({lastWebAccessAdminCreated: this.state.lastWebAccessAdminCreated + 1})
 
-      if(this._lastWebAccessAdminCreated <= 3) {
-        let name = `Web_Access_Admin_Name_${this._lastWebAccessAdminCreated.toString()}`;
-        let email = `Web_Access_Admin_Email_${this._lastWebAccessAdminCreated.toString()}`;
-        let phone = `Web_Access_Admin_Phone_${this._lastWebAccessAdminCreated.toString()}`;
-        let ext = `Web_Access_Admin_Phone_Ext_${this._lastWebAccessAdminCreated.toString()}`;
-        let nameLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Name`;
-        let emailLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Email`;
-        let phoneLabel = `Web Admin ${this._lastWebAccessAdminCreated.toString()} Phone`;
+      if(this.state.lastWebAccessAdminCreated <= 3) {
+        let name = `Web_Access_Admin_Name_${this.state.lastWebAccessAdminCreated.toString()}`;
+        let email = `Web_Access_Admin_Email_${this.state.lastWebAccessAdminCreated.toString()}`;
+        let phone = `Web_Access_Admin_Phone_${this.state.lastWebAccessAdminCreated.toString()}`;
+        let ext = `Web_Access_Admin_Phone_Ext_${this.state.lastWebAccessAdminCreated.toString()}`;
+        let nameLabel = `Web Admin ${this.state.lastWebAccessAdminCreated.toString()} Name`;
+        let emailLabel = `Web Admin ${this.state.lastWebAccessAdminCreated.toString()} Email`;
+        let phoneLabel = `Web Admin ${this.state.lastWebAccessAdminCreated.toString()} Phone`;
         let extLabel = 'Ext.';
         let stateNameValue = this.state[name];
         let stateEmailValue = this.state[email];
@@ -223,6 +226,7 @@ class Account extends Component {
                     <ControlLabel>{nameLabel}</ControlLabel>
                     <FormGroup>
                         <FormControl 
+                            id={name}
                             name={name} 
                             defaultValue={stateNameValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
@@ -234,6 +238,7 @@ class Account extends Component {
                     <ControlLabel>{emailLabel}</ControlLabel>
                     <FormGroup>
                         <FormControl 
+                            id={email}
                             name={email} 
                             defaultValue={stateEmailValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
@@ -247,6 +252,7 @@ class Account extends Component {
                     <ControlLabel>{phoneLabel}</ControlLabel>
                     <FormGroup>
                             <NumberFormat 
+                                id={phone}
                                 format="(###) ###-####" 
                                 mask="_" className='form-control' 
                                 name={phone} 
@@ -259,12 +265,29 @@ class Account extends Component {
                 <ControlLabel>Ext.</ControlLabel>
                     <FormGroup>
                         <FormControl 
+                            id={ext}
                             name={extLabel} 
                             defaultValue={stateExtValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
                             onBlur={(e) => {this.handleSave(e);}} 
                         />
                     </FormGroup>
+                </Col>
+                <Col xs={6} sm={6} md={6}>
+                    <ControlLabel> </ControlLabel>
+                    <ButtonToolbar>
+                        <Button className='removeWebAdminButton' onClick={() => {
+                            this.removeWebAdmin([
+                                document.getElementById(name),
+                                document.getElementById(email),
+                                document.getElementById(phone),
+                                document.getElementById(ext) 
+                            ])
+                        }}>
+                        Remove
+                        <i className="fal fa-times web-admin-remove-x"></i>
+                        </Button>
+                    </ButtonToolbar>
                 </Col>
             </Row>
             </div>
@@ -290,9 +313,10 @@ class Account extends Component {
             let stateEmailValue = this.state[email];
             let statePhoneValue = this.state[phone];
             let stateExtValue = this.state[ext];
-          if(stateNameValue !== '') {
-              console.log({el, name, email, phone, ext})
-            this._lastWebAccessAdminCreated = el;
+          if(stateNameValue !== '' || stateEmailValue !== '' || statePhoneValue !== '') {
+            this.setState({
+                lastWebAccessAdminCreated: el,
+            })
             result.push(
               <FormGroup key={name}>
                 <div className='web-access-admin remove-web-admin'>
@@ -301,6 +325,7 @@ class Account extends Component {
                     <ControlLabel>{nameLabel}</ControlLabel>
                     <FormGroup>
                         <FormControl 
+                            id={name}
                             name={name} 
                             defaultValue={stateNameValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
@@ -312,6 +337,7 @@ class Account extends Component {
                     <ControlLabel>{emailLabel}</ControlLabel>
                     <FormGroup>
                         <FormControl 
+                            id={email}
                             name={email} 
                             defaultValue={stateEmailValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
@@ -325,6 +351,7 @@ class Account extends Component {
                     <ControlLabel>{phoneLabel}</ControlLabel>
                     <FormGroup>
                             <NumberFormat 
+                                id={phone}
                                 format="(###) ###-####" 
                                 mask="_" className='form-control' 
                                 name={phone} 
@@ -336,13 +363,30 @@ class Account extends Component {
                 <Col xs={4} sm={2} md={2}>
                 <ControlLabel>Ext.</ControlLabel>
                     <FormGroup>
-                        <FormControl 
+                        <FormControl
+                            id={ext} 
                             name={extLabel} 
                             defaultValue={stateExtValue} 
                             onChange={(e) => {this.handleInputChange(e)}} 
                             onBlur={(e) => {this.handleSave(e);}} 
                         />
                     </FormGroup>
+                </Col>
+                <Col xs={6} sm={6} md={6}>
+                    <ControlLabel> </ControlLabel>
+                    <ButtonToolbar>
+                        <Button className='removeWebAdminButton' onClick={() => {
+                            this.removeWebAdmin([
+                                document.getElementById(name),
+                                document.getElementById(email),
+                                document.getElementById(phone),
+                                document.getElementById(ext) 
+                                ])
+                            }}>
+                            Remove
+                        <i className="fal fa-times web-admin-remove-x"></i>
+                        </Button>
+                    </ButtonToolbar>
                 </Col>
             </Row>
             </div>
@@ -366,6 +410,28 @@ class Account extends Component {
                 $(div).show();
             })
         }
+    }
+
+    async removeWebAdmin(array) {
+        array.map(async div => {
+            div.value = '';
+            if(div.parentNode.parentNode.parentNode.parentNode) {
+                div.parentNode.parentNode.parentNode.parentNode.remove();
+            }
+            try {
+                await accountDataServices.updateAccountData(localStorage.getItem("sfAccountId"), div.name, div.value);
+            } catch(err) {
+                console.log(err.message)
+            }
+            return;
+        })
+        let itemToRemove = this.state.webAccessInputs[this.state.webAccessInputs.length - 1];
+        let filteredItems = this.state.webAccessInputs.filter(div => { return div !== itemToRemove});
+        console.log(filteredItems)
+        this.setState({
+            lastWebAccessAdminCreated: this.state.lastWebAccessAdminCreated - 1,
+            webAccessInputs: filteredItems,
+        });
     }
 
     // async removeWebAdmin(div) {
@@ -394,8 +460,8 @@ class Account extends Component {
 
         let newWebAdmin = this.state.newWebAccessAdmin;
         let renderWebAdminInputs = this.state.webAccessInputs;
-
-        if(this._lastWebAccessAdminCreated === 3) {
+       console.log(this.state.webAccessInputs, this.state.lastWebAccessAdminCreated);
+        if(this.state.lastWebAccessAdminCreated === 4) {
             $('#addWebAdminButton').prop('disabled', true);
         } else {
             $('#addWebAdminButton').prop('disabled', false);
@@ -833,7 +899,7 @@ class Account extends Component {
                         <Row>
                             <Col xs={12} sm={12} md={12}>
                                 <ButtonToolbar className='web-admin-button-toolbar'>
-                                <Button id='addWebAdminButton' bsSize="small" onClick={this.addOne}>
+                                <Button id='addWebAdminButton' bsSize="sm" onClick={this.addOne}>
                                 <i className="far fa-plus"></i>
                                     Add
                                 </Button>

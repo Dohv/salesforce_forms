@@ -12,16 +12,23 @@ class Login extends Component {
             password: '',
             password_error: null,
             valid: false,
+            areRequiredAccountFields: false,
         }
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.submitForm = this.submitForm.bind(this);
         this.validate = this.validate.bind(this);
+        this.checkFields = this.checkFields.bind(this);
     }
 
-    componentDidMount() {
-        console.log('componentDidMount' , 'isLoggedIn' , this.props.isLoggedIn);
+    componentWillMount() {
+        this.checkFields();
+        console.log(this.state.areRequiredAccountFields)
     }
+
+    // componentDidMount() {
+    //     console.log('componentDidMount' , 'isLoggedIn' , this.props.isLoggedIn);
+    // }
 
     submitForm(e) {
         e.preventDefault();
@@ -60,16 +67,60 @@ class Login extends Component {
             }, () => {})
         }
     }
+
+    checkFields() {  
+        let counter = 0;    
+        const accountFields = [
+            localStorage.getItem('FI_Name'),
+            localStorage.getItem('FI_Contact_Name'),
+            localStorage.getItem('FI_Contact_Title'),
+            localStorage.getItem('FI_Contact_Email'),
+            localStorage.getItem('FI_Contact_Phone'),
+            localStorage.getItem('Primary_Contact'),
+            localStorage.getItem('Primary_Email'),
+            localStorage.getItem('Name'),
+            localStorage.getItem('Phone'),
+            localStorage.getItem('Website'),
+            localStorage.getItem('Company_Address_Street'),
+            localStorage.getItem('Company_Address_City'),
+            localStorage.getItem('Company_Address_State'),
+            localStorage.getItem('Company_Address_Zip'),
+            localStorage.getItem('Account_Receivables_Software_Name'),
+            localStorage.getItem('Peak_Day'),
+            localStorage.getItem('Web_Access'),
+            localStorage.getItem('Web_Access_Admin_Name_1'),
+            localStorage.getItem('Web_Access_Admin_Email_1'),
+            localStorage.getItem('Web_Access_Admin_Phone_1')
+        ];
+        
+        for (let i = 0; i < accountFields.length; i++) {
+             if(accountFields[i] === '' || accountFields[i] === null) {
+                this.setState({
+                    areRequiredAccountFields: false,
+                })
+                
+                return;
+             } else  {
+                this.setState({
+                    areRequiredAccountFields: true,
+                }) 
+             }
+            
+        }
+    }
+
     
     render() {
-        console.log('render' , 'isloggedIn', this.props.isLoggedIn)
+        
         // const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
+        // console.log('render' , 'areRequiredAccountFields', this.props.areRequiredAccountFields);
         if(this.props.isLoggedIn) {
-            if(this.props.areRequiredAccountFields) {
-              } else {
-                  return <Redirect to={'/account'} />
-              }
-            return <Redirect to={'/lockboxes'} />
+            console.log('before if', this.state.areRequiredAccountFields);
+            if(this.state.areRequiredAccountFields) {
+                return <Redirect to={'/lockboxes'} />
+            } else {
+                return <Redirect to={'/account'} />
+            } 
         }
         return (
                 <div className='loginPage'>

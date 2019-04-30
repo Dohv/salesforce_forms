@@ -261,9 +261,11 @@ class eKlik1 extends Component {
                         <div>
                             <input type='file' name='file' onChange={(e) => {this.onChange(e)}} />
                         </div>
-                            <Col xs={12}>
-                                <h4 className='eklik-page-title'>General Information</h4>
-                            </Col>
+                            <Row>
+                                <Col xs={12}>
+                                    <h4 className='eklik-page-title'>General Information</h4>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col xs={12} sm={6} md={6}>
                                     <ControlLabel>Company Name</ControlLabel>
@@ -465,7 +467,9 @@ class eKlik1 extends Component {
                                 </Col>
                             </Row>
                             <Col xs={12}>
-                                <p className='form-comment'>Does your business engage in any of the following:</p>
+                                <Row>
+                                    <p className='form-comment'>Does your business engage in any of the following:</p>
+                                </Row>
                             </Col>
                             <FormGroup>
                                 <Row>

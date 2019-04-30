@@ -192,7 +192,7 @@ class Account extends Component {
         }
     }
 
-    notify = () => toast.error('You still have incomplete fields', {
+    notify = () => toast.error('You still have incomplete fields', {                                                                                           
         position: toast.POSITION.BOTTOM_RIGHT,
         className: 'toast', 
     });
@@ -427,7 +427,7 @@ class Account extends Component {
         })
         let itemToRemove = this.state.webAccessInputs[this.state.webAccessInputs.length - 1];
         let filteredItems = this.state.webAccessInputs.filter(div => { return div !== itemToRemove});
-        console.log(filteredItems)
+        // console.log(filteredItems)
         this.setState({
             lastWebAccessAdminCreated: this.state.lastWebAccessAdminCreated - 1,
             webAccessInputs: filteredItems,
@@ -460,7 +460,7 @@ class Account extends Component {
 
         let newWebAdmin = this.state.newWebAccessAdmin;
         let renderWebAdminInputs = this.state.webAccessInputs;
-       console.log(this.state.webAccessInputs, this.state.lastWebAccessAdminCreated);
+      // console.log(this.state.webAccessInputs, this.state.lastWebAccessAdminCreated);
         if(this.state.lastWebAccessAdminCreated === 4) {
             $('#addWebAdminButton').prop('disabled', true);
         } else {

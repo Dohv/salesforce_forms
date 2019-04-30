@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {isArray} from 'util';
+import accountDataServices from './accountDataServices';
 
 const authServices = {
 
@@ -44,6 +45,7 @@ const authServices = {
     } catch(error) {
       console.log("this is login error:", error);
     }
+    await accountDataServices.getAccountDataFromServer(localStorage.getItem('sfAccountId'));
   },
 
   logOut: async (id) => {

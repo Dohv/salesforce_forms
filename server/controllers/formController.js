@@ -38,8 +38,8 @@ module.exports = {
       case 'KlikNPay':
         formType = process.env.KLIKNPAY_RECORD_TYPE;
         break;
-      case 'eKlik':
-        formType = process.env.EKLIK_RECORD_TYPE;
+      case 'Catch':
+        formType = process.env.CATCH_RECORD_TYPE;
         break;
       case 'Remit':
         formType = process.env.REMIT_RECORD_TYPE;
@@ -87,7 +87,7 @@ module.exports = {
         recordType = process.env.KLIKNPAY_RECORD_TYPE;
         break;
       case 'eKlik':
-        recordType = process.env.EKLIK_RECORD_TYPE;
+        recordType = process.env.CATCH_RECORD_TYPE;
         break;
       case 'Remit':
         recordType = process.env.REMIT_RECORD_TYPE;
@@ -145,7 +145,7 @@ module.exports = {
         recordType = process.env.KLIKNPAY_RECORD_TYPE;
         break;
       case 'eKlik':
-        recordType = process.env.EKLIK_RECORD_TYPE;
+        recordType = process.env.CATCH_RECORD_TYPE;
         break;
       case 'Remit':
         recordType = process.env.REMIT_RECORD_TYPE;

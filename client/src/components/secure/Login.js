@@ -23,7 +23,6 @@ class Login extends Component {
 
     componentWillMount() {
         this.checkFields();
-        console.log(this.state.areRequiredAccountFields)
     }
 
     // componentDidMount() {
@@ -115,7 +114,6 @@ class Login extends Component {
         // const {target} = this.props.location.state || {target: {pathname: '/lockboxes'}}
         // console.log('render' , 'areRequiredAccountFields', this.props.areRequiredAccountFields);
         if(this.props.isLoggedIn) {
-            console.log('before if', this.state.areRequiredAccountFields);
             if(this.state.areRequiredAccountFields) {
                 return <Redirect to={'/lockboxes'} />
             } else {

@@ -1,7 +1,8 @@
 const Joi = require('joi');
 const request = require('request');
-const { fields } = require('../helpers/sfFormFields');
+const { sfFormFields } = require('../helpers/sfFormFields');
 const { accountFields } = require('../helpers/sfAccountFields');
+const { newImplementationFields } = require('../helpers/newImplementationFields');
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -30,7 +31,7 @@ module.exports = {
 
   getLockboxesFromAccount: async (req, res, next) => {
     await request({
-      url: `${res.locals.url}/services/data/v43.0/query?q=select+id, name,Lockbox_Name__c,Product_Type__c+FROM+New_Implementation__c+WHERE+Account__c+='${res.locals.accountId}'`,
+      url: `${res.locals.url}/services/data/v43.0/query?q=select+${newImplementationFields}+FROM+New_Implementation__c+WHERE+Account__c+='${res.locals.accountId}'`,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + res.locals.sfToken
@@ -44,7 +45,7 @@ module.exports = {
             //return res.json({message: 'There is no email for that account.'});
             return res.json({message: 'There is no account with that email'})
           } else {
-              //console.log(vresult.records[0]);
+              console.log(result.records);
             res.locals.lockboxes = result.records;
              next();
           }
@@ -55,7 +56,7 @@ module.exports = {
   getFormDataSFQuery: (url, accountId, token, recordType, newImplementationId) => {
     console.log({newImplementationId});
     return {
-      url: `${url}/services/data/v43.0/query?q=select+${fields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'+AND+New_Implementation_Lockbox__c+='${newImplementationId}'`,
+      url: `${url}/services/data/v43.0/query?q=select+${sfFormFields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'+AND+New_Implementation_Lockbox__c+='${newImplementationId}'`,
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token

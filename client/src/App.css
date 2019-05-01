@@ -66,6 +66,7 @@
 
 .stepLink {
   display: flex;
+  align-items: center;
   color: #80868B;
   text-decoration: none !important;
 }
@@ -100,7 +101,7 @@
   width: 2px;
   background-color: #d0d0d0;
   left: 26.3px;
-  top: -68px
+  top: -70px
 }
 
 .sidebar-content div:first-child:after {
@@ -589,6 +590,7 @@ label.control-label {
 
 input.form-control {
   background-color: #ffffff;
+  margin-bottom: 20px;
 }
 
 input:-webkit-autofill {
@@ -1094,6 +1096,10 @@ thumbnail a>img, .thumbnail>img {
   margin-right: 10px;
 }
 
+.checkbox input[type=checkbox] {
+  top: -5px;
+}
+
 .FFLink {
   border-radius: 4px;
   font-family: 'Omnes-medium';
@@ -1230,7 +1236,7 @@ thumbnail a>img, .thumbnail>img {
 .fa-times {
   color: #d90000;
   float: right;
-  margin-top: -32px;
+  margin-top: -43px;
   margin-right: 13px;
   cursor: pointer;
 }
@@ -1536,12 +1542,12 @@ thumbnail a>img, .thumbnail>img {
     z-index: -1;
   }
 
-  .stepLink {
-    display: block;
-  }
-
   .stepLinkTitle {
     margin: 0;
+  }
+
+  .stepLink {
+    flex-direction: column;
   }
 }
 

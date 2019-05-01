@@ -45,6 +45,9 @@ const authServices = {
     } catch(error) {
       console.log("this is login error:", error);
     }
+
+    //this api call is used to determent whether the user has filled out the account form, if yes they will be lead to /lockboxes, if not 
+    // /account
     await accountDataServices.getAccountDataFromServer(localStorage.getItem('sfAccountId'));
   },
 

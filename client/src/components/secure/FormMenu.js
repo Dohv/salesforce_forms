@@ -2,12 +2,12 @@ import React from 'react';
 import {Link, Route } from "react-router-dom";
 import { Col, Thumbnail, Button} from 'react-bootstrap'
 import thumbnaildiv from '../../assets/thumbnaildiv.png'
-import eklikThumbnail from '../../assets/eklik@3x.png';
+import catchThumbnail from '../../assets/eklik@3x.png';
 import remitThumbnail from '../../assets/remit@3x.png';
 import knpThumbnail from '../../assets/knp@3x.png';
 import remitStationThumbnail from '../../assets/remitstation@3x.png';
 import Remit from "./Remit";
-import eKlik from "./eKlik";
+import Catch from "./Catch";
 import KlikNPay from './KlikNPay';
 
 
@@ -49,8 +49,8 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting, sfAccountProducts
                             }
 
                             switch(product) {
-                                case 'eKlik':
-                                    img = eklikThumbnail;
+                                case 'Catch':
+                                    img = catchThumbnail;
                                     description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';
                                     break;
                                 case 'Remit':
@@ -87,7 +87,7 @@ const FormMenu = ({match, handleFormChoice, timeBasedGreeting, sfAccountProducts
                     
 
                 <Route path={`${match.url}/Remit`} component={Remit}/>
-                <Route path={`${match.url}/eKlik`} component={eKlik}/>
+                <Route path={`${match.url}/Catch`} component={Catch}/>
                 <Route path={`${match.url}/KlikNPay`} component={KlikNPay}/>
                 {/* <Route path={`${match.url}`} component={ProtectedChildHome} exact/> */}
 

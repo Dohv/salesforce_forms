@@ -2,7 +2,7 @@ import React from 'react';
 import { Route } from "react-router-dom";
 import { OverlayTrigger, Tooltip, } from 'react-bootstrap'
 import Remit from "./Remit";
-import eKlik from "./eKlik";
+import Catch from "./Catch";
 import KlikNPay from './KlikNPay';
 
 
@@ -29,8 +29,8 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
             }).sort();
 
             singleLBProducts.map(element => {
-                if(element === 'eklik') {
-                    element = 'eKlik';
+                if(element === 'catch') {
+                    element = 'Catch';
                     array[0] = element;
                 } 
                 if(element.indexOf('station') !== -1) {
@@ -53,8 +53,8 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
                     //use the index to give unique keys
                     array[i] = `continue_${i}`;
                 }
-                if(array[i] === 'eklik') {
-                    array[i] = 'eKlik';
+                if(array[i] === 'catch') {
+                    array[i] = 'Catch';
                 } 
                 if(array[i].indexOf('station') !== -1) {
                     array[i] = 'RemitStation';
@@ -69,7 +69,7 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
             
             const singleLBProducts_div = array.map((element, i, array) => {
                 let description = '';
-                    if(element === 'eKlik') {
+                    if(element === 'Catch') {
                         description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';
                     } 
                     if(element === 'RemitStation') {
@@ -120,8 +120,8 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
 
     const lb_products_div = lb_products.map(element => {
         let description = '';
-        if(element === 'eklik') {
-            element = 'eKlik';
+        if(element === 'catch') {
+            element = 'Catch';
             description = 'Eliminate online banking checks by allowing B2B bank transfers to be processed electronically.';
         } 
         if(element === 'remit station') {
@@ -183,7 +183,7 @@ const LBMenu = ({match, history, handleFormChoice, timeBasedGreeting, lockboxes,
 
         
         <Route path={`${match.url}/Remit`} component={Remit}/>
-        <Route path={`${match.url}/eKlik`} component={eKlik}/>
+        <Route path={`${match.url}/Catch`} component={Catch}/>
         <Route path={`${match.url}/KlikNPay`} component={KlikNPay}/>
       </div>  
     )

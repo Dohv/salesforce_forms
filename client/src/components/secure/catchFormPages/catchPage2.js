@@ -5,7 +5,7 @@ import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 import $ from 'jquery';
 
-class eKlik2 extends Component {
+class Catch2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -123,14 +123,6 @@ class eKlik2 extends Component {
         this.setState({
           [name]: value
         });
-    }
-
-    isSelected(e) {
-        if(this.state[e.target.name]) {
-            return this.state[e.target.name];
-        }
-
-        return '0';
     }
 
     _lastInputNameCreated = 1;
@@ -301,7 +293,7 @@ class eKlik2 extends Component {
             {savingStatus}
                 <div className='container'>
                   <Form className='form' id='eklikform2'>
-                        <h4 className='eklik-page-title'>Basic Setup Information</h4>
+                        <h4 className='eklik-page-title'>Service Features</h4>
                         <FormGroup>
                                <Row>
                                     <Col xs={6} sm={6} md={6}>
@@ -409,4 +401,4 @@ class eKlik2 extends Component {
     )};
 }
 
-export default eKlik2;
+export default Catch2;

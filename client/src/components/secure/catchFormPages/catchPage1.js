@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlock } from 'react-bootstrap';
+import { Form, Col, Row, FormGroup, FormControl, ControlLabel, Checkbox, HelpBlock, ButtonToolbar, Button } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import formDataServices from '../../../services/formDataServices';
 import $ from 'jquery';
@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-class eKlik1 extends Component {
+class catch1 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,11 +62,43 @@ class eKlik1 extends Component {
             Adult_Entertainment_Businesses: localStorage.getItem("Adult_Entertainment_Businesses") ? localStorage.getItem("Adult_Entertainment_Businesses") : false,
             Telemarketing_Company: localStorage.getItem("Telemarketing_Company") ? localStorage.getItem("Telemarketing_Company") : false,
             errorCounter: 1,
+            Fiserv: '',
+            RPPS: '',
+            Other_Online_Payment_Processor: '',
+            Check_Payment_Name_1: '',
+            Check_Payment_Name_2: '',
+            Check_Payment_Name_3: '',
+            Check_Payment_Name_4: '',
+            Check_Payment_Name_5: '',
+            Check_Payment_Name_6: '',
+            Check_Payment_Name_7: '',
+            Check_Payment_Name_8: '',
+            Check_Payment_Name_9: '',
+            Check_Payment_Name_10: '',
+            Remittance_Address_1: '',
+            Remittance_Address_2: '',
+            Remittance_Address_3: '',
+            Remittance_Address_4: '',
+            Remittance_Address_5: '',
+            Remittance_Address_6: '',
+            Remittance_Address_7: '',
+            Remittance_Address_8: '',
+            Remittance_Address_9: '',
+            Remittance_Address_10: '',
+            nameInputs: [],
+            newName: '',
+            addressInputs: [],
+            newAddress: '',
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
         this.getFormData = this.getFormData.bind(this);
         this.handleSave = this.handleSave.bind(this);
+        this.addNameInputs = this.addNameInputs.bind(this);
+        this.addOne = this.addOne.bind(this);
+        this.addAddressInputs = this.addAddressInputs.bind(this);
+        this.addOneAddress = this.addOneAddress.bind(this);
+        this.removeInput = this.removeInput.bind(this);
         this.validate = this.validate.bind(this);
         this.validateFields = this.validateFields.bind(this);
     }
@@ -105,11 +137,6 @@ class eKlik1 extends Component {
         await formDataServices.getFormDataFromServer(localStorage.getItem('sfAccountId'), localStorage.getItem('selectedForm'), localStorage.getItem('NewImplementationID'));
         if(this._isMounted) {
             this.setState({
-                eKlik_Company_Name: localStorage.getItem("eKlik_Company_Name"),
-                eKlik_Primary_Contact: localStorage.getItem("eKlik_Primary_Contact"),
-                eKlik_Primary_Contact_Phone: localStorage.getItem("eKlik_Primary_Contact_Phone"),
-                eKlik_Primary_Contact_Phone_Extension: localStorage.getItem("eKlik_Primary_Contact_Phone_Extension"),
-                eKlik_Primary_Contact_Email: localStorage.getItem("eKlik_Primary_Contact_Email"),
                 eKlik_Business_Owner_Name: localStorage.getItem("eKlik_Business_Owner_Name"),
                 eKlik_Business_Owner_Title: localStorage.getItem("eKlik_Business_Owner_Title"),
                 eKlik_Business_Owner_Phone: localStorage.getItem("eKlik_Business_Owner_Phone"),
@@ -135,8 +162,34 @@ class eKlik1 extends Component {
                 Mail_or_Telephone_Orders_Company: JSON.parse(localStorage.getItem("Mail_or_Telephone_Orders_Company")),
                 Adult_Entertainment_Businesses: JSON.parse(localStorage.getItem("Adult_Entertainment_Businesses")),
                 Telemarketing_Company: JSON.parse(localStorage.getItem("Telemarketing_Company")), 
+                Fiserv: JSON.parse(localStorage.getItem("Fiserv")),
+                RPPS: JSON.parse(localStorage.getItem("RPPS")),
+                Other_Online_Payment_Processor: localStorage.getItem("Other_Online_Payment_Processor"),
+                Check_Payment_Name_1: localStorage.getItem("Check_Payment_Name_1"),
+                Check_Payment_Name_2: localStorage.getItem("Check_Payment_Name_2"),
+                Check_Payment_Name_3: localStorage.getItem("Check_Payment_Name_3"),
+                Check_Payment_Name_4: localStorage.getItem("Check_Payment_Name_4"),
+                Check_Payment_Name_5: localStorage.getItem("Check_Payment_Name_5"),
+                Check_Payment_Name_6: localStorage.getItem("Check_Payment_Name_6"),
+                Check_Payment_Name_7: localStorage.getItem("Check_Payment_Name_7"),
+                Check_Payment_Name_8: localStorage.getItem("Check_Payment_Name_8"),
+                Check_Payment_Name_9: localStorage.getItem("Check_Payment_Name_9"),
+                Check_Payment_Name_10: localStorage.getItem("Check_Payment_Name_10"),
+                Remittance_Address_1: localStorage.getItem("Remittance_Address_1"),
+                Remittance_Address_2: localStorage.getItem("Remittance_Address_2"),
+                Remittance_Address_3: localStorage.getItem("Remittance_Address_3"),
+                Remittance_Address_4: localStorage.getItem("Remittance_Address_4"),
+                Remittance_Address_5: localStorage.getItem("Remittance_Address_5"),
+                Remittance_Address_6: localStorage.getItem("Remittance_Address_6"),
+                Remittance_Address_7: localStorage.getItem("Remittance_Address_7"),
+                Remittance_Address_8: localStorage.getItem("Remittance_Address_8"),
+                Remittance_Address_9: localStorage.getItem("Remittance_Address_9"),
+                Remittance_Address_10: localStorage.getItem("Remittance_Address_10"),
             });
         }
+
+        this.addNameInputs();
+        this.addAddressInputs();
     }
 
     
@@ -162,9 +215,144 @@ class eKlik1 extends Component {
         }
     }
 
+    _lastInputNameCreated = 1;
+    _lastInputAddressCreated = 1;
+
+    addOne(e) {
+      e.preventDefault();
+      this._lastInputNameCreated = this._lastInputNameCreated + 1;
+
+      if(this._lastInputNameCreated <= 10) {
+        let nameValue = `Check_Payment_Name_${this._lastInputNameCreated.toString()}`;
+        let labelValue = `Name ${this._lastInputNameCreated.toString()}`;
+        let stateValue = this.state[nameValue];
+        this.setState({
+          nameInputs: [...this.state.nameInputs, 
+            <FormGroup key={this.state.nameInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={nameValue}
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>   
+          ]
+        })
+      } 
+    }
+    
+    addNameInputs() {
+      const ten = [2,3,4,5,6,7,8,9,10]
+      const result = []
+      ten.forEach((el, i) => {
+        let nameValue = `Check_Payment_Name_${el.toString()}`;
+        let labelValue = `Name ${el.toString()}`;
+        let stateValue = this.state[nameValue];
+        if(stateValue !== '') {
+          this._lastInputNameCreated = el;
+          result.push(
+            <FormGroup key={this.state.nameInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={nameValue}
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e)}}
+                        onInput={(e) => this.handleSave(e)} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>
+          )
+        }
+      })
+
+      return this.setState({nameInputs: result});
+    }
+
+    async removeInput(div) {
+      div.value = '';
+      div.parentNode.remove();
+      this.setState({isSaving: true});
+      await formDataServices.updateFormData(localStorage.getItem("Account_Name"), div.name, div.value, localStorage.getItem('selectedForm'));
+      this.setState({isSaving: false});
+    }
+
+    addOneAddress(e) {
+      e.preventDefault();
+      this._lastInputAddressCreated = this._lastInputAddressCreated + 1;
+
+      if(this._lastInputAddressCreated <= 10) {
+        let addressValue = `Remittance_Address_${this._lastInputAddressCreated.toString()}`;
+        let labelValue = `Address ${this._lastInputAddressCreated.toString()}`;
+        let stateValue = this.state[addressValue];
+        this.setState({
+          addressInputs: [...this.state.addressInputs, 
+            <FormGroup key={this.state.addressInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={addressValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>   
+          ]
+        })
+      } 
+    }
+    
+    addAddressInputs() {
+      const ten = [2,3,4,5,6,7,8,9,10]
+      const result = []
+      ten.forEach((el, i) => {
+        let addressValue = `Remittance_Address_${el.toString()}`;
+        let labelValue = `Address ${el.toString()}`;
+        let stateValue = this.state[addressValue];
+        
+        if(stateValue !== '') {
+          this._lastInputAddressCreated = el;
+          result.push(
+            <FormGroup key={this.state.addressInputs.length + 1}>
+              <Row>
+                  <Col xs={12} sm={6} md={6}>
+                      <ControlLabel>{labelValue}</ControlLabel>
+                      <FormControl 
+                        id={labelValue}
+                        className='checkname'
+                        name={addressValue} 
+                        defaultValue={stateValue} 
+                        onChange={(e) => {this.handleInputChange(e)}}
+                        onInput={(e) => this.handleSave(e)} />
+                        <i className="fal fa-times" onClick={() => {this.removeInput(document.getElementById(labelValue))}}></i>
+                  </Col>
+              </Row>
+          </FormGroup>
+          )
+        }
+      })
+
+      return this.setState({addressInputs: result});
+    }
+
+
     validateFields() {
         var counter = 0;
-        const fields = ['eKlik_Company_Name', 'eKlik_Primary_Contact', 'eKlik_Primary_Contact_Phone', 'eKlik_Primary_Contact_Email', 'eKlik_Business_Owner_Name', 'eKlik_Business_Owner_Title', 'eKlik_Business_Owner_Phone', 'eKlik_Business_Owner_Email', 'eKlik_Physical_Address', 'eKlik_City', 'eKlik_State', 'eKlik_Zip_Code', 'Company_Website', 'Primary_Reason_for_accepting_payments', 'eKlik_Privately_or_Publicly_Held', 'Ticker_Symbol', 'Name_of_Exchange'];
+        const fields = ['eKlik_Business_Owner_Name', 'eKlik_Business_Owner_Title', 'eKlik_Business_Owner_Phone', 'eKlik_Business_Owner_Email', 'eKlik_Physical_Address', 'eKlik_City', 'eKlik_State', 'eKlik_Zip_Code', 'Company_Website', 'Primary_Reason_for_accepting_payments', 'eKlik_Privately_or_Publicly_Held', 'Ticker_Symbol', 'Name_of_Exchange'];
         
         fields.forEach(field => {
             if(this.state[field] === '') {
@@ -242,6 +430,20 @@ class eKlik1 extends Component {
                 element.classList.remove('displayNone');
             });
         }
+
+        if(this._lastInputNameCreated >= 10) {
+            document.getElementById('addNameButton').classList.add('name');
+          }
+    
+          if(this._lastInputAddressCreated >= 10) {
+            document.getElementById('addNameButton').classList.add('name');
+          }
+          let newName = this.state.newName;
+          let renderNameInputs = this.state.nameInputs;
+          let newAddress = this.state.newAddress;
+          let renderAddressInputs = this.state.addressInputs;
+            let isFiserv = this.state.Fiserv ? true : false;
+            let isRPPS = this.state.RPPS ? true : false;
         
         let savingStatus = this.state.isSaving ? 
         <div className="saving-anime">
@@ -263,45 +465,7 @@ class eKlik1 extends Component {
                         </div>
                             <Row>
                                 <Col xs={12}>
-                                    <h4 className='eklik-page-title'>General Information</h4>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Company Name</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Company_Name_error}>
-                                        <FormControl name='eKlik_Company_Name' value={this.state.eKlik_Company_Name} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                        <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Primary Contact</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_error}>
-                                            <FormControl name='eKlik_Primary_Contact' value={this.state.eKlik_Primary_Contact} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />  
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={8} sm={3} md={3}>
-                                    <ControlLabel>Primary Phone</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_Phone_error}>
-                                            <NumberFormat format="(###) ###-####" mask="_" className='form-control' name='eKlik_Primary_Contact_Phone' value={this.state.eKlik_Primary_Contact_Phone} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={4} sm={3} md={3}>
-                                    <ControlLabel>Ext.</ControlLabel>
-                                    <FormGroup>
-                                        <FormControl name='eKlik_Primary_Contact_Phone_Extension' value={this.state.eKlik_Primary_Contact_Phone_Extension} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Primary Email</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Primary_Contact_Email_error}>
-                                            <FormControl name='eKlik_Primary_Contact_Email' value={this.state.eKlik_Primary_Contact_Email} type="email" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} /> 
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
+                                    <h4 className='eklik-page-title'>Catch! Information</h4>
                                 </Col>
                             </Row>
                             <Row>
@@ -335,105 +499,6 @@ class eKlik1 extends Component {
                                             <HelpBlock>Required Field</HelpBlock>
                                         </FormGroup>
                                     </Col> 
-                            </Row>
-                            <Row>
-                                <Col xs={12} sm={5} md={5}>
-                                    <ControlLabel>Address</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Physical_Address_error}>
-                                            <FormControl name='eKlik_Physical_Address' value={this.state.eKlik_Physical_Address} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                        <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={4} sm={3} md={3}>
-                                    <ControlLabel>City</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_City_error}>
-                                            <FormControl name= 'eKlik_City' value={this.state.eKlik_City} onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={4} sm={2} md={2}>
-                                    <ControlLabel>State</ControlLabel>  
-                                    <FormGroup validationState={this.state.eKlik_State_error} controlId="formControlSelect">
-                                            <FormControl componentClass="select" name='eKlik_State' value={this.state.eKlik_State} onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}} onBlur={this.validate}>
-                                            <option value=''>State</option>
-                                            <option value="AL">AL</option>
-                                            <option value="AK">AK</option>
-                                            <option value="AR">AR</option>	
-                                            <option value="AZ">AZ</option>
-                                            <option value="CA">CA</option>
-                                            <option value="CO">CO</option>
-                                            <option value="CT">CT</option>
-                                            <option value="DC">DC</option>
-                                            <option value="DE">DE</option>
-                                            <option value="FL">FL</option>
-                                            <option value="GA">GA</option>
-                                            <option value="HI">HI</option>
-                                            <option value="IA">IA</option>	
-                                            <option value="ID">ID</option>
-                                            <option value="IL">IL</option>
-                                            <option value="IN">IN</option>
-                                            <option value="KS">KS</option>
-                                            <option value="KY">KY</option>
-                                            <option value="LA">LA</option>
-                                            <option value="MA">MA</option>
-                                            <option value="MD">MD</option>
-                                            <option value="ME">ME</option>
-                                            <option value="MI">MI</option>
-                                            <option value="MN">MN</option>
-                                            <option value="MO">MO</option>	
-                                            <option value="MS">MS</option>
-                                            <option value="MT">MT</option>
-                                            <option value="NC">NC</option>	
-                                            <option value="NE">NE</option>
-                                            <option value="NH">NH</option>
-                                            <option value="NJ">NJ</option>
-                                            <option value="NM">NM</option>			
-                                            <option value="NV">NV</option>
-                                            <option value="NY">NY</option>
-                                            <option value="ND">ND</option>
-                                            <option value="OH">OH</option>
-                                            <option value="OK">OK</option>
-                                            <option value="OR">OR</option>
-                                            <option value="PA">PA</option>
-                                            <option value="RI">RI</option>
-                                            <option value="SC">SC</option>
-                                            <option value="SD">SD</option>
-                                            <option value="TN">TN</option>
-                                            <option value="TX">TX</option>
-                                            <option value="UT">UT</option>
-                                            <option value="VT">VT</option>
-                                            <option value="VA">VA</option>
-                                            <option value="WA">WA</option>
-                                            <option value="WI">WI</option>	
-                                            <option value="WV">WV</option>
-                                            <option value="WY">WY</option>
-                                            </FormControl>
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={4} sm={2} md={2}>
-                                    <ControlLabel>Zip Code</ControlLabel>
-                                    <FormGroup validationState={this.state.eKlik_Zip_Code_error}>
-                                            <FormControl name='eKlik_Zip_Code' value={this.state.eKlik_Zip_Code} maxLength="5" onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Company Website</ControlLabel>
-                                    <FormGroup validationState={this.state.Company_Website_error}>
-                                            <FormControl value={this.state.Company_Website} name='Company_Website' onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
-                                <Col xs={12} sm={6} md={6}>
-                                    <ControlLabel>Primary reason for accepting payments</ControlLabel>
-                                    <FormGroup validationState={this.state.Primary_Reason_for_accepting_payments_error}>
-                                            <FormControl type='text' name='Primary_Reason_for_accepting_payments' value={this.state.Primary_Reason_for_accepting_payments}onChange={this.handleInputChange} onBlur={(e) => {this.handleSave(e); this.validate(e)}} />
-                                            <HelpBlock>Required Field</HelpBlock>
-                                    </FormGroup>
-                                </Col>
                             </Row>
                             <Row>
                                 <Col xs={12} sm={5} md={5}>
@@ -556,9 +621,88 @@ class eKlik1 extends Component {
                                             Telemarketing Company
                                         </Checkbox>
                                     </Col>
-                                    {nextButton}
+                                    
                                 </Row>
                             </FormGroup>
+                              <p className='form-comment'>Are You Currently Enrolled Directly With Any of the following Online Payment Processors?</p>
+                              <FormGroup>
+                                <Row>
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Checkbox 
+                                          name='Fiserv' 
+                                          checked={isFiserv} 
+                                          onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            Fiserv 
+                                        </Checkbox>
+                                    </Col> 
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Checkbox 
+                                          name='RPPS' 
+                                          checked={isRPPS} 
+                                          onChange={(e) => {this.handleInputChange(e); this.handleSave(e)}}>
+                                            RPPS
+                                        </Checkbox>
+                                    </Col>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Other</ControlLabel>
+                                        <FormControl 
+                                          name='Other_Online_Payment_Processor' 
+                                          value={this.state.Other_Online_Payment_Processor} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                    </Col>
+                               </Row>
+                            </FormGroup>
+                            <p className='form-comment'>Indicate All the Possible Names Customers Might Use On a Check Payment to Your Business</p>
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Name 1</ControlLabel>
+                                        <FormControl 
+                                          name='Check_Payment_Name_1' 
+                                          value={this.state.Check_Payment_Name_1} 
+                                          onChange={this.handleInputChange} 
+                                          onBlur={this.handleSave} />
+                                          
+                                    </Col>
+                               </Row>
+                            </FormGroup> 
+                            {renderNameInputs}
+                            {newName}
+                            <ButtonToolbar>
+                              <Button id='addNameButton' bsSize="small" onClick={this.addOne}>
+                              <i className="far fa-plus"></i>
+                                Add
+                              </Button>
+                            </ButtonToolbar>
+                            <p className='form-comment'>Indicate All the Possible Remittance Addresses Where Customers Might Send Your Payments</p>
+
+                            <FormGroup>
+                               <Row>
+                                    <Col xs={12} sm={6} md={6}>
+                                        <ControlLabel>Address 1</ControlLabel>
+                                        <FormControl 
+                                          name='Remittance_Address_1' 
+                                          value={this.state.Remittance_Address_1} 
+                                          onChange={this.handleInputChange} 
+                                          onInput={this.handleSave} />
+                                          
+                                    </Col>
+                               </Row>
+                            </FormGroup> 
+                            {renderAddressInputs}
+                            {newAddress}
+                            <ButtonToolbar>
+                              <Button id='addNameButton' bsSize="small" onClick={this.addOneAddress}>
+                              <i className="far fa-plus"></i>
+                                Add
+                              </Button>
+                            </ButtonToolbar>
+                            <Row>
+                                <Col xs={12}>
+                                {nextButton} 
+                                </Col>
+                            </Row>
                         </Form>
                         <ToastContainer />
                 </div>
@@ -567,4 +711,4 @@ class eKlik1 extends Component {
     )};
 }
 
-export default eKlik1;
+export default catch1;

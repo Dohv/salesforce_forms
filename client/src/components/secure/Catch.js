@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import EKlikPage1 from './eKlikFormPages/eKlikPage1';
-import EKlikPage2 from './eKlikFormPages/eKlikPage2';
-import EKlikPage3 from './eKlikFormPages/eKlikPage3';
+import CatchPage1 from './catchFormPages/catchPage1';
+import CatchPage2 from './catchFormPages/catchPage2';
+import CatchPage3 from './catchFormPages/catchPage3';
 import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
 import { AnimatedSwitch } from 'react-router-transition';
@@ -9,7 +9,7 @@ import $ from "jquery";
 // import BackButton from '../BackButton';
 
 
-class EKlik extends Component {
+class Catch extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -104,7 +104,7 @@ class EKlik extends Component {
                     
                     <div className='container'>
                             <div className='setup'>
-                                eKlik Setup
+                                Catch! Setup
                                 {backButton}
                         </div>
                     
@@ -120,9 +120,9 @@ class EKlik extends Component {
                             })}
                 className='switch-wrapper'
             >
-                <Route path={`${this.props.match.path}/1`} component={(props) => (<EKlikPage1 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
-                <Route path={`${this.props.match.path}/2`} component={(props) => (<EKlikPage2 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
-                <Route path={`${this.props.match.path}/3`} component={(props) => (<EKlikPage3 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/1`} component={(props) => (<CatchPage1 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/2`} component={(props) => (<CatchPage2 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/3`} component={(props) => (<CatchPage3 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
             </AnimatedSwitch>
                 
 
@@ -132,4 +132,4 @@ class EKlik extends Component {
     }
 };
 
-export default EKlik;
+export default Catch;

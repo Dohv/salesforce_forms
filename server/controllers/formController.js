@@ -69,7 +69,6 @@ module.exports = {
               res.json({ data: wresult.totalSize });
               next();
             } else {
-              //  console.log(wresult);
               res.json({ data: wresult.records[0] });
               next();
             }

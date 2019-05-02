@@ -1,8 +1,8 @@
 const Joi = require('joi');
 const request = require('request');
-const { sfFormFields } = require('../helpers/sfFormFields');
-const { accountFields } = require('../helpers/sfAccountFields');
-const { newImplementationFields } = require('../helpers/newImplementationFields');
+const { sfFormFields } = require('./sfFormFields');
+const { accountFields } = require('./sfAccountFields');
+const { newImplementationFields } = require('./newImplementationFields');
 
 const getSFTokenAPI = {
   url: 'https://test.salesforce.com/services/oauth2/token', 
@@ -45,7 +45,7 @@ module.exports = {
             //return res.json({message: 'There is no email for that account.'});
             return res.json({message: 'There is no account with that email'})
           } else {
-              console.log(result.records);
+              //console.log(vresult.records[0]);
             res.locals.lockboxes = result.records;
              next();
           }
@@ -54,7 +54,7 @@ module.exports = {
   },
 
   getFormDataSFQuery: (url, accountId, token, recordType, newImplementationId) => {
-    console.log({newImplementationId});
+   // console.log({url, accountId, token, recordType, newImplementationId});
     return {
       url: `${url}/services/data/v43.0/query?q=select+${sfFormFields}+FROM+On_Boarding_Forms__c+WHERE+Account_Name__c+='${accountId}'+AND+RecordTypeId+='${recordType}'+AND+New_Implementation_Lockbox__c+='${newImplementationId}'`,
       method: 'GET',
@@ -73,6 +73,18 @@ module.exports = {
       }
     }
   },
+
+  getLockboxDataSFQuery: (url, newImplementationId, token) => {
+    return {
+      url: `${url}/services/data/v43.0/query?q=select+${newImplementationFields}+FROM+New_Implementation__c+WHERE+id+='${newImplementationId}'`,
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    }
+  },
+
+
 
   validateBody: (schema) => {
     return (req, res, next) => {

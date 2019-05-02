@@ -62,6 +62,7 @@ app.use((req, res, next) => {
 
 
 const accountRouter = require('./routes/accountRouter');
+const lockboxRouter = require('./routes/lockboxRouter');
 const formRouter = require('./routes/formRouter');
 const userRouter = require('./routes/userRouter');
 
@@ -111,6 +112,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.use('/account', accountRouter);
+app.use('/lockbox', lockboxRouter);
 app.use('/api', formRouter);
 app.use('/users', userRouter);
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CatchPage1 from './catchFormPages/catchPage1';
-import CatchPage2 from './catchFormPages/catchPage2';
+import ServiceFeatures from '../secure/ServiceFeatures';
 import CatchPage3 from './catchFormPages/catchPage3';
 import Sidebar from '../layout/Sidebar';
 import {Link, Route } from "react-router-dom";
@@ -121,7 +121,7 @@ class Catch extends Component {
                 className='switch-wrapper'
             >
                 <Route path={`${this.props.match.path}/1`} component={(props) => (<CatchPage1 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
-                <Route path={`${this.props.match.path}/2`} component={(props) => (<CatchPage2 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
+                <Route path={`${this.props.match.path}/2`} component={(props) => (<ServiceFeatures {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
                 <Route path={`${this.props.match.path}/3`} component={(props) => (<CatchPage3 {...props} handleNextFormPage={this.handleNextFormPage} updateClass={this.updateClass} handleNextRouteChangeAnimation={this.handleNextRouteChangeAnimation} currentFormPage={this.state.currentFormPage} />)}/>
             </AnimatedSwitch>
                 

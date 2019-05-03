@@ -41,13 +41,14 @@ class ServiceFeatures extends Component {
     _isMounted = false;
 
     componentDidMount() {
-      const x = document.querySelector('.formButtonContainer'); 
+        const x = document.querySelector('.lockbox-container'); 
         const y = document.querySelector('.formMenuGreeting');
-        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone')}
+        const z = document.querySelector('.lockbox-products');
+        if(x && y) {x.classList.add('displayNone'); y.classList.add('displayNone'); z.classList.add('displayNone')}
         $('.setup').width($('.form').css('width'));
-      $('.setup').css('top', $('.header').css('height'));
-      this._isMounted = true;
-      this.getFormData();
+        $('.setup').css('top', $('.header').css('height'));
+        this._isMounted = true;
+        this.getFormData();
     }
 
     componentWillMount() {
